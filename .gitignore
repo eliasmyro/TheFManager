@@ -1,0 +1,12 @@
+# IntelliJ IDEA
+.idea/workspace.xml
+.idea/tasks.xml
+*.iws
+
+# Java Compiled Files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
