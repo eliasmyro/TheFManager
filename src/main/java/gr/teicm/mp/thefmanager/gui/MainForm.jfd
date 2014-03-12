@@ -1,0 +1,111 @@
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "The F* manager"
+			"$locationPolicy": 0
+			add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+				name: "mgrToolbar"
+				"floatable": false
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "previousButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-previous-icon.png" )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "nextButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-next-icon.png" )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "upButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Refresh-icon.png" )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "refreshButton"
+					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Development\\JavaProjects\\Experiment\\resources\\Refresh-icon.png" )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "filepathCombo"
+					"editable": true
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+				"alignment": 0
+			} ) {
+				name: "fileInfoPane"
+				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileInfoLabel"
+					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, -3, false )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+			add( new FormContainer( "javax.swing.JSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
+				name: "mgrSplitPane"
+				"background": sfield java.awt.Color white
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "fileTreeScroll"
+					add( new FormComponent( "javax.swing.JTree" ) {
+						name: "fileTree"
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "left"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "mgrMenuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "fileMenu"
+					"text": "File"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "exitMenuItem"
+						"text": "Exit"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "editMenu"
+					"text": "Edit"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "cutMenuItem"
+						"text": "Cut"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "copyMenuItem"
+						"text": "Copy"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "pasteMenuItem"
+						"text": "Paste"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "viewMenu"
+					"text": "View"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "goMenu"
+					"text": "Go"
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "helpMenu"
+					"text": "Help"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "aboutMenuItem"
+						"text": "About"
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

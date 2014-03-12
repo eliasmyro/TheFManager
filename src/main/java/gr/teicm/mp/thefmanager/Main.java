@@ -1,5 +1,7 @@
 package gr.teicm.mp.thefmanager;
 
+import gr.teicm.mp.thefmanager.gui.MainForm;
+
 /**
  *
  *
@@ -8,6 +10,7 @@ public class Main
 {
     public static void main( String[] args )
     {
-        System.out.println("");
+        MainForm mgrForm = new MainForm();
+        mgrForm.setVisible(true);
     }
 }
