@@ -106,19 +106,19 @@ public class MainForm extends JFrame {
             mgrToolbar.setFloatable(false);
 
             //---- previousButton ----
-            previousButton.setIcon(new ImageIcon("C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-previous-icon.png"));
+            previousButton.setIcon(new ImageIcon(getClass().getResource("/gr/teicm/mp/thefmanager/resources/Actions-go-previous-icon.png")));
             mgrToolbar.add(previousButton);
 
             //---- nextButton ----
-            nextButton.setIcon(new ImageIcon("C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-next-icon.png"));
+            nextButton.setIcon(new ImageIcon(getClass().getResource("/gr/teicm/mp/thefmanager/resources/Actions-go-next-icon.png")));
             mgrToolbar.add(nextButton);
 
             //---- upButton ----
-            upButton.setIcon(new ImageIcon("C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Refresh-icon.png"));
+            upButton.setIcon(new ImageIcon(getClass().getResource("/gr/teicm/mp/thefmanager/resources/Actions-go-up-icon.png")));
             mgrToolbar.add(upButton);
 
             //---- refreshButton ----
-            refreshButton.setIcon(new ImageIcon("C:\\Development\\JavaProjects\\Experiment\\resources\\Refresh-icon.png"));
+            refreshButton.setIcon(new ImageIcon(getClass().getResource("/gr/teicm/mp/thefmanager/resources/Refresh-icon.png")));
             mgrToolbar.add(refreshButton);
 
             //---- filepathCombo ----

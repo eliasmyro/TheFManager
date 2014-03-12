@@ -12,19 +12,19 @@ new FormModel {
 				"floatable": false
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "previousButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-previous-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/gr/teicm/mp/thefmanager/resources/Actions-go-previous-icon.png" )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "nextButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Actions-go-next-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/gr/teicm/mp/thefmanager/resources/Actions-go-next-icon.png" )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "upButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Users\\Elias\\IdeaProjects\\TheFManager\\resources\\Refresh-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/gr/teicm/mp/thefmanager/resources/Actions-go-up-icon.png" )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "refreshButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 1, "C:\\Development\\JavaProjects\\Experiment\\resources\\Refresh-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/gr/teicm/mp/thefmanager/resources/Refresh-icon.png" )
 				} )
 				add( new FormComponent( "javax.swing.JComboBox" ) {
 					name: "filepathCombo"
