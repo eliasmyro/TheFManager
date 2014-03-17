@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TheFManager.iml" filepath="$PROJECT_DIR$/TheFManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gr.teicm.mp.thefmanager.iml" filepath="$PROJECT_DIR$/gr.teicm.mp.thefmanager.iml" />
     </modules>
   </component>
 </project>

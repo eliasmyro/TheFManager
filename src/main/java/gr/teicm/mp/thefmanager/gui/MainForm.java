@@ -18,88 +18,22 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        mgrMenuBar = new JMenuBar();
-        fileMenu = new JMenu();
-        exitMenuItem = new JMenuItem();
-        editMenu = new JMenu();
-        cutMenuItem = new JMenuItem();
-        copyMenuItem = new JMenuItem();
-        pasteMenuItem = new JMenuItem();
-        viewMenu = new JMenu();
-        goMenu = new JMenu();
-        helpMenu = new JMenu();
-        aboutMenuItem = new JMenuItem();
         mgrToolbar = new JToolBar();
         previousButton = new JButton();
         nextButton = new JButton();
-        upButton = new JButton();
-        refreshButton = new JButton();
-        filepathCombo = new JComboBox();
+        filepathTextField = new JTextField();
         fileInfoPane = new JPanel();
         fileInfoLabel = new JLabel();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree();
+        tableScrollPane = new JScrollPane();
+        filesTable = new JTable();
 
         //======== this ========
         setTitle("The F* manager");
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
-
-        //======== mgrMenuBar ========
-        {
-
-            //======== fileMenu ========
-            {
-                fileMenu.setText("File");
-
-                //---- exitMenuItem ----
-                exitMenuItem.setText("Exit");
-                fileMenu.add(exitMenuItem);
-            }
-            mgrMenuBar.add(fileMenu);
-
-            //======== editMenu ========
-            {
-                editMenu.setText("Edit");
-
-                //---- cutMenuItem ----
-                cutMenuItem.setText("Cut");
-                editMenu.add(cutMenuItem);
-
-                //---- copyMenuItem ----
-                copyMenuItem.setText("Copy");
-                editMenu.add(copyMenuItem);
-
-                //---- pasteMenuItem ----
-                pasteMenuItem.setText("Paste");
-                editMenu.add(pasteMenuItem);
-            }
-            mgrMenuBar.add(editMenu);
-
-            //======== viewMenu ========
-            {
-                viewMenu.setText("View");
-            }
-            mgrMenuBar.add(viewMenu);
-
-            //======== goMenu ========
-            {
-                goMenu.setText("Go");
-            }
-            mgrMenuBar.add(goMenu);
-
-            //======== helpMenu ========
-            {
-                helpMenu.setText("Help");
-
-                //---- aboutMenuItem ----
-                aboutMenuItem.setText("About");
-                helpMenu.add(aboutMenuItem);
-            }
-            mgrMenuBar.add(helpMenu);
-        }
-        setJMenuBar(mgrMenuBar);
 
         //======== mgrToolbar ========
         {
@@ -112,20 +46,9 @@ public class MainForm extends JFrame {
             //---- nextButton ----
             nextButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-next-icon.png")));
             mgrToolbar.add(nextButton);
-
-            //---- upButton ----
-            upButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-up-icon.png")));
-            mgrToolbar.add(upButton);
-
-            //---- refreshButton ----
-            refreshButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Refresh-icon.png")));
-            mgrToolbar.add(refreshButton);
-
-            //---- filepathCombo ----
-            filepathCombo.setEditable(true);
-            mgrToolbar.add(filepathCombo);
+            mgrToolbar.add(filepathTextField);
         }
-        contentPane.add(mgrToolbar, BorderLayout.NORTH);
+        contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
 
         //======== fileInfoPane ========
         {
@@ -139,17 +62,25 @@ public class MainForm extends JFrame {
             fileInfoLabel.setFont(fileInfoLabel.getFont().deriveFont(fileInfoLabel.getFont().getStyle() & ~Font.BOLD, fileInfoLabel.getFont().getSize() - 3f));
             fileInfoPane.add(fileInfoLabel);
         }
-        contentPane.add(fileInfoPane, BorderLayout.SOUTH);
+        contentPane.add(fileInfoPane, BorderLayout.PAGE_END);
 
         //======== mgrSplitPane ========
         {
             mgrSplitPane.setBackground(Color.white);
+            mgrSplitPane.setOneTouchExpandable(true);
+            mgrSplitPane.setResizeWeight(0.1);
 
             //======== fileTreeScroll ========
             {
                 fileTreeScroll.setViewportView(fileTree);
             }
             mgrSplitPane.setLeftComponent(fileTreeScroll);
+
+            //======== tableScrollPane ========
+            {
+                tableScrollPane.setViewportView(filesTable);
+            }
+            mgrSplitPane.setRightComponent(tableScrollPane);
         }
         contentPane.add(mgrSplitPane, BorderLayout.CENTER);
         pack();
@@ -158,27 +89,16 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JMenuBar mgrMenuBar;
-    private JMenu fileMenu;
-    private JMenuItem exitMenuItem;
-    private JMenu editMenu;
-    private JMenuItem cutMenuItem;
-    private JMenuItem copyMenuItem;
-    private JMenuItem pasteMenuItem;
-    private JMenu viewMenu;
-    private JMenu goMenu;
-    private JMenu helpMenu;
-    private JMenuItem aboutMenuItem;
     private JToolBar mgrToolbar;
     private JButton previousButton;
     private JButton nextButton;
-    private JButton upButton;
-    private JButton refreshButton;
-    private JComboBox filepathCombo;
+    private JTextField filepathTextField;
     private JPanel fileInfoPane;
     private JLabel fileInfoLabel;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;
+    private JScrollPane tableScrollPane;
+    private JTable filesTable;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
