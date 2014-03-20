@@ -22,7 +22,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="gr.teicm.mp.thefmanager" />
+        <module name="TheFManager" />
       </profile>
     </annotationProcessing>
   </component>
