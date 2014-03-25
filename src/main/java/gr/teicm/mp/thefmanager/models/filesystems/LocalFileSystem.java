@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
 import gr.teicm.mp.thefmanager.models.FileNode;
-import gr.teicm.mp.thefmanager.models.NodeFilter;
+import gr.teicm.mp.thefmanager.models.filefilters.TreeNodeFilter;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -16,7 +16,7 @@ import java.util.Vector;
 public class LocalFileSystem implements TreeModel {
     private File root;
     private Vector<TreeModelListener> listeners = new Vector<>();
-    private FileFilter fileFilter = new NodeFilter();
+    private FileFilter fileFilter = new TreeNodeFilter();
 
     public LocalFileSystem(File root) {
         this.root = root;

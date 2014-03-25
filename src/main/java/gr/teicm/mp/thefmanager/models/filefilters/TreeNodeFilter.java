@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.models;
+package gr.teicm.mp.thefmanager.models.filefilters;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -6,7 +6,7 @@ import java.io.FileFilter;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class NodeFilter implements FileFilter {
+public class TreeNodeFilter implements FileFilter {
 
     @Override
     public boolean accept(File file) {
