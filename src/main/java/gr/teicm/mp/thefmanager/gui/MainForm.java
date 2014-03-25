@@ -4,6 +4,9 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
+import gr.teicm.mp.thefmanager.controllers.TreeFacade;
+import gr.teicm.mp.thefmanager.models.dao.FileDao;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -12,7 +15,10 @@ import javax.swing.border.*;
  * @author EliasMyr
  */
 public class MainForm extends JFrame {
+    TreeFacade treeFacade;
+
     public MainForm() {
+        treeFacade = new TreeFacade(new FileDao());
         initComponents();
     }
 
@@ -26,7 +32,7 @@ public class MainForm extends JFrame {
         fileInfoLabel = new JLabel();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
-        fileTree = new JTree();
+        fileTree = treeFacade.initializeTree();
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
 
