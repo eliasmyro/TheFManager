@@ -10,12 +10,8 @@ public class TreeNodeFilter implements FileFilter {
 
     @Override
     public boolean accept(File file) {
-
-        boolean isHidden = file.isHidden();
-        boolean isFile = file.isFile();
-
-        if (!isHidden) {
-            if (!isFile) {
+        if (!file.isHidden()) {
+            if (!file.isFile()) {
                 return true;
             }
         }

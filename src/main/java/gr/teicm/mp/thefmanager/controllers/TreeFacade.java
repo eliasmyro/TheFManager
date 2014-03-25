@@ -50,7 +50,4 @@ public class TreeFacade {
 
         return jTree;
     }
-
-//    public void initializeTree(JTable fileTable, JTree fileTree, String path) {
-//    }
 }
