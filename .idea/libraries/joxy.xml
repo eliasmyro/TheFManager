@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="joxy">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/joxy.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

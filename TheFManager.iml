@@ -11,7 +11,22 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="commons-io-2.4" level="project" />
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/napkinlaf-alpha001.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="joxy" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: com.seaglasslookandfeel:seaglasslookandfeel:0.2" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.squirrel-sql.thirdparty-non-maven:napkinlaf:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.devzendo:Quaqua:7.3.4" level="project" />
+    <orderEntry type="library" name="Maven: com.jtattoo:JTattoo:1.6.10" level="project" />
   </component>
 </module>
 

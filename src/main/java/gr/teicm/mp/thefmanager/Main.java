@@ -1,19 +1,29 @@
 package gr.teicm.mp.thefmanager;
 
+import gr.teicm.mp.thefmanager.controllers.IThemeToFile;
+import gr.teicm.mp.thefmanager.controllers.ThemeToFile;
 import gr.teicm.mp.thefmanager.gui.MainForm;
+
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Main
-{
-    public static void main( String[] args )
-    {
-        setUIFont(new javax.swing.plaf.FontUIResource(new Font("SansSerif", Font.PLAIN, 12)));
 
-        MainForm mgrForm = new MainForm();
-        mgrForm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        mgrForm.setVisible(true);
+
+public class Main {
+    public static void main(String[] args) {
+        setUIFont(new javax.swing.plaf.FontUIResource(new Font("SansSerif", Font.PLAIN, 12)));
+        IThemeToFile mTheme = new ThemeToFile();
+        String themeString = mTheme.readThemeFromFile();
+        try {
+            UIManager.setLookAndFeel(themeString);
+            MainForm myMainForm = new MainForm();
+            myMainForm.setVisible(true);
+
+        } catch (Exception e) {
+            MainForm myMainForm = new MainForm();
+            myMainForm.setVisible(true);
+        }
     }
 
     private static void setUIFont(javax.swing.plaf.FontUIResource f) {
