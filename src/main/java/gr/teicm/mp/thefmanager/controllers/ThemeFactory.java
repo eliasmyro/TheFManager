@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager;
+package gr.teicm.mp.thefmanager.controllers;
 
 import gr.teicm.mp.thefmanager.themes.*;
 

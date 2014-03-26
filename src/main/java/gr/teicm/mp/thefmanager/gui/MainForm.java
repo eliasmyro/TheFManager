@@ -4,7 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
-import gr.teicm.mp.thefmanager.ThemeFactory;
+import gr.teicm.mp.thefmanager.controllers.ThemeFactory;
 import gr.teicm.mp.thefmanager.controllers.IThemeToFile;
 import gr.teicm.mp.thefmanager.controllers.ThemeToFile;
 
