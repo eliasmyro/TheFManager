@@ -22,9 +22,4 @@ public class LocalFileSystemDao implements IDao {
     public File getHomeDirectory() {
         return fileSystemView.getHomeDirectory();
     }
-
-    @Override
-    public File getDefaultDirectory() {
-        return fileSystemView.getDefaultDirectory();
-    }
 }

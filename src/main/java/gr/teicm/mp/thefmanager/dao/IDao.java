@@ -9,6 +9,4 @@ public interface IDao {
     File[] getRoot();
 
     File getHomeDirectory();
-
-    File getDefaultDirectory();
 }
