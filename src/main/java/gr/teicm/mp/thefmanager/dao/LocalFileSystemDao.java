@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.models.dao;
+package gr.teicm.mp.thefmanager.dao;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -6,10 +6,10 @@ import java.io.File;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class FileDao implements IDao {
-    FileSystemView fileSystemView;
+public class LocalFileSystemDao implements IDao {
+    private FileSystemView fileSystemView;
 
-    public FileDao() {
+    public LocalFileSystemDao() {
         this.fileSystemView = FileSystemView.getFileSystemView();
     }
 

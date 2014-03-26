@@ -16,6 +16,6 @@ public class FileNode extends File {
 
     @Override
     public String toString() {
-        return getName();
+        return this.getName();
     }
 }

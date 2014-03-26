@@ -13,12 +13,12 @@ import java.util.Vector;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class LocalFileSystem implements TreeModel {
+public class LocalFileSystemModel implements TreeModel {
     private File root;
     private Vector<TreeModelListener> listeners = new Vector<>();
-    private FileFilter fileFilter = new TreeNodeFilter();
+    private FileFilter treeNodeFilter = new TreeNodeFilter();
 
-    public LocalFileSystem(File root) {
+    public LocalFileSystemModel(File root) {
         this.root = root;
     }
 
@@ -30,7 +30,7 @@ public class LocalFileSystem implements TreeModel {
     @Override
     public Object getChild(Object parent, int index) {
         File parentNode = (File) parent;
-        File[] children = parentNode.listFiles(fileFilter);
+        File[] children = parentNode.listFiles(treeNodeFilter);
 
         assert children != null;
         return new FileNode(parentNode, children[index].getName());
@@ -41,7 +41,7 @@ public class LocalFileSystem implements TreeModel {
         File parentNode = (File) parent;
 
         if (parentNode.isDirectory()) {
-            File[] children = parentNode.listFiles(fileFilter);
+            File[] children = parentNode.listFiles(treeNodeFilter);
 
             return children.length;
         }
@@ -61,7 +61,7 @@ public class LocalFileSystem implements TreeModel {
         File parentNode = (File) parent;
         File childNode = (File) child;
 
-        File[] children = parentNode.listFiles(fileFilter);
+        File[] children = parentNode.listFiles(treeNodeFilter);
 
         int result = -1;
 

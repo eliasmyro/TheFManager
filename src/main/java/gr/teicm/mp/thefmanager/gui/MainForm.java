@@ -5,7 +5,7 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
-import gr.teicm.mp.thefmanager.models.dao.FileDao;
+import gr.teicm.mp.thefmanager.dao.LocalFileSystemDao;
 
 import java.awt.*;
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class MainForm extends JFrame {
     TreeFacade treeFacade;
 
     public MainForm() {
-        treeFacade = new TreeFacade(new FileDao());
+        treeFacade = new TreeFacade(new LocalFileSystemDao());
         initComponents();
     }
 

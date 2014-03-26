@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.models.dao;
+package gr.teicm.mp.thefmanager.dao;
 
 import java.io.File;
 
