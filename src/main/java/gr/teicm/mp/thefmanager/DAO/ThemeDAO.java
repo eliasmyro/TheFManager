@@ -20,7 +20,7 @@ public class ThemeDAO implements IThemeDAO {
         File file = new File("theme.txt");
         try {
             themeName = FileUtils.readFileToString(file);
-            System.out.print(themeName);
+            System.out.print(themeName);    //TODO to delete before deploy
         } catch (Exception e) {
             e.printStackTrace();
         }

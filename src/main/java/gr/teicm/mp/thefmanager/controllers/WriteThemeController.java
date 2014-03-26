@@ -6,9 +6,9 @@ import gr.teicm.mp.thefmanager.DAO.ThemeDAO;
 import java.io.IOException;
 
 /**
- * Created by EliasMyro on 24/3/2014.
+ * Created by EliasMyro on 26/3/2014.
  */
-public class ThemeToFile implements IThemeToFile {
+public class WriteThemeController implements IWriteThemeController {
 
     IThemeDAO myDAO = new ThemeDAO();
 
@@ -19,12 +19,5 @@ public class ThemeToFile implements IThemeToFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public String readThemeFromFile(){
-
-        String themeName = myDAO.readTheme();
-
-        return themeName;
     }
 }

@@ -1,1 +1,1 @@
-com.jtattoo.plaf.bernstein.BernsteinLookAndFeel
+com.jtattoo.plaf.hifi.HiFiLookAndFeel

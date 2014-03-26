@@ -4,9 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
-import gr.teicm.mp.thefmanager.controllers.ThemeFactory;
-import gr.teicm.mp.thefmanager.controllers.IThemeToFile;
-import gr.teicm.mp.thefmanager.controllers.ThemeToFile;
+import gr.teicm.mp.thefmanager.controllers.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +16,7 @@ import javax.swing.border.*;
  */
 public class MainForm extends JFrame {
     private boolean themeIsSet = false;
-    private IThemeToFile mThemeFile;
+    private IWriteThemeController mThemeFile = new WriteThemeController();
 
     public MainForm() {
         initComponents();
@@ -32,7 +30,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("napkin");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("net.sourceforge.napkinlaf.NapkinLookAndFeel");
         }
 
@@ -49,7 +46,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("seaglass");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("com.seaglasslookandfeel.SeaGlassLookAndFeel");
         }
 
@@ -61,7 +57,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("joxy");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("joxy.JoxyLookAndFeel");
         }
 
@@ -73,7 +68,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("quaqua");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("ch.randelshofer.quaqua.QuaquaLookAndFeel");
         }
 
@@ -85,7 +79,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatAluminium");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
         }
 
@@ -97,7 +90,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatHifi");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
         }
 
@@ -109,7 +101,6 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatBernstein");
 
         if (themeIsSet) {
-            mThemeFile = new ThemeToFile();
             mThemeFile.writeThemeToFile("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
         }
 

@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager;
 
-import gr.teicm.mp.thefmanager.controllers.IThemeToFile;
-import gr.teicm.mp.thefmanager.controllers.ThemeToFile;
+import gr.teicm.mp.thefmanager.controllers.IReadThemeController;
+import gr.teicm.mp.thefmanager.controllers.ReadThemeController;
 import gr.teicm.mp.thefmanager.gui.MainForm;
 
 
@@ -13,8 +13,8 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         setUIFont(new javax.swing.plaf.FontUIResource(new Font("SansSerif", Font.PLAIN, 12)));
-        IThemeToFile mTheme = new ThemeToFile();
-        String themeString = mTheme.readThemeFromFile();
+        IReadThemeController mReadTheme = new ReadThemeController();
+        String themeString = mReadTheme.readThemeFromFile();
         try {
             UIManager.setLookAndFeel(themeString);
             MainForm myMainForm = new MainForm();
