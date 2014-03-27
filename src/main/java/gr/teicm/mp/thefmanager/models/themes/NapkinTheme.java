@@ -1,17 +1,17 @@
-package gr.teicm.mp.thefmanager.models;
+package gr.teicm.mp.thefmanager.models.themes;
 
 import gr.teicm.mp.thefmanager.gui.MainForm;
 
 import javax.swing.*;
 
 /**
- * Created by Elias on 24/3/2014.
+ * Created by EliasMyro on 24/3/2014.
  */
-public class AluminiumTheme implements ITheme {
+public class NapkinTheme implements ITheme {
     @Override
     public boolean setTheme() {
         try {
-            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            UIManager.setLookAndFeel("net.sourceforge.napkinlaf.NapkinLookAndFeel");
             MainForm myForm = new MainForm();
             myForm.setVisible(true);
             return true;
