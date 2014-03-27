@@ -20,6 +20,6 @@ public class LocalFileSystemDAO implements IFileSystemDAO {
 
     @Override
     public File getHomeDirectory() {
-        return fileSystemView.getHomeDirectory();
+        return new File(System.getProperty("user.home"));
     }
 }
