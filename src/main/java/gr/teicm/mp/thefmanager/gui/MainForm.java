@@ -55,17 +55,6 @@ public class MainForm extends JFrame {
         dispose();
     }
 
-    private void joxyMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("joxy");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToFile("joxy.JoxyLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
     private void quaquaMenuItemMousePressed(MouseEvent e) {
         ThemeFactory newTheme = new ThemeFactory();
         themeIsSet = newTheme.getTheme("quaqua");
