@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.themes;
+package gr.teicm.mp.thefmanager.models;
 
 /**
  * Created by EliasMyro on 24/3/2014.

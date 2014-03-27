@@ -1,6 +1,6 @@
 package gr.teicm.mp.thefmanager.controllers;
 
-import gr.teicm.mp.thefmanager.themes.*;
+import gr.teicm.mp.thefmanager.models.*;
 
 /**
  * Created by EliasMyro on 24/3/2014.
