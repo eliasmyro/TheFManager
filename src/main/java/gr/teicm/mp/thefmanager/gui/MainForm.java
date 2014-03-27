@@ -7,20 +7,112 @@ package gr.teicm.mp.thefmanager.gui;
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.dao.LocalFileSystemDao;
 
+import gr.teicm.mp.thefmanager.controllers.*;
+
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * @author EliasMyr
+ * @author EliasMyro
  */
 public class MainForm extends JFrame {
     TreeFacade treeFacade;
 
+    private boolean themeIsSet = false;
+    private IWriteThemeController mThemeFile = new WriteThemeController();
+
     public MainForm() {
         treeFacade = new TreeFacade(new LocalFileSystemDao());
         initComponents();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+
+
+    private void napkinMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("napkin");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("net.sourceforge.napkinlaf.NapkinLookAndFeel");
+        }
+
+        this.dispose();
+
+    }
+
+    private void nextButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void seaglassMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("seaglass");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+        }
+
+        dispose();
+    }
+
+    private void joxyMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("joxy");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("joxy.JoxyLookAndFeel");
+        }
+
+        this.dispose();
+    }
+
+    private void quaquaMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("quaqua");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+        }
+
+        this.dispose();
+    }
+
+    private void jTatAlumMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("jtatAluminium");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+        }
+
+        this.dispose();
+    }
+
+    private void jTatHifiMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("jtatHifi");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+        }
+
+        this.dispose();
+    }
+
+    private void jTatBernsteinMenuItemMousePressed(MouseEvent e) {
+        ThemeFactory newTheme = new ThemeFactory();
+        themeIsSet = newTheme.getTheme("jtatBernstein");
+
+        if (themeIsSet) {
+            mThemeFile.writeThemeToFile("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+        }
+
+        this.dispose();
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -28,6 +120,14 @@ public class MainForm extends JFrame {
         previousButton = new JButton();
         nextButton = new JButton();
         filepathTextField = new JTextField();
+        menuBar1 = new JMenuBar();
+        themesMenu = new JMenu();
+        napkinMenuItem = new JMenuItem();
+        seaglassMenuItem = new JMenuItem();
+        quaquaMenuItem = new JMenuItem();
+        jTatAlumMenuItem = new JMenuItem();
+        jTatHifiMenuItem = new JMenuItem();
+        jTatBernsteinMenuItem = new JMenuItem();
         fileInfoPane = new JPanel();
         fileInfoLabel = new JLabel();
         mgrSplitPane = new JSplitPane();
@@ -44,6 +144,7 @@ public class MainForm extends JFrame {
         //======== mgrToolbar ========
         {
             mgrToolbar.setFloatable(false);
+            mgrToolbar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
             //---- previousButton ----
             previousButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-previous-icon.png")));
@@ -51,10 +152,91 @@ public class MainForm extends JFrame {
 
             //---- nextButton ----
             nextButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-next-icon.png")));
+            nextButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    nextButtonMouseClicked(e);
+                }
+            });
             mgrToolbar.add(nextButton);
+
+            //---- filepathTextField ----
+            filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
+
+            //======== menuBar1 ========
+            {
+
+                //======== themesMenu ========
+                {
+                    themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
+                    themesMenu.setText("theme");
+
+                    //---- napkinMenuItem ----
+                    napkinMenuItem.setText("Napkin");
+                    napkinMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            napkinMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(napkinMenuItem);
+
+                    //---- seaglassMenuItem ----
+                    seaglassMenuItem.setText("Seaglass");
+                    seaglassMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            seaglassMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(seaglassMenuItem);
+
+                    //---- quaquaMenuItem ----
+                    quaquaMenuItem.setText("Quaqua");
+                    quaquaMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            quaquaMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(quaquaMenuItem);
+
+                    //---- jTatAlumMenuItem ----
+                    jTatAlumMenuItem.setText("JTattoo-Aluminium");
+                    jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            jTatAlumMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(jTatAlumMenuItem);
+
+                    //---- jTatHifiMenuItem ----
+                    jTatHifiMenuItem.setText("JTattoo-HiFI");
+                    jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            jTatHifiMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(jTatHifiMenuItem);
+
+                    //---- jTatBernsteinMenuItem ----
+                    jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
+                    jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            jTatBernsteinMenuItemMousePressed(e);
+                        }
+                    });
+                    themesMenu.add(jTatBernsteinMenuItem);
+                }
+                menuBar1.add(themesMenu);
+            }
+            mgrToolbar.add(menuBar1);
         }
-        contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
+        contentPane.add(mgrToolbar, BorderLayout.NORTH);
 
         //======== fileInfoPane ========
         {
@@ -68,7 +250,7 @@ public class MainForm extends JFrame {
             fileInfoLabel.setFont(fileInfoLabel.getFont().deriveFont(fileInfoLabel.getFont().getStyle() & ~Font.BOLD, fileInfoLabel.getFont().getSize() - 3f));
             fileInfoPane.add(fileInfoLabel);
         }
-        contentPane.add(fileInfoPane, BorderLayout.PAGE_END);
+        contentPane.add(fileInfoPane, BorderLayout.SOUTH);
 
         //======== mgrSplitPane ========
         {
@@ -99,6 +281,14 @@ public class MainForm extends JFrame {
     private JButton previousButton;
     private JButton nextButton;
     private JTextField filepathTextField;
+    private JMenuBar menuBar1;
+    private JMenu themesMenu;
+    private JMenuItem napkinMenuItem;
+    private JMenuItem seaglassMenuItem;
+    private JMenuItem quaquaMenuItem;
+    private JMenuItem jTatAlumMenuItem;
+    private JMenuItem jTatHifiMenuItem;
+    private JMenuItem jTatBernsteinMenuItem;
     private JPanel fileInfoPane;
     private JLabel fileInfoLabel;
     private JSplitPane mgrSplitPane;
