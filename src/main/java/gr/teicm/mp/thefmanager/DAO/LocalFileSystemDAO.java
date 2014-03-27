@@ -14,7 +14,7 @@ public class LocalFileSystemDAO implements IFileSystemDAO {
     }
 
     @Override
-    public File[] getRoot() {
+    public File[] getRoots() {
         return fileSystemView.getRoots();
     }
 
