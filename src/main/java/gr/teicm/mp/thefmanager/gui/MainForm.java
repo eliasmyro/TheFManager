@@ -26,7 +26,7 @@ public class MainForm extends JFrame {
     public MainForm() {
         treeFacade = new TreeFacade(new LocalFileSystemDAO());
         initComponents();
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     private void napkinMenuItemMousePressed(MouseEvent e) {
