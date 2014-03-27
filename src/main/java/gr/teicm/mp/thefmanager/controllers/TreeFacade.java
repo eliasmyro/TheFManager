@@ -1,6 +1,6 @@
 package gr.teicm.mp.thefmanager.controllers;
 
-import gr.teicm.mp.thefmanager.dao.IDao;
+import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
 import gr.teicm.mp.thefmanager.models.filesystems.LocalFileSystemModel;
 
 import javax.swing.*;
@@ -11,12 +11,12 @@ import java.io.File;
  * Created by Achilleas Naoumidis on 3/24/14.
  */
 public class TreeFacade {
-    private IDao dao;
+    private IFileSystemDAO dao;
     private File homeDirectory;
     private TreeModel fileSystemModel;
     private JTree jTree;
 
-    public TreeFacade(IDao dao) {
+    public TreeFacade(IFileSystemDAO dao) {
         this.dao = dao;
 
         homeDirectory = this.dao.getHomeDirectory();

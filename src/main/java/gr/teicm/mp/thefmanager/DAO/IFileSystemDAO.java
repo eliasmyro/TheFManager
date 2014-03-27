@@ -1,11 +1,11 @@
-package gr.teicm.mp.thefmanager.dao;
+package gr.teicm.mp.thefmanager.DAO;
 
 import java.io.File;
 
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public interface IDao {
+public interface IFileSystemDAO {
     File[] getRoot();
 
     File getHomeDirectory();

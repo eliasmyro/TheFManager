@@ -5,7 +5,7 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
-import gr.teicm.mp.thefmanager.dao.LocalFileSystemDao;
+import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 
 import gr.teicm.mp.thefmanager.controllers.*;
 
@@ -24,7 +24,7 @@ public class MainForm extends JFrame {
     private IWriteThemeController mThemeFile = new WriteThemeController();
 
     public MainForm() {
-        treeFacade = new TreeFacade(new LocalFileSystemDao());
+        treeFacade = new TreeFacade(new LocalFileSystemDAO());
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
