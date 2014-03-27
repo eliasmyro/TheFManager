@@ -29,8 +29,6 @@ public class MainForm extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-
-
     private void napkinMenuItemMousePressed(MouseEvent e) {
         ThemeFactory newTheme = new ThemeFactory();
         themeIsSet = newTheme.getTheme("napkin");
@@ -40,7 +38,6 @@ public class MainForm extends JFrame {
         }
 
         this.dispose();
-
     }
 
     private void nextButtonMouseClicked(MouseEvent e) {

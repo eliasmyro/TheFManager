@@ -4,11 +4,8 @@ import gr.teicm.mp.thefmanager.controllers.IReadThemeController;
 import gr.teicm.mp.thefmanager.controllers.ReadThemeController;
 import gr.teicm.mp.thefmanager.gui.MainForm;
 
-
 import javax.swing.*;
 import java.awt.*;
-
-
 
 public class Main {
     public static void main(String[] args) {
