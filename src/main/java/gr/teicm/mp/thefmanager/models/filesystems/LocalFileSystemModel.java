@@ -1,6 +1,5 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
-import gr.teicm.mp.thefmanager.models.FileNode;
 import gr.teicm.mp.thefmanager.models.filefilters.TreeNodeFilter;
 
 import javax.swing.event.TreeModelListener;
@@ -33,7 +32,7 @@ public class LocalFileSystemModel implements TreeModel {
         File[] children = parentNode.listFiles(treeNodeFilter);
 
         assert children != null;
-        return new FileNode(parentNode, children[index].getName());
+        return new File(parentNode, children[index].getName());
     }
 
     @Override

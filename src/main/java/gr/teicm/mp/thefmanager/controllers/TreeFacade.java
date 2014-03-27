@@ -26,6 +26,7 @@ public class TreeFacade {
 
     public JTree initializeTree() {
         jTree = new JTree(getFileSystemModel());
+        jTree.setCellRenderer(new FileTreeCellRenderer());
 
         jTree.addTreeSelectionListener(e -> {
             File node = (File) jTree.getLastSelectedPathComponent();
