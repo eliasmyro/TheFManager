@@ -18,8 +18,7 @@ import javax.swing.border.*;
  * @author EliasMyro
  */
 public class MainForm extends JFrame {
-    TreeFacade treeFacade;
-
+    private TreeFacade treeFacade;
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
 
