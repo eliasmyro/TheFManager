@@ -6,16 +6,10 @@ import java.io.FileFilter;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class TreeNodeFilter implements FileFilter {
+public class TreeNodePolicy implements FileFilter {
 
     @Override
     public boolean accept(File file) {
-        if (!file.isHidden()) {
-            if (!file.isFile()) {
-                return true;
-            }
-        }
-
-        return false;
+        return !file.isFile();
     }
 }
