@@ -17,16 +17,14 @@ public class LocalFileSystemModel implements TreeModel {
     private ArrayList<TreeModelListener> listeners;
     private FileFilter treeNodeFilter;
 
-    {
+    public LocalFileSystemModel(File root) {
+        this.root = root;
+
         listeners = new ArrayList<>();
 
         String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
         ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);
         treeNodeFilter = treeNodePolicy.getInstance();
-    }
-
-    public LocalFileSystemModel(File root) {
-        this.root = root;
     }
 
     @Override
