@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by EliasMyro on 24/3/2014.
+ * Created by Elias Myronidis on 24/3/2014.
  */
 public class ThemeDAO implements IThemeDAO {
     @Override

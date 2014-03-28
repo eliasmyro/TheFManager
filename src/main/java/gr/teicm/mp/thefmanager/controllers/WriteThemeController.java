@@ -6,7 +6,7 @@ import gr.teicm.mp.thefmanager.DAO.ThemeDAO;
 import java.io.IOException;
 
 /**
- * Created by EliasMyro on 26/3/2014.
+ * Created by Elias Myronidis on 26/3/2014.
  */
 public class WriteThemeController implements IWriteThemeController {
 

@@ -4,7 +4,7 @@ import gr.teicm.mp.thefmanager.DAO.IThemeDAO;
 import gr.teicm.mp.thefmanager.DAO.ThemeDAO;
 
 /**
- * Created by EliasMyro on 26/3/2014.
+ * Created by Elias Myronidis on 26/3/2014.
  */
 public class ReadThemeController implements IReadThemeController {
 

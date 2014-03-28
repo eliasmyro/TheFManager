@@ -5,7 +5,7 @@ import gr.teicm.mp.thefmanager.gui.MainForm;
 import javax.swing.*;
 
 /**
- * Created by Elias on 24/3/2014.
+ * Created by Elias Myronidis on 24/3/2014.
  */
 public class HiFITheme implements ITheme {
     @Override

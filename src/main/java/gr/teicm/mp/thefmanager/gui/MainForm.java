@@ -15,7 +15,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * @author EliasMyro
+ * @author Elias Myronidis
  */
 public class MainForm extends JFrame {
     TreeFacade treeFacade;

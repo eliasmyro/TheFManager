@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 /**
- * Created by EliasMyro on 24/3/2014.
+ * Created by Elias Myronidis on 24/3/2014.
  */
 public class QuaquaTheme implements ITheme {
     @Override
