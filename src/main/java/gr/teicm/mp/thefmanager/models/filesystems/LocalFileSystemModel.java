@@ -7,18 +7,18 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
 public class LocalFileSystemModel implements TreeModel {
     private File root;
-    private Vector<TreeModelListener> listeners;
+    private ArrayList<TreeModelListener> listeners;
     private FileFilter treeNodeFilter;
 
     {
-        listeners = new Vector<>();
+        listeners = new ArrayList<>();
 
         String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
         ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);

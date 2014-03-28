@@ -11,7 +11,6 @@ import java.io.File;
  */
 public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
     private FileSystemView fileSystemView;
-
     private JLabel label;
 
     FileTreeCellRenderer() {

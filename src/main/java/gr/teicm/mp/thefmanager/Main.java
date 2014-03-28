@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         IReadThemeController mReadTheme = new ReadThemeController();
         String themeString = mReadTheme.readThemeFromFile();
+        
         try {
             UIManager.setLookAndFeel(themeString);
             MainForm myMainForm = new MainForm();
