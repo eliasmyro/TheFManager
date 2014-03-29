@@ -24,7 +24,12 @@ public class LocalFileSystemModel implements TreeModel {
 
         String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
         ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);
-        treeNodeFilter = treeNodePolicy.getInstance();
+
+        try {
+            treeNodeFilter = treeNodePolicy.getInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.getMessage();
+        }
     }
 
     @Override

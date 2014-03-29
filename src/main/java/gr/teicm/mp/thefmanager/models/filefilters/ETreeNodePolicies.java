@@ -16,14 +16,10 @@ public enum ETreeNodePolicies {
     }
 
     public FileFilter getInstance()
-    {
-        try {
-            return (FileFilter) Class.forName(this.className).newInstance();
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        return null;
+            throws ClassNotFoundException,
+            IllegalAccessException,
+            InstantiationException {
+        return (FileFilter) Class.forName(this.className).newInstance();
     }
 }
 
