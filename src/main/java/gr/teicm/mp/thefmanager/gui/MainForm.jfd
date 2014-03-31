@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_51" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -105,6 +105,29 @@ new FormModel {
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Center"
 			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar2"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "fileMenu"
+					"text": "File"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemOpen"
+						"text": "Open"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemCopy"
+						"text": "Copy"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemPaste"
+						"text": "Paste"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemDelete"
+						"text": "Delete"
+					} )
+				} )
+			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 520, 380 )

@@ -101,6 +101,12 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        menuBar2 = new JMenuBar();
+        fileMenu = new JMenu();
+        fileMenuItemOpen = new JMenuItem();
+        fileMenuItemCopy = new JMenuItem();
+        fileMenuItemPaste = new JMenuItem();
+        fileMenuItemDelete = new JMenuItem();
         mgrToolbar = new JToolBar();
         previousButton = new JButton();
         nextButton = new JButton();
@@ -125,6 +131,33 @@ public class MainForm extends JFrame {
         setTitle("The F* manager");
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        //======== menuBar2 ========
+        {
+
+            //======== fileMenu ========
+            {
+                fileMenu.setText("File");
+
+                //---- fileMenuItemOpen ----
+                fileMenuItemOpen.setText("Open");
+                fileMenu.add(fileMenuItemOpen);
+
+                //---- fileMenuItemCopy ----
+                fileMenuItemCopy.setText("Copy");
+                fileMenu.add(fileMenuItemCopy);
+
+                //---- fileMenuItemPaste ----
+                fileMenuItemPaste.setText("Paste");
+                fileMenu.add(fileMenuItemPaste);
+
+                //---- fileMenuItemDelete ----
+                fileMenuItemDelete.setText("Delete");
+                fileMenu.add(fileMenuItemDelete);
+            }
+            menuBar2.add(fileMenu);
+        }
+        setJMenuBar(menuBar2);
 
         //======== mgrToolbar ========
         {
@@ -262,6 +295,12 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JMenuBar menuBar2;
+    private JMenu fileMenu;
+    private JMenuItem fileMenuItemOpen;
+    private JMenuItem fileMenuItemCopy;
+    private JMenuItem fileMenuItemPaste;
+    private JMenuItem fileMenuItemDelete;
     private JToolBar mgrToolbar;
     private JButton previousButton;
     private JButton nextButton;
