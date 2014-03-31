@@ -4,6 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
+import javax.swing.event.*;
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 
@@ -97,6 +98,12 @@ public class MainForm extends JFrame {
 
         this.dispose();
     }
+
+    private void fileTreeItemSelect(TreeSelectionEvent e) {
+        filepathTextField.setText(treeFacade.getSelectedItemPath());
+    }
+
+
 
 
     private void initComponents() {
@@ -245,6 +252,14 @@ public class MainForm extends JFrame {
 
             //======== fileTreeScroll ========
             {
+
+                //---- fileTree ----
+                fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+                    @Override
+                    public void valueChanged(TreeSelectionEvent e) {
+                        fileTreeItemSelect(e);
+                    }
+                });
                 fileTreeScroll.setViewportView(fileTree);
             }
             mgrSplitPane.setLeftComponent(fileTreeScroll);
