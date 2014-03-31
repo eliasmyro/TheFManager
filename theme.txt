@@ -1,1 +1,1 @@
-com.jtattoo.plaf.hifi.HiFiLookAndFeel
+ch.randelshofer.quaqua.QuaquaLookAndFeel

@@ -11,25 +11,19 @@ import java.io.File;
  * Created by Achilleas Naoumidis on 3/24/14.
  */
 public class TreeFacade {
-    private IFileSystemDAO dao;
-    private File homeDirectory;
+    private JTree fileTree;
     private TreeModel fileSystemModel;
-    private JTree jTree;
 
     public TreeFacade(IFileSystemDAO dao) {
-        this.dao = dao;
-
-        homeDirectory = this.dao.getHomeDirectory();
-
-        fileSystemModel = new LocalFileSystemModel(homeDirectory);
+        fileSystemModel = new LocalFileSystemModel(dao.getHomeDirectory());
     }
 
     public JTree initializeTree() {
-        jTree = new JTree(getFileSystemModel());
-        jTree.setCellRenderer(new FileTreeCellRenderer());
+        fileTree = new JTree(getFileSystemModel());
+        fileTree.setCellRenderer(new FileTreeCellRenderer());
 
-        jTree.addTreeSelectionListener(e -> {
-            File node = (File) jTree.getLastSelectedPathComponent();
+        fileTree.addTreeSelectionListener(e -> {
+            File node = (File) fileTree.getLastSelectedPathComponent();
 
             if (node != null) {
                 // Do something with selected Directory...
@@ -37,7 +31,7 @@ public class TreeFacade {
             }
         });
 
-        return jTree;
+        return fileTree;
     }
 
     public TreeModel getFileSystemModel() {

@@ -1,24 +1,35 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
-import gr.teicm.mp.thefmanager.models.filefilters.TreeNodeFilter;
+import gr.teicm.mp.thefmanager.models.filefilters.ETreeNodePolicies;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
 public class LocalFileSystemModel implements TreeModel {
     private File root;
-    private Vector<TreeModelListener> listeners = new Vector<>();
-    private FileFilter treeNodeFilter = new TreeNodeFilter();
+    private ArrayList<TreeModelListener> listeners;
+    private FileFilter treeNodeFilter;
 
     public LocalFileSystemModel(File root) {
         this.root = root;
+
+        listeners = new ArrayList<>();
+
+        String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
+        ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);
+
+        try {
+            treeNodeFilter = treeNodePolicy.getInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.getMessage();
+        }
     }
 
     @Override
