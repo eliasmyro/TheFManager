@@ -44,6 +44,20 @@ public class TreeFacade {
         else return null;
     }
 
+    public int getSelectedItemContentNumber(){
+        node = (File) fileTree.getLastSelectedPathComponent();
+
+        if (node != null) {
+            // Do something with selected Directory...
+            int directorySize = new File(node.getPath()).listFiles().length;
+
+            return directorySize;
+        }
+        else return 0;
+    }
+
+
+
 
 
 

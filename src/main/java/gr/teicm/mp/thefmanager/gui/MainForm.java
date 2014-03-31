@@ -5,6 +5,7 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import javax.swing.event.*;
+
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 
@@ -101,9 +102,8 @@ public class MainForm extends JFrame {
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
         filepathTextField.setText(treeFacade.getSelectedItemPath());
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));
     }
-
-
 
 
     private void initComponents() {
@@ -233,8 +233,8 @@ public class MainForm extends JFrame {
         //======== fileInfoPane ========
         {
             fileInfoPane.setBorder(new CompoundBorder(
-                new SoftBevelBorder(SoftBevelBorder.RAISED),
-                null));
+                    new SoftBevelBorder(SoftBevelBorder.RAISED),
+                    null));
             fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             //---- fileInfoLabel ----
