@@ -38,8 +38,8 @@ public class MainForm extends JFrame {
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
     private ArrayList<String> visitedItems = new ArrayList<>();
-    private String selectedFilePath ;
-    private File currentFile;
+    private String selectedFilePath;
+    private File selectedTableFile;
 
     public MainForm() {
         treeFacade = new TreeFacade(new LocalFileSystemDAO());
@@ -160,7 +160,7 @@ public class MainForm extends JFrame {
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
         // TODO add your code here
         FileOperationsController foc = new FileOperationsController();
-        int returnedCode = foc.fileOpen(currentFile);
+        int returnedCode = foc.fileOpen(selectedTableFile);
         if(returnedCode==0){
             JOptionPane.showMessageDialog(this,"There is no App for this file or Desktop is not supported");
         }
@@ -202,8 +202,7 @@ public class MainForm extends JFrame {
     private void filesTableMousePressed(MouseEvent e) {
         int selectedRow = filesTable.getSelectedRow();
         int pathColumn = 2;
-        String selectedFilePath;
-        File selectedTableFile;
+
 
         selectedFilePath = filesTable.getValueAt(selectedRow,pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
