@@ -5,7 +5,6 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import javax.swing.event.*;
-
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 
@@ -43,7 +42,7 @@ public class MainForm extends JFrame {
         this.dispose();
     }
 
-    private void seaglassMenuItemMousePressed(MouseEvent e) {
+       private void seaglassMenuItemMousePressed(MouseEvent e) {
         ThemeFactory newTheme = new ThemeFactory();
         themeIsSet = newTheme.getTheme("seaglass");
 
@@ -113,7 +112,7 @@ public class MainForm extends JFrame {
             showFilePosition(visitedItems.get(pathIndex+1),false);
         } catch(Exception ex){
             ex.printStackTrace();
-        }
+    }
     }
 
     private void previousButtonMouseClicked(MouseEvent e) {
@@ -125,7 +124,7 @@ public class MainForm extends JFrame {
             showFilePosition(visitedItems.get(pathIndex-1), false);
         } catch(Exception ex){
             ex.printStackTrace();
-        }
+    }
 
     }
 
