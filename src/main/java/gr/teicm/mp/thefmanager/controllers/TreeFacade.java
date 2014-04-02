@@ -15,6 +15,7 @@ public class TreeFacade {
     private TreeModel fileSystemModel;
     private File node;
 
+
     public TreeFacade(IFileSystemDAO dao) {
         fileSystemModel = new LocalFileSystemModel(dao.getHomeDirectory());
     }
@@ -44,6 +45,7 @@ public class TreeFacade {
         else return null;
     }
 
+
     public int getSelectedItemContentNumber(){
         node = (File) fileTree.getLastSelectedPathComponent();
 
@@ -56,12 +58,20 @@ public class TreeFacade {
         else return 0;
     }
 
+    public File getSelectedFileItem(){
+        node = (File) fileTree.getLastSelectedPathComponent();
 
-
-
-
+        if (node != null) {
+            return node;
+        }
+        else return null;
+    }
 
     public TreeModel getFileSystemModel() {
         return fileSystemModel;
     }
+
+
+
+
 }
