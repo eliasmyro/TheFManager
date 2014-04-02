@@ -5,7 +5,7 @@ import gr.teicm.mp.thefmanager.gui.MainForm;
 import javax.swing.*;
 
 /**
- * Created by EliasMyro on 24/3/2014.
+ * Created by Elias Myronidis on 24/3/2014.
  */
 public class SeaglassTheme implements ITheme {
     @Override

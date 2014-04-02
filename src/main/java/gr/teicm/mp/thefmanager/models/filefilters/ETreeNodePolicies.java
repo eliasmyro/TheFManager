@@ -5,7 +5,7 @@ import java.io.FileFilter;
 /**
  * Created by Achilleas Naoumidis on 3/28/14.
  */
-public enum ETreeNodePolicies {
+public enum  ETreeNodePolicies {
     SHOW_HIDDEN_FILES("gr.teicm.mp.thefmanager.models.filefilters.TreeNodePolicy"),
     DONT_SHOW_HIDDEN_FILES("gr.teicm.mp.thefmanager.models.filefilters.TreeHiddenNodePolicy");
 

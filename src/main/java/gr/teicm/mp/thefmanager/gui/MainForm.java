@@ -4,6 +4,8 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
+import javax.swing.event.*;
+
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 
@@ -11,16 +13,18 @@ import gr.teicm.mp.thefmanager.controllers.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * @author EliasMyro
+ * @author Elias Myronidis
  */
 public class MainForm extends JFrame {
     private TreeFacade treeFacade;
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
+    private ArrayList<String> visitedItems = new ArrayList<>();
 
     public MainForm() {
         treeFacade = new TreeFacade(new LocalFileSystemDAO());
@@ -33,14 +37,10 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("napkin");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("net.sourceforge.napkinlaf.NapkinLookAndFeel");
+            mThemeFile.writeThemeToXML("net.sourceforge.napkinlaf.NapkinLookAndFeel");
         }
 
         this.dispose();
-    }
-
-    private void nextButtonMouseClicked(MouseEvent e) {
-        // TODO add your code here
     }
 
     private void seaglassMenuItemMousePressed(MouseEvent e) {
@@ -48,7 +48,7 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("seaglass");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+            mThemeFile.writeThemeToXML("com.seaglasslookandfeel.SeaGlassLookAndFeel");
         }
 
         dispose();
@@ -59,7 +59,7 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("quaqua");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+            mThemeFile.writeThemeToXML("ch.randelshofer.quaqua.QuaquaLookAndFeel");
         }
 
         this.dispose();
@@ -70,7 +70,7 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatAluminium");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+            mThemeFile.writeThemeToXML("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
         }
 
         this.dispose();
@@ -81,7 +81,7 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatHifi");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+            mThemeFile.writeThemeToXML("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
         }
 
         this.dispose();
@@ -92,10 +92,49 @@ public class MainForm extends JFrame {
         themeIsSet = newTheme.getTheme("jtatBernstein");
 
         if (themeIsSet) {
-            mThemeFile.writeThemeToFile("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+            mThemeFile.writeThemeToXML("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
         }
 
         this.dispose();
+    }
+
+    private void fileTreeItemSelect(TreeSelectionEvent e) {
+        String currentPath = treeFacade.getSelectedItemPath();
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));
+        showFilePosition(currentPath, true);
+    }
+
+    private void nextButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        String currentPath = filepathTextField.getText();
+        int pathIndex = visitedItems.indexOf(currentPath);
+
+        try{
+            showFilePosition(visitedItems.get(pathIndex+1),false);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void previousButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        String currentPath = filepathTextField.getText();
+        int pathIndex = visitedItems.indexOf(currentPath);
+
+        try{
+            showFilePosition(visitedItems.get(pathIndex-1), false);
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void showFilePosition(String filePath, boolean addToList){
+
+        filepathTextField.setText(filePath);
+
+        if(addToList)
+            visitedItems.add(filePath);
     }
 
 
@@ -166,6 +205,12 @@ public class MainForm extends JFrame {
 
             //---- previousButton ----
             previousButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-previous-icon.png")));
+            previousButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    previousButtonMouseClicked(e);
+                }
+            });
             mgrToolbar.add(previousButton);
 
             //---- nextButton ----
@@ -278,6 +323,14 @@ public class MainForm extends JFrame {
 
             //======== fileTreeScroll ========
             {
+
+                //---- fileTree ----
+                fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+                    @Override
+                    public void valueChanged(TreeSelectionEvent e) {
+                        fileTreeItemSelect(e);
+                    }
+                });
                 fileTreeScroll.setViewportView(fileTree);
             }
             mgrSplitPane.setLeftComponent(fileTreeScroll);
