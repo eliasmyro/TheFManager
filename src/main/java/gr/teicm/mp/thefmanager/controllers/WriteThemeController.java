@@ -12,7 +12,7 @@ public class WriteThemeController implements IWriteThemeController {
 
     IThemeDAO myDAO = new ThemeDAO();
 
-    public void writeThemeToFile(String themeName){
+    public void writeThemeToXML(String themeName){
 
         try {
             myDAO.writeTheme(themeName);

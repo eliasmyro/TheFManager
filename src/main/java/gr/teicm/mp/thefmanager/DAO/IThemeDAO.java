@@ -7,5 +7,5 @@ import java.io.IOException;
  */
 public interface IThemeDAO {
     void writeTheme(String themeName) throws IOException;
-    public String readTheme();
+    public String readTheme() throws IOException;
 }
