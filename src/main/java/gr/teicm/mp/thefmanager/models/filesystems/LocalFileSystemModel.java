@@ -32,6 +32,7 @@ public class LocalFileSystemModel implements TreeModel {
         }
     }
 
+
     @Override
     public Object getRoot() {
         return root;
@@ -100,4 +101,5 @@ public class LocalFileSystemModel implements TreeModel {
     public void removeTreeModelListener(TreeModelListener listener) {
         listeners.remove(listener);
     }
+
 }

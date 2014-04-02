@@ -14,6 +14,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "previousButton"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/Actions-go-previous-icon.png" )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "previousButtonMouseClicked", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "nextButton"
@@ -30,6 +31,8 @@ new FormModel {
 						name: "themesMenu"
 						"horizontalAlignment": 0
 						"text": "theme"
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "themesMenuStateChanged", true ) )
+						addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "themesMenuStateChanged", true ) )
 						add( new FormComponent( "javax.swing.JMenuItem" ) {
 							name: "napkinMenuItem"
 							"text": "Napkin"
@@ -63,28 +66,80 @@ new FormModel {
 					} )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "North"
+				"value": "First"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
 				"alignment": 0
 			} ) {
 				name: "fileInfoPane"
 				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
+				"preferredSize": new java.awt.Dimension( 592, 70 )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "fileInfoLabel"
 					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, -3, false )
+					"maximumSize": new java.awt.Dimension( 133, 10 )
+					"minimumSize": new java.awt.Dimension( 133, 10 )
+					"preferredSize": new java.awt.Dimension( 160, 10 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileNameLbl"
+					"text": "File : "
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileIconLbl"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileName"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "filePathLbl"
+					"text": "Path :"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "filePath"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileSizeLbl"
+					"text": "Size : "
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileSize"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "fileAttributesLbl"
+					"text": "File attributes :"
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "readAttribute"
+					"text": "Read"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "writeAttribute"
+					"text": "Write"
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "executeAttribute"
+					"text": "Execute"
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "South"
+				"value": "Last"
 			} )
 			add( new FormContainer( "javax.swing.JSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
 				name: "mgrSplitPane"
 				"background": sfield java.awt.Color white
 				"oneTouchExpandable": true
 				"resizeWeight": 0.1
+				"preferredSize": new java.awt.Dimension( 539, 418 )
+				"dividerLocation": 150
+				"lastDividerLocation": -1
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "fileTreeScroll"
+					"preferredSize": new java.awt.Dimension( 79, 324 )
 					add( new FormComponent( "javax.swing.JTree" ) {
 						name: "fileTree"
 						auxiliary() {
@@ -97,8 +152,18 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "tableScrollPane"
+					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "tableScrollPaneFocusGained", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "tableScrollPaneMouseClicked", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "tableScrollPaneKeyPressed", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "filesTable"
+						auxiliary() {
+							"JavaCodeGenerator.customCreateCode": "new JTable();\nfilesTable.setModel(new javax.swing.table.DefaultTableModel (\n                 new Object [][]  {\n\n                },\n                        new String [] {\n                                \"Icon\",\n                                \"File\",\n                                \"Path/name\",\n                                \"Size\",\n                                \"Last Modified\",\n                                \"R\",\n                                \"W\",\n                                \"E\",\n                                \"Directory\",\n                                \"File\",\n                        }\n\n\n                )\n                { public boolean isCellEditable(int row, int column){return false;}\n\n                    public Class getColumnClass(int columnIndex) {\n                        switch (columnIndex) {\n                            case 0:\n                                return ImageIcon.class;\n                            case 3:\n                                return Long.class;\n                            case 4:\n                                return Date.class;\n                            case 5:\n                                return Boolean.class;\n                            case 6:\n                                return Boolean.class;\n                            case 7:\n                                return Boolean.class;\n                            case 8:\n                                return Boolean.class;\n                            case 9:\n                                return Boolean.class;\n                        }\n                        return String.class;\n\n                    }\n                });"
+						}
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "filesTableFocusGained", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "right"
@@ -107,8 +172,8 @@ new FormModel {
 				"value": "Center"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 520, 380 )
+			"location": new java.awt.Point( 0, 10 )
+			"size": new java.awt.Dimension( 720, 370 )
 		} )
 	}
 }
