@@ -12,6 +12,7 @@ import gr.teicm.mp.thefmanager.controllers.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -24,6 +25,8 @@ public class MainForm extends JFrame {
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
     private ArrayList<String> visitedItems = new ArrayList<>();
+    private String selectedFilePath ;
+    private File currentFile;
 
     public MainForm() {
         treeFacade = new TreeFacade(new LocalFileSystemDAO());
@@ -136,6 +139,15 @@ public class MainForm extends JFrame {
             visitedItems.add(filePath);
     }
 
+    private void fileMenuItemOpenActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        FileOperationsController foc = new FileOperationsController();
+        int returnedCode = foc.fileOpen(currentFile);
+        if(returnedCode==0){
+            JOptionPane.showMessageDialog(this,"There is no App for this file or Desktop is not supported");
+        }
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -179,6 +191,12 @@ public class MainForm extends JFrame {
 
                 //---- fileMenuItemOpen ----
                 fileMenuItemOpen.setText("Open");
+                fileMenuItemOpen.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fileMenuItemOpenActionPerformed(e);
+                    }
+                });
                 fileMenu.add(fileMenuItemOpen);
 
                 //---- fileMenuItemCopy ----
