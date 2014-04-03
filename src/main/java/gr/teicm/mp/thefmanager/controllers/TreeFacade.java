@@ -11,10 +11,9 @@ import java.io.File;
  * Created by Achilleas Naoumidis on 3/24/14.
  */
 public class TreeFacade {
+    private File node;
     private JTree fileTree;
     private TreeModel fileSystemModel;
-    private File node;
-
 
     public TreeFacade(IFileSystemDAO dao) {
         fileSystemModel = new LocalFileSystemModel(dao.getHomeDirectory());
@@ -24,54 +23,52 @@ public class TreeFacade {
         fileTree = new JTree(getFileSystemModel());
         fileTree.setCellRenderer(new FileTreeCellRenderer());
 
-        /*fileTree.addTreeSelectionListener(e -> {
-            node = (File) fileTree.getLastSelectedPathComponent();
-            if (node != null) {
-                // Do something with selected Directory...
-               System.out.println(node.getName());
-            }
-        });*/
+//        fileTree.addTreeSelectionListener(e -> {
+//            node = (File) fileTree.getLastSelectedPathComponent();
+//            if (node != null) {
+//                // Do something with selected Directory...
+//                System.out.println(node.getName());
+//            }
+//        });
 
         return fileTree;
     }
 
-    public String getSelectedItemPath(){
-
+    public String getSelectedItemPath() {
         node = (File) fileTree.getLastSelectedPathComponent();
+
         if (node != null) {
-            // Do something with selected Directory...
             return node.getPath();
         }
-        else return null;
+
+        return null;
     }
 
-
-    public int getSelectedItemContentNumber(){
+    public int getSelectedItemChildCount() {
         node = (File) fileTree.getLastSelectedPathComponent();
 
         if (node != null) {
-            // Do something with selected Directory...
-            int directorySize = new File(node.getPath()).listFiles().length;
+            File[] children = new File(node.getPath()).listFiles();
 
-            return directorySize;
+            if (children != null) {
+                return children.length;
+            }
         }
-        else return 0;
+
+        return 0;
     }
 
-    public File getSelectedFileItem(){
+    public File getSelectedFileItem() {
         node = (File) fileTree.getLastSelectedPathComponent();
 
         if (node != null) {
             return node;
         }
-        else return null;
+
+        return null;
     }
 
     public TreeModel getFileSystemModel() {
         return fileSystemModel;
     }
-
-
-
-
 }

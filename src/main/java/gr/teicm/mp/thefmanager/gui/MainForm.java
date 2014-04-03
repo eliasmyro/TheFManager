@@ -4,8 +4,6 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
-import javax.swing.event.*;
-import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.*;
 
@@ -16,17 +14,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.Date;
 
 /**
@@ -116,7 +108,7 @@ public class MainForm extends JFrame {
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
         String currentPath = treeFacade.getSelectedItemPath();
-        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));     
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount()));
         showFilePosition(currentPath, true);
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(), filesTable);
     }
@@ -143,9 +135,9 @@ public class MainForm extends JFrame {
 
         try{
             showFilePosition(visitedItems.get(pathIndex-1), false);
-        } catch(Exception ex){
+        } catch(Exception ex) {
             ex.printStackTrace();
-    }
+        }
 
     }
 

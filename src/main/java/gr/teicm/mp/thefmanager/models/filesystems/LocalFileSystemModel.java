@@ -14,13 +14,11 @@ import java.util.ArrayList;
  */
 public class LocalFileSystemModel implements TreeModel {
     private File root;
-    private ArrayList<TreeModelListener> listeners;
     private FileFilter treeNodeFilter;
+    private ArrayList<TreeModelListener> listeners = new ArrayList<>();
 
     public LocalFileSystemModel(File root) {
         this.root = root;
-
-        listeners = new ArrayList<>();
 
         String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
         ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);
@@ -31,7 +29,6 @@ public class LocalFileSystemModel implements TreeModel {
             e.getMessage();
         }
     }
-
 
     @Override
     public Object getRoot() {
