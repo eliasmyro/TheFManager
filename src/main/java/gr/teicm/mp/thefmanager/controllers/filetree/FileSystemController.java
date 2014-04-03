@@ -10,31 +10,15 @@ import java.io.File;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class TreeFacade {
+public class FileSystemController {
     private File node;
-    private JTree fileTree;
     private TreeModel fileSystemModel;
 
-    public TreeFacade(IFileSystemDAO dao) {
+    public FileSystemController(IFileSystemDAO dao) {
         fileSystemModel = new LocalFileSystemModel(dao.getHomeDirectory());
     }
 
-    public JTree initializeTree() {
-        fileTree = new JTree(getFileSystemModel());
-        fileTree.setCellRenderer(new FileTreeCellRenderer());
-
-//        fileTree.addTreeSelectionListener(e -> {
-//            node = (File) fileTree.getLastSelectedPathComponent();
-//            if (node != null) {
-//                // Do something with selected Directory...
-//                System.out.println(node.getName());
-//            }
-//        });
-
-        return fileTree;
-    }
-
-    public String getSelectedItemPath() {
+    public String getSelectedItemPath(JTree fileTree) {
         node = (File) fileTree.getLastSelectedPathComponent();
 
         if (node != null) {
@@ -44,7 +28,7 @@ public class TreeFacade {
         return null;
     }
 
-    public int getSelectedItemChildCount() {
+    public int getSelectedItemChildCount(JTree fileTree) {
         node = (File) fileTree.getLastSelectedPathComponent();
 
         if (node != null) {
@@ -58,7 +42,7 @@ public class TreeFacade {
         return 0;
     }
 
-    public File getSelectedFileItem() {
+    public File getSelectedFileItem(JTree fileTree) {
         node = (File) fileTree.getLastSelectedPathComponent();
 
         if (node != null) {
