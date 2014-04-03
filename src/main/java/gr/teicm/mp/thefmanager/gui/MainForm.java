@@ -492,7 +492,6 @@ public class MainForm extends JFrame {
                     new SoftBevelBorder(SoftBevelBorder.RAISED),
                     null));
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
-            fileInfoPane.setVisible(false);
             fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             //---- fileInfoLabel ----
