@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 # Or:
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/copyright/profiles_settings.xml # To be removed at the end.
 
 # Sensitive or high-churn files:
 # .idea/dataSources.ids
@@ -67,3 +68,6 @@ hs_err_pid*
 # Maven --------------------------------------------------------------
 log/
 target/
+
+# TheFManager --------------------------------------------------------
+settings.xml
