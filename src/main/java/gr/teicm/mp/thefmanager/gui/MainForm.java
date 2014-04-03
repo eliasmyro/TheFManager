@@ -14,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -51,7 +52,7 @@ public class MainForm extends JFrame {
         this.dispose();
     }
 
-       private void seaglassMenuItemMousePressed(MouseEvent e) {
+    private void seaglassMenuItemMousePressed(MouseEvent e) {
         ThemeFactory newTheme = new ThemeFactory();
         themeIsSet = newTheme.getTheme("seaglass");
 
@@ -59,7 +60,7 @@ public class MainForm extends JFrame {
             mThemeFile.writeThemeToXML("com.seaglasslookandfeel.SeaGlassLookAndFeel");
         }
 
-        dispose();
+        this.dispose();
     }
 
     private void quaquaMenuItemMousePressed(MouseEvent e) {
@@ -116,6 +117,7 @@ public class MainForm extends JFrame {
     private void themesMenuStateChanged(ChangeEvent e) {
         // TODO add your code here
     }
+
     private void nextButtonMouseClicked(MouseEvent e) {
         // TODO add your code here
         String currentPath = filepathTextField.getText();
@@ -125,7 +127,7 @@ public class MainForm extends JFrame {
             showFilePosition(visitedItems.get(pathIndex+1),false);
         } catch(Exception ex){
             ex.printStackTrace();
-    }
+        }
     }
 
     private void previousButtonMouseClicked(MouseEvent e) {
@@ -138,7 +140,6 @@ public class MainForm extends JFrame {
         } catch(Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     public void showFilePosition(String filePath, boolean addToList){
@@ -157,7 +158,6 @@ public class MainForm extends JFrame {
             JOptionPane.showMessageDialog(this,"There is no App for this file or Desktop is not supported");
         }
     }
-
 
     private void tableScrollPaneFocusGained(FocusEvent e) {
         // TODO add your code here
@@ -195,7 +195,6 @@ public class MainForm extends JFrame {
         int selectedRow = filesTable.getSelectedRow();
         int pathColumn = 2;
 
-
         selectedFilePath = filesTable.getValueAt(selectedRow,pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
         selectedTableFile = tableFacade.getSelectedTableFile();
@@ -206,7 +205,6 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
-
 
   //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
     /*  File newName = new File(selectedTableFile.getParent()+"/newName.txt");
@@ -219,9 +217,6 @@ public class MainForm extends JFrame {
 
     }
 
-
-
-    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
@@ -260,50 +255,49 @@ public class MainForm extends JFrame {
         fileTree = treeFacade.initializeTree();
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
-        filesTable.setModel(new javax.swing.table.DefaultTableModel (
-                         new Object [][]  {
+        filesTable.setModel(new DefaultTableModel(
+                new Object[][]{
+                },
+                new String[]{
+                        "Icon",
+                        "File",
+                        "Path/name",
+                        "Size",
+                        "Last Modified",
+                        "R",
+                        "W",
+                        "E",
+                        "Directory",
+                        "File",
+                }
+        ) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
 
-                        },
-                                new String [] {
-                                        "Icon",
-                                        "File",
-                                        "Path/name",
-                                        "Size",
-                                        "Last Modified",
-                                        "R",
-                                        "W",
-                                        "E",
-                                        "Directory",
-                                        "File",
-                                }
+            public Class getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return ImageIcon.class;
+                    case 3:
+                        return Long.class;
+                    case 4:
+                        return Date.class;
+                    case 5:
+                        return Boolean.class;
+                    case 6:
+                        return Boolean.class;
+                    case 7:
+                        return Boolean.class;
+                    case 8:
+                        return Boolean.class;
+                    case 9:
+                        return Boolean.class;
+                }
 
-
-                        )
-                        { public boolean isCellEditable(int row, int column){return false;}
-
-                            public Class getColumnClass(int columnIndex) {
-                                switch (columnIndex) {
-                                    case 0:
-                                        return ImageIcon.class;
-                                    case 3:
-                                        return Long.class;
-                                    case 4:
-                                        return Date.class;
-                                    case 5:
-                                        return Boolean.class;
-                                    case 6:
-                                        return Boolean.class;
-                                    case 7:
-                                        return Boolean.class;
-                                    case 8:
-                                        return Boolean.class;
-                                    case 9:
-                                        return Boolean.class;
-                                }
-                                return String.class;
-
-                            }
-                        });
+                return String.class;
+            }
+        });
 
         //======== this ========
         setTitle("The F* manager");
