@@ -85,7 +85,6 @@ public class LocalFileSystemModel implements TreeModel {
 
     @Override
     public void valueForPathChanged(TreePath path, Object value) {
-        // TODO: !!!Something like!!! rename... Not actual renaming the file...
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -98,5 +97,4 @@ public class LocalFileSystemModel implements TreeModel {
     public void removeTreeModelListener(TreeModelListener listener) {
         listeners.remove(listener);
     }
-
 }
