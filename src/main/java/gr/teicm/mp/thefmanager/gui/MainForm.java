@@ -7,7 +7,8 @@ package gr.teicm.mp.thefmanager.gui;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
-import gr.teicm.mp.thefmanager.controllers.filetree.TreeFacade;
+import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
+import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
 import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
 import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
 import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
@@ -19,7 +20,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -31,7 +31,7 @@ import java.util.Date;
  * @author Elias Myronidis
  */
 public class MainForm extends JFrame {
-    private TreeFacade treeFacade;
+    private FileSystemController treeFacade;
     private TableFacade tableFacade;
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
@@ -40,10 +40,10 @@ public class MainForm extends JFrame {
     private File selectedTableFile;
 
     public MainForm() {
-        treeFacade = new TreeFacade(new LocalFileSystemDAO());
+        treeFacade = new FileSystemController(new LocalFileSystemDAO());
         tableFacade = new TableFacade();
         initComponents();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        fileTree.setCellRenderer(new FileTreeCellRenderer());
     }
 
     private void napkinMenuItemMousePressed(MouseEvent e) {
@@ -113,10 +113,10 @@ public class MainForm extends JFrame {
     }
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
-        String currentPath = treeFacade.getSelectedItemPath();
-        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount()));
+        String currentPath = treeFacade.getSelectedItemPath(fileTree);
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
         showFilePosition(currentPath, true);
-        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(), filesTable);
+        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
     }
 
     private void themesMenuStateChanged(ChangeEvent e) {
@@ -257,55 +257,57 @@ public class MainForm extends JFrame {
         executeAttribute = new JCheckBox();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
-        fileTree = treeFacade.initializeTree();
+        fileTree = new JTree(treeFacade.getFileSystemModel());
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
-        filesTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                },
-                new String[]{
-                        "Icon",
-                        "File",
-                        "Path/name",
-                        "Size",
-                        "Last Modified",
-                        "R",
-                        "W",
-                        "E",
-                        "Directory",
-                        "File",
-                }
-        ) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+        filesTable.setModel(new javax.swing.table.DefaultTableModel (
+                         new Object [][]  {
 
-            public Class getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
-                    case 3:
-                        return Long.class;
-                    case 4:
-                        return Date.class;
-                    case 5:
-                        return Boolean.class;
-                    case 6:
-                        return Boolean.class;
-                    case 7:
-                        return Boolean.class;
-                    case 8:
-                        return Boolean.class;
-                    case 9:
-                        return Boolean.class;
-                }
+                        },
+                                new String [] {
+                                        "Icon",
+                                        "File",
+                                        "Path/name",
+                                        "Size",
+                                        "Last Modified",
+                                        "R",
+                                        "W",
+                                        "E",
+                                        "Directory",
+                                        "File",
+                                }
 
-                return String.class;
-            }
-        });
+
+                        )
+                        { public boolean isCellEditable(int row, int column){return false;}
+
+                            public Class getColumnClass(int columnIndex) {
+                                switch (columnIndex) {
+                                    case 0:
+                                        return ImageIcon.class;
+                                    case 3:
+                                        return Long.class;
+                                    case 4:
+                                        return Date.class;
+                                    case 5:
+                                        return Boolean.class;
+                                    case 6:
+                                        return Boolean.class;
+                                    case 7:
+                                        return Boolean.class;
+                                    case 8:
+                                        return Boolean.class;
+                                    case 9:
+                                        return Boolean.class;
+                                }
+                                return String.class;
+
+                            }
+                        });
 
         //======== this ========
         setTitle("The F* manager");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -450,7 +452,7 @@ public class MainForm extends JFrame {
             }
             mgrToolbar.add(menuBar1);
         }
-        contentPane.add(mgrToolbar, BorderLayout.NORTH);
+        contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
 
         //======== fileInfoPane ========
         {
