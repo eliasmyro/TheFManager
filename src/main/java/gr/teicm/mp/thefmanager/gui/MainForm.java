@@ -5,6 +5,7 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import javax.swing.event.*;
+
 import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.*;
@@ -59,7 +60,7 @@ public class MainForm extends JFrame {
         this.dispose();
     }
 
-       private void seaglassMenuItemMousePressed(MouseEvent e) {
+    private void seaglassMenuItemMousePressed(MouseEvent e) {
         ThemeFactory newTheme = new ThemeFactory();
         themeIsSet = newTheme.getTheme("seaglass");
 
@@ -116,7 +117,7 @@ public class MainForm extends JFrame {
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
         String currentPath = treeFacade.getSelectedItemPath();
-        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));     
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));
         showFilePosition(currentPath, true);
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(), filesTable);
     }
@@ -124,16 +125,17 @@ public class MainForm extends JFrame {
     private void themesMenuStateChanged(ChangeEvent e) {
         // TODO add your code here
     }
+
     private void nextButtonMouseClicked(MouseEvent e) {
         // TODO add your code here
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
-        try{
-            showFilePosition(visitedItems.get(pathIndex+1),false);
-        } catch(Exception ex){
+        try {
+            showFilePosition(visitedItems.get(pathIndex + 1), false);
+        } catch (Exception ex) {
             ex.printStackTrace();
-    }
+        }
     }
 
     private void previousButtonMouseClicked(MouseEvent e) {
@@ -141,19 +143,19 @@ public class MainForm extends JFrame {
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
-        try{
-            showFilePosition(visitedItems.get(pathIndex-1), false);
-        } catch(Exception ex){
+        try {
+            showFilePosition(visitedItems.get(pathIndex - 1), false);
+        } catch (Exception ex) {
             ex.printStackTrace();
-    }
+        }
 
     }
 
-    public void showFilePosition(String filePath, boolean addToList){
+    public void showFilePosition(String filePath, boolean addToList) {
 
         filepathTextField.setText(filePath);
 
-        if(addToList)
+        if (addToList)
             visitedItems.add(filePath);
     }
 
@@ -161,8 +163,8 @@ public class MainForm extends JFrame {
         // TODO add your code here
         FileOperationsController foc = new FileOperationsController();
         int returnedCode = foc.fileOpen(selectedTableFile);
-        if(returnedCode==0){
-            JOptionPane.showMessageDialog(this,"There is no App for this file or Desktop is not supported");
+        if (returnedCode == 0) {
+            JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
     }
 
@@ -204,19 +206,20 @@ public class MainForm extends JFrame {
         int pathColumn = 2;
 
 
-        selectedFilePath = filesTable.getValueAt(selectedRow,pathColumn).toString();
+        selectedFilePath = filesTable.getValueAt(selectedRow, pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
         selectedTableFile = tableFacade.getSelectedTableFile();
         fileIconLbl.setIcon(tableFacade.fileSystemView.getSystemIcon(selectedTableFile));
         fileName.setText(selectedTableFile.getName());
         filePath.setText(selectedTableFile.getPath());
-        fileSize.setText(selectedTableFile.length() +" Bytes");
+        filepathTextField.setText(selectedTableFile.getPath());
+        fileSize.setText(selectedTableFile.length() + " Bytes");
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
 
 
-  //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
+        //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
     /*  File newName = new File(selectedTableFile.getParent()+"/newName.txt");
         System.out.println(selectedTableFile.getParent()+"/newName.txt");
         if(selectedTableFile.renameTo(newName)) {
@@ -227,9 +230,25 @@ public class MainForm extends JFrame {
 
     }
 
+    private void fileMenuItemDeleteMousePressed(MouseEvent e) {
+        // TODO add your code here
+
+        JOptionPane myPane = new JOptionPane();
+        int reply = myPane.showConfirmDialog(null, "Do you want to delete the seleced file?", "Delete File", JOptionPane.YES_NO_OPTION);
+        if (reply == myPane.YES_OPTION) {
+            IDeleteFileController myDelete = new DeleteFileController();
+            boolean isDeleted = myDelete.deleteFile(selectedTableFile);
+            if (isDeleted) {
+                System.out.println("File deleted successfully");
+            } else
+                System.out.println("Something wrong happened");
+        } else {
+            myPane.getRootFrame().dispose();
+        }
+
+    }
 
 
-    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
@@ -268,50 +287,50 @@ public class MainForm extends JFrame {
         fileTree = treeFacade.initializeTree();
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
-        filesTable.setModel(new javax.swing.table.DefaultTableModel (
-                         new Object [][]  {
+        filesTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
 
-                        },
-                                new String [] {
-                                        "Icon",
-                                        "File",
-                                        "Path/name",
-                                        "Size",
-                                        "Last Modified",
-                                        "R",
-                                        "W",
-                                        "E",
-                                        "Directory",
-                                        "File",
-                                }
+                },
+                new String[]{
+                        "Icon",
+                        "File",
+                        "Path/name",
+                        "Size",
+                        "Last Modified",
+                        "R",
+                        "W",
+                        "E",
+                        "Directory",
+                        "File",
+                }
+        ) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
 
+            public Class getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return ImageIcon.class;
+                    case 3:
+                        return Long.class;
+                    case 4:
+                        return Date.class;
+                    case 5:
+                        return Boolean.class;
+                    case 6:
+                        return Boolean.class;
+                    case 7:
+                        return Boolean.class;
+                    case 8:
+                        return Boolean.class;
+                    case 9:
+                        return Boolean.class;
+                }
+                return String.class;
 
-                        )
-                        { public boolean isCellEditable(int row, int column){return false;}
-
-                            public Class getColumnClass(int columnIndex) {
-                                switch (columnIndex) {
-                                    case 0:
-                                        return ImageIcon.class;
-                                    case 3:
-                                        return Long.class;
-                                    case 4:
-                                        return Date.class;
-                                    case 5:
-                                        return Boolean.class;
-                                    case 6:
-                                        return Boolean.class;
-                                    case 7:
-                                        return Boolean.class;
-                                    case 8:
-                                        return Boolean.class;
-                                    case 9:
-                                        return Boolean.class;
-                                }
-                                return String.class;
-
-                            }
-                        });
+            }
+        });
 
         //======== this ========
         setTitle("The F* manager");
@@ -345,6 +364,12 @@ public class MainForm extends JFrame {
 
                 //---- fileMenuItemDelete ----
                 fileMenuItemDelete.setText("Delete");
+                fileMenuItemDelete.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileMenuItemDeleteMousePressed(e);
+                    }
+                });
                 fileMenu.add(fileMenuItemDelete);
             }
             menuBar2.add(fileMenu);
@@ -459,14 +484,15 @@ public class MainForm extends JFrame {
             }
             mgrToolbar.add(menuBar1);
         }
-        contentPane.add(mgrToolbar, BorderLayout.NORTH);
+        contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
 
         //======== fileInfoPane ========
         {
             fileInfoPane.setBorder(new CompoundBorder(
-                new SoftBevelBorder(SoftBevelBorder.RAISED),
-                null));
+                    new SoftBevelBorder(SoftBevelBorder.RAISED),
+                    null));
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
+            fileInfoPane.setVisible(false);
             fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             //---- fileInfoLabel ----

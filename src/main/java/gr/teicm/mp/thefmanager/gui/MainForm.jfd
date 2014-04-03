@@ -74,6 +74,7 @@ new FormModel {
 				name: "fileInfoPane"
 				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
 				"preferredSize": new java.awt.Dimension( 592, 70 )
+				"visible": false
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "fileInfoLabel"
 					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"
@@ -192,6 +193,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "fileMenuItemDelete"
 						"text": "Delete"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
 					} )
 				} )
 			}
