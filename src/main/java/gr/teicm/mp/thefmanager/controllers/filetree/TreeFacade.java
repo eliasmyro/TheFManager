@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.controllers;
+package gr.teicm.mp.thefmanager.controllers.filetree;
 
 import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
 import gr.teicm.mp.thefmanager.models.filesystems.LocalFileSystemModel;

@@ -5,7 +5,12 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
-import gr.teicm.mp.thefmanager.controllers.*;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
+import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
+import gr.teicm.mp.thefmanager.controllers.filetree.TreeFacade;
+import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
+import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
+import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

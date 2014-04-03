@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.controllers;
+package gr.teicm.mp.thefmanager.controllers.filetable;
 
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 

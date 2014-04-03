@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.controllers;
+package gr.teicm.mp.thefmanager.controllers.fileoperations;
 
 import java.awt.*;
 import java.io.File;

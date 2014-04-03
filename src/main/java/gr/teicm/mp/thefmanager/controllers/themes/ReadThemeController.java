@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.controllers;
+package gr.teicm.mp.thefmanager.controllers.themes;
 
 import gr.teicm.mp.thefmanager.DAO.IThemeDAO;
 import gr.teicm.mp.thefmanager.DAO.ThemeDAO;

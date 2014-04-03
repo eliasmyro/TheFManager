@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.controllers;
+package gr.teicm.mp.thefmanager.controllers.filetree;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
