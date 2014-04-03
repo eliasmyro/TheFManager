@@ -11,6 +11,7 @@ import gr.teicm.mp.thefmanager.controllers.filetree.TreeFacade;
 import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
 import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
 import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
+import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -33,6 +34,7 @@ import java.util.Date;
 public class MainForm extends JFrame {
     private TreeFacade treeFacade;
     private TableFacade tableFacade;
+    private TableFileModel tableFileModel;
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
     private ArrayList<String> visitedItems = new ArrayList<>();
@@ -43,6 +45,7 @@ public class MainForm extends JFrame {
         treeFacade = new TreeFacade(new LocalFileSystemDAO());
         tableFacade = new TableFacade();
         initComponents();
+        tableFileModel = new TableFileModel(filesTable);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
@@ -260,49 +263,6 @@ public class MainForm extends JFrame {
         fileTree = treeFacade.initializeTree();
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
-        filesTable.setModel(new DefaultTableModel(
-                new Object[][]{
-                },
-                new String[]{
-                        "Icon",
-                        "File",
-                        "Path/name",
-                        "Size",
-                        "Last Modified",
-                        "R",
-                        "W",
-                        "E",
-                        "Directory",
-                        "File",
-                }
-        ) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-
-            public Class getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
-                    case 3:
-                        return Long.class;
-                    case 4:
-                        return Date.class;
-                    case 5:
-                        return Boolean.class;
-                    case 6:
-                        return Boolean.class;
-                    case 7:
-                        return Boolean.class;
-                    case 8:
-                        return Boolean.class;
-                    case 9:
-                        return Boolean.class;
-                }
-
-                return String.class;
-            }
-        });
 
         //======== this ========
         setTitle("The F* manager");
@@ -450,7 +410,7 @@ public class MainForm extends JFrame {
             }
             mgrToolbar.add(menuBar1);
         }
-        contentPane.add(mgrToolbar, BorderLayout.NORTH);
+        contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
 
         //======== fileInfoPane ========
         {

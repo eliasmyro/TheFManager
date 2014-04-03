@@ -157,9 +157,6 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "tableScrollPaneKeyPressed", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "filesTable"
-						auxiliary() {
-							"JavaCodeGenerator.customCreateCode": "new JTable();\nfilesTable.setModel(new javax.swing.table.DefaultTableModel (\n                 new Object [][]  {\n\n                },\n                        new String [] {\n                                \"Icon\",\n                                \"File\",\n                                \"Path/name\",\n                                \"Size\",\n                                \"Last Modified\",\n                                \"R\",\n                                \"W\",\n                                \"E\",\n                                \"Directory\",\n                                \"File\",\n                        }\n\n\n                )\n                { public boolean isCellEditable(int row, int column){return false;}\n\n                    public Class getColumnClass(int columnIndex) {\n                        switch (columnIndex) {\n                            case 0:\n                                return ImageIcon.class;\n                            case 3:\n                                return Long.class;\n                            case 4:\n                                return Date.class;\n                            case 5:\n                                return Boolean.class;\n                            case 6:\n                                return Boolean.class;\n                            case 7:\n                                return Boolean.class;\n                            case 8:\n                                return Boolean.class;\n                            case 9:\n                                return Boolean.class;\n                        }\n                        return String.class;\n\n                    }\n                });"
-						}
 						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "filesTableFocusGained", true ) )
@@ -197,7 +194,7 @@ new FormModel {
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 10 )
-			"size": new java.awt.Dimension( 720, 370 )
+			"size": new java.awt.Dimension( 770, 405 )
 		} )
 	}
 }
