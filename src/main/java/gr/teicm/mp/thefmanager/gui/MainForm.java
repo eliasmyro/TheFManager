@@ -5,7 +5,9 @@
 package gr.teicm.mp.thefmanager.gui;
 
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.DeleteFileController;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.IDeleteFileController;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
@@ -131,9 +133,9 @@ public class MainForm extends JFrame {
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
-        try{
-            showFilePosition(visitedItems.get(pathIndex+1),false);
-        } catch(Exception ex){
+        try {
+            showFilePosition(visitedItems.get(pathIndex + 1), false);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -143,18 +145,18 @@ public class MainForm extends JFrame {
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
-        try{
-            showFilePosition(visitedItems.get(pathIndex-1), false);
-        } catch(Exception ex) {
+        try {
+            showFilePosition(visitedItems.get(pathIndex - 1), false);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void showFilePosition(String filePath, boolean addToList){
+    public void showFilePosition(String filePath, boolean addToList) {
 
         filepathTextField.setText(filePath);
 
-        if(addToList)
+        if (addToList)
             visitedItems.add(filePath);
     }
 
@@ -162,8 +164,8 @@ public class MainForm extends JFrame {
         // TODO add your code here
         FileOperationsController foc = new FileOperationsController();
         int returnedCode = foc.fileOpen(selectedTableFile);
-        if(returnedCode==0){
-            JOptionPane.showMessageDialog(this,"There is no App for this file or Desktop is not supported");
+        if (returnedCode == 0) {
+            JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
     }
 
@@ -203,18 +205,19 @@ public class MainForm extends JFrame {
         int selectedRow = filesTable.getSelectedRow();
         int pathColumn = 2;
 
-        selectedFilePath = filesTable.getValueAt(selectedRow,pathColumn).toString();
+        selectedFilePath = filesTable.getValueAt(selectedRow, pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
         selectedTableFile = tableFacade.getSelectedTableFile();
         fileIconLbl.setIcon(tableFacade.fileSystemView.getSystemIcon(selectedTableFile));
         fileName.setText(selectedTableFile.getName());
         filePath.setText(selectedTableFile.getPath());
-        fileSize.setText(selectedTableFile.length() +" Bytes");
+        filepathTextField.setText(selectedTableFile.getPath());
+        fileSize.setText(selectedTableFile.length() + " Bytes");
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
 
-  //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
+        //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
     /*  File newName = new File(selectedTableFile.getParent()+"/newName.txt");
         System.out.println(selectedTableFile.getParent()+"/newName.txt");
         if(selectedTableFile.renameTo(newName)) {
@@ -222,6 +225,24 @@ public class MainForm extends JFrame {
         } else {
             System.out.println(selectedTableFile.getParent()+"/newName.txt");
         } */
+
+    }
+
+    private void fileMenuItemDeleteMousePressed(MouseEvent e) {
+        // TODO add your code here
+
+        JOptionPane myPane = new JOptionPane();
+        int reply = myPane.showConfirmDialog(null, "Do you want to delete the selected file?", "Delete File", JOptionPane.YES_NO_OPTION);
+        if (reply == myPane.YES_OPTION) {
+            IDeleteFileController myDelete = new DeleteFileController();
+            boolean isDeleted = myDelete.deleteFile(selectedTableFile);
+            if (isDeleted) {
+                System.out.println("File deleted successfully");
+            } else
+                System.out.println("Something wrong happened");
+        } else {
+            myPane.getRootFrame().dispose();
+        }
 
     }
 
@@ -297,6 +318,12 @@ public class MainForm extends JFrame {
 
                 //---- fileMenuItemDelete ----
                 fileMenuItemDelete.setText("Delete");
+                fileMenuItemDelete.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileMenuItemDeleteMousePressed(e);
+                    }
+                });
                 fileMenu.add(fileMenuItemDelete);
             }
             menuBar2.add(fileMenu);
