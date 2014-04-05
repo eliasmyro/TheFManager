@@ -70,4 +70,4 @@ log/
 target/
 
 # TheFManager --------------------------------------------------------
-/settings.xml
+settings.xml
