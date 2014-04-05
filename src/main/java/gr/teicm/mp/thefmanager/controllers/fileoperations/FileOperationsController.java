@@ -14,7 +14,7 @@ public class FileOperationsController {
      * @return 0 when method fails to find associated application for file or file is null and 1 when the file is opened properly
      */
    public int fileOpen(File file){
-        int exitCode = 0;
+        int exitCode=0;
         try{
             if(Desktop.isDesktopSupported()){
                 Desktop.getDesktop().open(file);

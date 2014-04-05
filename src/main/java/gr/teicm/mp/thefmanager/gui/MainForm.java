@@ -28,7 +28,6 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * @author Elias Myronidis
@@ -161,7 +160,6 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
-        // TODO add your code here
         FileOperationsController foc = new FileOperationsController();
         int returnedCode = foc.fileOpen(selectedTableFile);
         if (returnedCode == 0) {
@@ -216,34 +214,11 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
-
-        //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
-    /*  File newName = new File(selectedTableFile.getParent()+"/newName.txt");
-        System.out.println(selectedTableFile.getParent()+"/newName.txt");
-        if(selectedTableFile.renameTo(newName)) {
-            System.out.println("renamed");
-        } else {
-            System.out.println(selectedTableFile.getParent()+"/newName.txt");
-        } */
-
     }
 
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
-        // TODO add your code here
-
-        JOptionPane myPane = new JOptionPane();
-        int reply = myPane.showConfirmDialog(null, "Do you want to delete the selected file?", "Delete File", JOptionPane.YES_NO_OPTION);
-        if (reply == myPane.YES_OPTION) {
             IDeleteFileController myDelete = new DeleteFileController();
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
-            if (isDeleted) {
-                System.out.println("File deleted successfully");
-            } else
-                System.out.println("Something wrong happened");
-        } else {
-            myPane.getRootFrame().dispose();
-        }
-
     }
 
     private void initComponents() {

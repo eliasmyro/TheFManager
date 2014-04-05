@@ -11,8 +11,21 @@ import java.io.File;
 public class DeleteFileController implements IDeleteFileController {
     @Override
     public boolean deleteFile(File selectedFile) {
-        IFileDAO myFile = new FileDAO();
-        boolean isDeleted = myFile.deleteFile(selectedFile);
+        IMessagePane myPane = new MessagePane();
+
+        boolean deleteIsYes = myPane.showMessage();
+        boolean isDeleted = false;
+
+        if(deleteIsYes){
+            IFileDAO myFile = new FileDAO();
+            isDeleted = myFile.deleteFile(selectedFile);
+
+            if (isDeleted) {
+                System.out.println("File deleted successfully");
+            } else
+                System.out.println("Something wrong happened");
+        }
         return isDeleted;
+
     }
 }
