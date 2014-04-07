@@ -15,4 +15,17 @@ public class FileDAO implements IFileDAO {
             return false;
 
     }
+
+    public boolean renameFile(File selectedFile, String newName){
+
+        String newFileName = selectedFile.getParent() +"\\" + newName ;
+        File newFile = new File(newFileName);
+
+
+        if(selectedFile.renameTo(newFile))
+            System.out.print("Success");
+        else
+            System.out.print("Fail");
+        return true;
+    }
 }
