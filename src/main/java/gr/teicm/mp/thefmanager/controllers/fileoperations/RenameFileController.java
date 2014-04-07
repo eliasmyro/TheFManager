@@ -18,8 +18,17 @@ public class RenameFileController implements IRenameFileController {
         boolean fileExists = myDAO.fileExists(newFile);
         if(!fileExists)
             isRenamed = myDAO.renameFile(selectedFile, newFile);
-        else
-            System.out.println("File already exists!");
+        else{
+            IFileExistsMessagePane myFileExists = new FileExistsMessagePane();
+            boolean overwrite = myFileExists.fileExistsMsg();
+
+            if(overwrite){
+                myDAO.deleteFile(newFile);
+                isRenamed = myDAO.renameFile(selectedFile, newFile);
+            }
+
+        }
+
 
 
         return isRenamed;
