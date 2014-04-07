@@ -5,4 +5,6 @@ package gr.teicm.mp.thefmanager.controllers.fileoperations;
  */
 public interface IMessagePane {
     boolean showMessage();
+    boolean showCopyFileMessage();
+    boolean showOverwriteFileMessage();
 }

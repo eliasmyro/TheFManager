@@ -13,9 +13,14 @@ import java.util.Date;
 public class TableFileModel {
 
     private File[] files;
+    private File file;
 
     public TableFileModel(File[] files) {
         this.files = files;
+    }
+
+    public TableFileModel(File file) {
+        this.file = file;
     }
 
     public TableFileModel(JTable fileTable) {
