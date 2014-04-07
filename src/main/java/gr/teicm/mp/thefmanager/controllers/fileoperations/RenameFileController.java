@@ -11,7 +11,18 @@ import java.io.File;
 public class RenameFileController implements IRenameFileController {
     public boolean renameFile(File selectedFile, String newName){
         IFileDAO myDAO = new FileDAO();
-        myDAO.renameFile(selectedFile, newName);
-        return true;
+        String newFileName = selectedFile.getParent() +"\\" + newName ;
+        File newFile = new File(newFileName);
+        boolean isRenamed = false;
+
+        boolean fileExists = myDAO.fileExists(newFile);
+        if(!fileExists)
+            isRenamed = myDAO.renameFile(selectedFile, newFile);
+        else
+            System.out.println("File already exists!");
+
+
+        return isRenamed;
     }
+
 }

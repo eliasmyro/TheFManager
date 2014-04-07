@@ -16,10 +16,9 @@ public class FileDAO implements IFileDAO {
 
     }
 
-    public boolean renameFile(File selectedFile, String newName){
+    public boolean renameFile(File selectedFile, File newFile){
 
-        String newFileName = selectedFile.getParent() +"\\" + newName ;
-        File newFile = new File(newFileName);
+
 
 
         if(selectedFile.renameTo(newFile))
@@ -27,5 +26,12 @@ public class FileDAO implements IFileDAO {
         else
             System.out.print("Fail");
         return true;
+    }
+
+    public boolean fileExists(File newFile){
+        if(newFile.exists())
+            return true;
+        else
+            return false;
     }
 }
