@@ -4,11 +4,17 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
-import javax.swing.event.*;
-
-import gr.teicm.mp.thefmanager.controllers.TreeFacade;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
-import gr.teicm.mp.thefmanager.controllers.*;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.DeleteFileController;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.IDeleteFileController;
+import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
+import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
+import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
+import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
+import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
+import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
+import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -17,25 +23,19 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.util.Date;
 
 /**
  * @author Elias Myronidis
  */
 public class MainForm extends JFrame {
-    private TreeFacade treeFacade;
+    private FileSystemController treeFacade;
     private TableFacade tableFacade;
+    private TableFileModel tableFileModel;
     private boolean themeIsSet = false;
     private IWriteThemeController mThemeFile = new WriteThemeController();
     private ArrayList<String> visitedItems = new ArrayList<>();
@@ -43,10 +43,11 @@ public class MainForm extends JFrame {
     private File selectedTableFile;
 
     public MainForm() {
-        treeFacade = new TreeFacade(new LocalFileSystemDAO());
+        treeFacade = new FileSystemController(new LocalFileSystemDAO());
         tableFacade = new TableFacade();
         initComponents();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        tableFileModel = new TableFileModel(filesTable);
+        fileTree.setCellRenderer(new FileTreeCellRenderer());
     }
 
     private void napkinMenuItemMousePressed(MouseEvent e) {
@@ -68,7 +69,7 @@ public class MainForm extends JFrame {
             mThemeFile.writeThemeToXML("com.seaglasslookandfeel.SeaGlassLookAndFeel");
         }
 
-        dispose();
+        this.dispose();
     }
 
     private void quaquaMenuItemMousePressed(MouseEvent e) {
@@ -116,10 +117,10 @@ public class MainForm extends JFrame {
     }
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
-        String currentPath = treeFacade.getSelectedItemPath();
-        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemContentNumber()));
+        String currentPath = treeFacade.getSelectedItemPath(fileTree);
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
         showFilePosition(currentPath, true);
-        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(), filesTable);
+        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
     }
 
     private void themesMenuStateChanged(ChangeEvent e) {
@@ -148,7 +149,6 @@ public class MainForm extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     public void showFilePosition(String filePath, boolean addToList) {
@@ -160,14 +160,12 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
-        // TODO add your code here
         FileOperationsController foc = new FileOperationsController();
         int returnedCode = foc.fileOpen(selectedTableFile);
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
     }
-
 
     private void tableScrollPaneFocusGained(FocusEvent e) {
         // TODO add your code here
@@ -205,7 +203,6 @@ public class MainForm extends JFrame {
         int selectedRow = filesTable.getSelectedRow();
         int pathColumn = 2;
 
-
         selectedFilePath = filesTable.getValueAt(selectedRow, pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
         selectedTableFile = tableFacade.getSelectedTableFile();
@@ -217,37 +214,12 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
-
-
-        //    ------ Example of renaming a simple txt file, testing if i got the selected file object successfully ------
-    /*  File newName = new File(selectedTableFile.getParent()+"/newName.txt");
-        System.out.println(selectedTableFile.getParent()+"/newName.txt");
-        if(selectedTableFile.renameTo(newName)) {
-            System.out.println("renamed");
-        } else {
-            System.out.println(selectedTableFile.getParent()+"/newName.txt");
-        } */
-
     }
 
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
-        // TODO add your code here
-
-        JOptionPane myPane = new JOptionPane();
-        int reply = myPane.showConfirmDialog(null, "Do you want to delete the seleced file?", "Delete File", JOptionPane.YES_NO_OPTION);
-        if (reply == myPane.YES_OPTION) {
             IDeleteFileController myDelete = new DeleteFileController();
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
-            if (isDeleted) {
-                System.out.println("File deleted successfully");
-            } else
-                System.out.println("Something wrong happened");
-        } else {
-            myPane.getRootFrame().dispose();
-        }
-
     }
-
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -284,56 +256,13 @@ public class MainForm extends JFrame {
         executeAttribute = new JCheckBox();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
-        fileTree = treeFacade.initializeTree();
+        fileTree = new JTree(treeFacade.getFileSystemModel());
         tableScrollPane = new JScrollPane();
         filesTable = new JTable();
-        filesTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-
-                },
-                new String[]{
-                        "Icon",
-                        "File",
-                        "Path/name",
-                        "Size",
-                        "Last Modified",
-                        "R",
-                        "W",
-                        "E",
-                        "Directory",
-                        "File",
-                }
-        ) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-
-            public Class getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
-                    case 3:
-                        return Long.class;
-                    case 4:
-                        return Date.class;
-                    case 5:
-                        return Boolean.class;
-                    case 6:
-                        return Boolean.class;
-                    case 7:
-                        return Boolean.class;
-                    case 8:
-                        return Boolean.class;
-                    case 9:
-                        return Boolean.class;
-                }
-                return String.class;
-
-            }
-        });
 
         //======== this ========
         setTitle("The F* manager");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -489,8 +418,8 @@ public class MainForm extends JFrame {
         //======== fileInfoPane ========
         {
             fileInfoPane.setBorder(new CompoundBorder(
-                    new SoftBevelBorder(SoftBevelBorder.RAISED),
-                    null));
+                new SoftBevelBorder(SoftBevelBorder.RAISED),
+                null));
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
             fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 

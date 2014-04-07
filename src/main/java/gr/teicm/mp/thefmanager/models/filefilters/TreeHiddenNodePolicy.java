@@ -16,8 +16,6 @@ public class TreeHiddenNodePolicy implements FileFilter {
             }
         }
 
-        // FileFilter x = new Class.forname("xxxx");
-
         return false;
     }
 }
