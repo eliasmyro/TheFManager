@@ -13,7 +13,7 @@ public class DeleteFileController implements IDeleteFileController {
     public boolean deleteFile(File selectedFile) {
         IMessagePane myPane = new MessagePane();
 
-        boolean deleteIsYes = myPane.showMessage();
+        boolean deleteIsYes = myPane.showMessage("Delete File", "Do you want to delete the selected file?");
         boolean isDeleted = false;
 
         if(deleteIsYes){

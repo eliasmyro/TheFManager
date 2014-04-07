@@ -259,11 +259,6 @@ public class MainForm extends JFrame {
         fileMenuItemPaste = new JMenuItem();
         fileMenuItemDelete = new JMenuItem();
         fileMenuItemRename = new JMenuItem();
-        mgrToolbar = new JToolBar();
-        previousButton = new JButton();
-        nextButton = new JButton();
-        filepathTextField = new JTextField();
-        menuBar1 = new JMenuBar();
         themesMenu = new JMenu();
         napkinMenuItem = new JMenuItem();
         seaglassMenuItem = new JMenuItem();
@@ -271,6 +266,11 @@ public class MainForm extends JFrame {
         jTatAlumMenuItem = new JMenuItem();
         jTatHifiMenuItem = new JMenuItem();
         jTatBernsteinMenuItem = new JMenuItem();
+        mgrToolbar = new JToolBar();
+        previousButton = new JButton();
+        nextButton = new JButton();
+        filepathTextField = new JTextField();
+        menuBar1 = new JMenuBar();
         fileInfoPane = new JPanel();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
@@ -344,6 +344,80 @@ public class MainForm extends JFrame {
                 fileMenu.add(fileMenuItemRename);
             }
             menuBar2.add(fileMenu);
+
+            //======== themesMenu ========
+            {
+                themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
+                themesMenu.setText("Themes");
+                themesMenu.addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        themesMenuStateChanged(e);
+                        themesMenuStateChanged(e);
+                    }
+                });
+
+                //---- napkinMenuItem ----
+                napkinMenuItem.setText("Napkin");
+                napkinMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        napkinMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(napkinMenuItem);
+
+                //---- seaglassMenuItem ----
+                seaglassMenuItem.setText("Seaglass");
+                seaglassMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        seaglassMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(seaglassMenuItem);
+
+                //---- quaquaMenuItem ----
+                quaquaMenuItem.setText("Quaqua");
+                quaquaMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        quaquaMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(quaquaMenuItem);
+
+                //---- jTatAlumMenuItem ----
+                jTatAlumMenuItem.setText("JTattoo-Aluminium");
+                jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatAlumMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatAlumMenuItem);
+
+                //---- jTatHifiMenuItem ----
+                jTatHifiMenuItem.setText("JTattoo-HiFI");
+                jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatHifiMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatHifiMenuItem);
+
+                //---- jTatBernsteinMenuItem ----
+                jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
+                jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatBernsteinMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatBernsteinMenuItem);
+            }
+            menuBar2.add(themesMenu);
         }
         setJMenuBar(menuBar2);
 
@@ -375,84 +449,6 @@ public class MainForm extends JFrame {
             //---- filepathTextField ----
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
-
-            //======== menuBar1 ========
-            {
-
-                //======== themesMenu ========
-                {
-                    themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
-                    themesMenu.setText("theme");
-                    themesMenu.addChangeListener(new ChangeListener() {
-                        @Override
-                        public void stateChanged(ChangeEvent e) {
-                            themesMenuStateChanged(e);
-                            themesMenuStateChanged(e);
-                        }
-                    });
-
-                    //---- napkinMenuItem ----
-                    napkinMenuItem.setText("Napkin");
-                    napkinMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            napkinMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(napkinMenuItem);
-
-                    //---- seaglassMenuItem ----
-                    seaglassMenuItem.setText("Seaglass");
-                    seaglassMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            seaglassMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(seaglassMenuItem);
-
-                    //---- quaquaMenuItem ----
-                    quaquaMenuItem.setText("Quaqua");
-                    quaquaMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            quaquaMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(quaquaMenuItem);
-
-                    //---- jTatAlumMenuItem ----
-                    jTatAlumMenuItem.setText("JTattoo-Aluminium");
-                    jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatAlumMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatAlumMenuItem);
-
-                    //---- jTatHifiMenuItem ----
-                    jTatHifiMenuItem.setText("JTattoo-HiFI");
-                    jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatHifiMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatHifiMenuItem);
-
-                    //---- jTatBernsteinMenuItem ----
-                    jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
-                    jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatBernsteinMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatBernsteinMenuItem);
-                }
-                menuBar1.add(themesMenu);
-            }
             mgrToolbar.add(menuBar1);
         }
         contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
@@ -605,11 +601,6 @@ public class MainForm extends JFrame {
     private JMenuItem fileMenuItemPaste;
     private JMenuItem fileMenuItemDelete;
     private JMenuItem fileMenuItemRename;
-    private JToolBar mgrToolbar;
-    private JButton previousButton;
-    private JButton nextButton;
-    private JTextField filepathTextField;
-    private JMenuBar menuBar1;
     private JMenu themesMenu;
     private JMenuItem napkinMenuItem;
     private JMenuItem seaglassMenuItem;
@@ -617,6 +608,11 @@ public class MainForm extends JFrame {
     private JMenuItem jTatAlumMenuItem;
     private JMenuItem jTatHifiMenuItem;
     private JMenuItem jTatBernsteinMenuItem;
+    private JToolBar mgrToolbar;
+    private JButton previousButton;
+    private JButton nextButton;
+    private JTextField filepathTextField;
+    private JMenuBar menuBar1;
     private JPanel fileInfoPane;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;

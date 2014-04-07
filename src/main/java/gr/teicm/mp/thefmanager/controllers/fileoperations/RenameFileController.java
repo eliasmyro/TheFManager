@@ -19,8 +19,8 @@ public class RenameFileController implements IRenameFileController {
         if(!fileExists)
             isRenamed = myDAO.renameFile(selectedFile, newFile);
         else{
-            IFileExistsMessagePane myFileExists = new FileExistsMessagePane();
-            boolean overwrite = myFileExists.fileExistsMsg();
+            IMessagePane myMessagePane = new MessagePane();
+            boolean overwrite = myMessagePane.showMessage("Overwrite", "There is a file with the same name! Do you want to overwrite it?");
 
             if(overwrite){
                 myDAO.deleteFile(newFile);
@@ -28,8 +28,6 @@ public class RenameFileController implements IRenameFileController {
             }
 
         }
-
-
 
         return isRenamed;
     }
