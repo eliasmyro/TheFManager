@@ -4,6 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
+import com.jgoodies.forms.layout.*;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.DeleteFileController;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
@@ -41,6 +42,7 @@ public class MainForm extends JFrame {
     private ArrayList<String> visitedItems = new ArrayList<>();
     private String selectedFilePath;
     private File selectedTableFile;
+    private FileOperationsController foc = new FileOperationsController();
 
     public MainForm() {
         treeFacade = new FileSystemController(new LocalFileSystemDAO());
@@ -160,7 +162,7 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
-        FileOperationsController foc = new FileOperationsController();
+
         int returnedCode = foc.fileOpen(selectedTableFile);
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
@@ -221,10 +223,30 @@ public class MainForm extends JFrame {
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
     }
 
+    private void newFileMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFile(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "File not created");
+        }
+
+    }
+
+    private void newFolderMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFolder(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "Folder not created");
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
         fileMenu = new JMenu();
+        newMenu = new JMenu();
+        newFileMenuItem = new JMenuItem();
+        newFolderMenuItem = new JMenuItem();
         fileMenuItemOpen = new JMenuItem();
         fileMenuItemCopy = new JMenuItem();
         fileMenuItemPaste = new JMenuItem();
@@ -272,6 +294,32 @@ public class MainForm extends JFrame {
             //======== fileMenu ========
             {
                 fileMenu.setText("File");
+
+                //======== newMenu ========
+                {
+                    newMenu.setText("New");
+
+                    //---- newFileMenuItem ----
+                    newFileMenuItem.setText("File");
+                    newFileMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFileMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFileMenuItem);
+
+                    //---- newFolderMenuItem ----
+                    newFolderMenuItem.setText("Folder");
+                    newFolderMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFolderMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFolderMenuItem);
+                }
+                fileMenu.add(newMenu);
 
                 //---- fileMenuItemOpen ----
                 fileMenuItemOpen.setText("Open");
@@ -547,6 +595,9 @@ public class MainForm extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JMenuBar menuBar2;
     private JMenu fileMenu;
+    private JMenu newMenu;
+    private JMenuItem newFileMenuItem;
+    private JMenuItem newFolderMenuItem;
     private JMenuItem fileMenuItemOpen;
     private JMenuItem fileMenuItemCopy;
     private JMenuItem fileMenuItemPaste;
