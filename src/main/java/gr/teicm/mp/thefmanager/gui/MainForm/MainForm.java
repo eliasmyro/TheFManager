@@ -319,7 +319,6 @@ public class MainForm extends JFrame {
 
             //---- previousButton ----
             previousButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/arrow-89-m-L.png")));
-            previousButton.setText("Back");
             previousButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

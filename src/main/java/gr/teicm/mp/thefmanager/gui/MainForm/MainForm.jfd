@@ -15,7 +15,6 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "previousButton"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/arrow-89-m-L.png" )
-					"text": "Back"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "previousButtonMouseClicked", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
