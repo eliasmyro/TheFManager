@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Wed Mar 12 12:44:13 EET 2014
  */
 
-package gr.teicm.mp.thefmanager.gui;
+package gr.teicm.mp.thefmanager.gui.MainForm;
 
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.DeleteFileController;
@@ -14,6 +14,7 @@ import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
 import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
 import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
 import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
+import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
@@ -221,6 +222,11 @@ public class MainForm extends JFrame {
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
     }
 
+    private void settingsButtonActionPerformed(ActionEvent e) {
+        PreferencesForm preferencesForm = new PreferencesForm(this);
+        preferencesForm.setVisible(true);
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
@@ -241,6 +247,7 @@ public class MainForm extends JFrame {
         jTatAlumMenuItem = new JMenuItem();
         jTatHifiMenuItem = new JMenuItem();
         jTatBernsteinMenuItem = new JMenuItem();
+        settingsButton = new JButton();
         fileInfoPane = new JPanel();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
@@ -311,7 +318,8 @@ public class MainForm extends JFrame {
             mgrToolbar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 
             //---- previousButton ----
-            previousButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-previous-icon.png")));
+            previousButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/arrow-89-m-L.png")));
+            previousButton.setText("Back");
             previousButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -321,7 +329,7 @@ public class MainForm extends JFrame {
             mgrToolbar.add(previousButton);
 
             //---- nextButton ----
-            nextButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/Actions-go-next-icon.png")));
+            nextButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/arrow-89-m-R.png")));
             nextButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -412,6 +420,17 @@ public class MainForm extends JFrame {
                 menuBar1.add(themesMenu);
             }
             mgrToolbar.add(menuBar1);
+
+            //---- settingsButton ----
+            settingsButton.setText("Settings");
+            settingsButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/settings-3-m.png")));
+            settingsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    settingsButtonActionPerformed(e);
+                }
+            });
+            mgrToolbar.add(settingsButton);
         }
         contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
 
@@ -563,6 +582,7 @@ public class MainForm extends JFrame {
     private JMenuItem jTatAlumMenuItem;
     private JMenuItem jTatHifiMenuItem;
     private JMenuItem jTatBernsteinMenuItem;
+    private JButton settingsButton;
     private JPanel fileInfoPane;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;

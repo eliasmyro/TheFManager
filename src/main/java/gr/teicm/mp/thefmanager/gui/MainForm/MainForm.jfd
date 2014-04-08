@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -14,12 +14,13 @@ new FormModel {
 				"componentOrientation": sfield java.awt.ComponentOrientation LEFT_TO_RIGHT
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "previousButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/Actions-go-previous-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/arrow-89-m-L.png" )
+					"text": "Back"
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "previousButtonMouseClicked", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "nextButton"
-					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/Actions-go-next-icon.png" )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/arrow-89-m-R.png" )
 					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "nextButtonMouseClicked", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
@@ -65,6 +66,12 @@ new FormModel {
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "jTatBernsteinMenuItemMousePressed", true ) )
 						} )
 					} )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "settingsButton"
+					"text": "Settings"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/settings-3-m.png" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "settingsButtonActionPerformed", true ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "First"
