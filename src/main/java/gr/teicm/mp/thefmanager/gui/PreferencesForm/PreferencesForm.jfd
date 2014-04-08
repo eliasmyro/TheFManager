@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {space :::p, par l {seq l {space :0:192:x, comp ok_btn:::p::p, space :::p, comp apply_btn:::p::p, space :::p, comp cancel_btn:::p::p, space :::p}, seq l {par l {seq {comp label1:::p::p, space :::p, comp comboBox1:::p::p}, comp showHiddenFiles_chBox::l:p::p}, space :132:248:x}}}}"
-			"$verticalGroup": "par l {seq t {space :::p, par l {comp label1:::p::p, comp comboBox1:::p::p}, space :p:11:p, comp showHiddenFiles_chBox:::p::p, space ::11:x, par b {comp cancel_btn::b:p::p, comp apply_btn::b:p::p, comp ok_btn::b:p::p}, space :::p}}"
+			"$horizontalGroup": "par l {seq {space :::p, par l {seq l {space :0:192:x, comp ok_btn:::p::p, space :::p, comp apply_btn:::p::p, space :::p, comp cancel_btn:::p::p, space :::p}, seq l {par l {seq {comp label1:::p::p, space :::p, comp theme_comboBox:::p::p}, comp showHiddenFiles_chBox::l:p::p}, space :132:248:x}}}}"
+			"$verticalGroup": "par l {seq t {space :::p, par l {comp label1:::p::p, comp theme_comboBox:::p::p}, space :p:11:p, comp showHiddenFiles_chBox:::p::p, space ::11:x, par b {comp cancel_btn::b:p::p, comp apply_btn::b:p::p, comp ok_btn::b:p::p}, space :::p}}"
 		} ) {
 			name: "this"
 			"title": "Settings"
@@ -36,7 +36,7 @@ new FormModel {
 				"text": "Theme"
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBox1"
+				name: "theme_comboBox"
 				"model": new javax.swing.DefaultComboBoxModel {
 					selectedItem: "Napkin"
 					addElement( "Napkin" )

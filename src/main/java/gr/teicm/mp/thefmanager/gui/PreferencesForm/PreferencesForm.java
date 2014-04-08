@@ -4,20 +4,31 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
+import gr.teicm.mp.thefmanager.controllers.preferences.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author A4i
+ * @author Achilleas Naoumidis
  */
 public class PreferencesForm extends JFrame {
     JFrame mainForm;
 
+    boolean showHiddenFiles;
+    String themeName;
+
     public PreferencesForm(JFrame mainForm) {
         this.mainForm = mainForm;
+
+        loadPreferences();
+
         initComponents();
+
+        theme_comboBox.setSelectedItem(themeName);
+        showHiddenFiles_chBox.setSelected(showHiddenFiles);
     }
 
     private void cancel_btnActionPerformed(ActionEvent e) {
@@ -34,6 +45,25 @@ public class PreferencesForm extends JFrame {
     }
 
     private void apply() {
+        themeName = (String) theme_comboBox.getSelectedItem();
+        showHiddenFiles = showHiddenFiles_chBox.isSelected();
+        storePreferences();
+    }
+
+    private void storePreferences() {
+        IPutHiddenFilesPolicy putHiddenFilesPolicy = new PutHiddenFilesPolicy();
+        putHiddenFilesPolicy.putValue(this.showHiddenFiles);
+
+        IPutThemeName putThemeName = new PutThemeName();
+        putThemeName.putValue(this.themeName);
+    }
+
+    private void loadPreferences() {
+        IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
+        this.showHiddenFiles = getHiddenFilesPolicy.getValue();
+
+        IGetThemeName getThemeName = new GetThemeName();
+        this.themeName = getThemeName.getValue();
     }
 
     private void initComponents() {
@@ -43,7 +73,7 @@ public class PreferencesForm extends JFrame {
         ok_btn = new JButton();
         showHiddenFiles_chBox = new JCheckBox();
         label1 = new JLabel();
-        comboBox1 = new JComboBox<>();
+        theme_comboBox = new JComboBox<>();
 
         //======== this ========
         setTitle("Settings");
@@ -83,8 +113,8 @@ public class PreferencesForm extends JFrame {
         //---- label1 ----
         label1.setText("Theme");
 
-        //---- comboBox1 ----
-        comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+        //---- theme_comboBox ----
+        theme_comboBox.setModel(new DefaultComboBoxModel<>(new String[] {
             "Napkin",
             "Seaglass",
             "Quaqua",
@@ -101,21 +131,21 @@ public class PreferencesForm extends JFrame {
                     .addContainerGap()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addGap(0, 192, Short.MAX_VALUE)
-                                .addComponent(ok_btn)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(apply_btn)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cancel_btn)
-                                .addContainerGap())
+                            .addGap(0, 192, Short.MAX_VALUE)
+                            .addComponent(ok_btn)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(apply_btn)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cancel_btn)
+                            .addContainerGap())
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                                .addComponent(label1)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(showHiddenFiles_chBox))
-                                .addGap(132, 248, Short.MAX_VALUE))))
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                        .addComponent(label1)
+                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(showHiddenFiles_chBox))
+                            .addGap(132, 248, Short.MAX_VALUE))))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -123,7 +153,7 @@ public class PreferencesForm extends JFrame {
                     .addContainerGap()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(label1)
-                        .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(11, 11, 11)
                     .addComponent(showHiddenFiles_chBox)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
@@ -144,7 +174,7 @@ public class PreferencesForm extends JFrame {
     private JButton ok_btn;
     private JCheckBox showHiddenFiles_chBox;
     private JLabel label1;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> theme_comboBox;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
 

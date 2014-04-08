@@ -1,5 +1,7 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
+import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
+import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
 import gr.teicm.mp.thefmanager.models.filefilters.ETreeNodePolicies;
 
 import javax.swing.event.TreeModelListener;
@@ -20,7 +22,8 @@ public class LocalFileSystemModel implements TreeModel {
     public LocalFileSystemModel(File root) {
         this.root = root;
 
-        String _treeNodePolicy = "DONT_SHOW_HIDDEN_FILES"; // To be loaded from settings.xml
+        IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
+        String _treeNodePolicy = String.valueOf(getHiddenFilesPolicy.getValue()).toUpperCase();
         ETreeNodePolicies treeNodePolicy = ETreeNodePolicies.valueOf(_treeNodePolicy);
 
         try {
