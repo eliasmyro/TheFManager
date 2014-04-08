@@ -177,10 +177,3 @@ public class PreferencesForm extends JFrame {
     private JComboBox<String> theme_comboBox;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
-
-//<preferences>
-//    <showHiddenFiles>true</showHiddenFiles>
-//    <appearance>
-//        <theme>Quaqua</theme>
-//    </appearance>
-//</preferences>
