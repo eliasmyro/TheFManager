@@ -141,9 +141,9 @@ public class PreferencesForm extends JFrame {
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup()
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                        .addComponent(label1)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(label1)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addComponent(showHiddenFiles_chBox))
                             .addGap(132, 248, Short.MAX_VALUE))))
         );
