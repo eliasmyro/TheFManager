@@ -7,5 +7,4 @@ import java.util.prefs.Preferences;
  */
 public interface IPreferencesDAO {
     Preferences userRootPreferences();
-    Preferences systemRootPreferences();
 }

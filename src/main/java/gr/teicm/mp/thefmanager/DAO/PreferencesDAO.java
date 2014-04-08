@@ -7,7 +7,6 @@ import java.util.prefs.Preferences;
  */
 public class PreferencesDAO implements IPreferencesDAO {
     Preferences userPreferences = Preferences.userRoot().node("/thefmanager");
-    Preferences systemPreferences = Preferences.systemRoot().node("/thefmanager");
 
     public PreferencesDAO() {
     }
@@ -15,10 +14,5 @@ public class PreferencesDAO implements IPreferencesDAO {
     @Override
     public Preferences userRootPreferences() {
         return userPreferences;
-    }
-
-    @Override
-    public Preferences systemRootPreferences() {
-        return systemPreferences;
     }
 }
