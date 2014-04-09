@@ -2,7 +2,7 @@ package gr.teicm.mp.thefmanager;
 
 import gr.teicm.mp.thefmanager.controllers.themes.IReadThemeController;
 import gr.teicm.mp.thefmanager.controllers.themes.ReadThemeController;
-import gr.teicm.mp.thefmanager.gui.MainForm.MainForm;
+import gr.teicm.mp.thefmanager.gui.MainForm;
 
 import javax.swing.*;
 
