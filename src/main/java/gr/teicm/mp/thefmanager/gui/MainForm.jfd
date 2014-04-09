@@ -146,6 +146,20 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "fileMenu"
 					"text": "File"
+					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+						name: "newMenu"
+						"text": "New"
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "newFileMenuItem"
+							"text": "File"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newFileMenuItemActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JMenuItem" ) {
+							name: "newFolderMenuItem"
+							"text": "Folder"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newFolderMenuItemActionPerformed", true ) )
+						} )
+					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "fileMenuItemOpen"
 						"text": "Open"

@@ -4,6 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
+import com.jgoodies.forms.layout.*;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
@@ -39,7 +40,8 @@ public class MainForm extends JFrame {
     private ArrayList<String> visitedItems = new ArrayList<>();
     private String selectedFilePath;
     private File selectedTableFile;
-
+    private FileOperationsController foc = new FileOperationsController();
+    
     public MainForm() {
         treeFacade = new FileSystemController(new LocalFileSystemDAO());
         tableFacade = new TableFacade();
@@ -212,7 +214,6 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
-
         renameLabel.setVisible(false);
         renameTextField.setVisible(false);
     }
@@ -220,6 +221,23 @@ public class MainForm extends JFrame {
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
             IDeleteFileController myDelete = new DeleteFileController();
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
+    }
+
+    private void newFileMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFile(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "File not created");
+        }
+
+    }
+
+    private void newFolderMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFolder(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "Folder not created");
+        }
     }
 
     private void fileMenuItemRenameMousePressed(MouseEvent e) {
@@ -249,16 +267,24 @@ public class MainForm extends JFrame {
         });
 
     }
-
+    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
         fileMenu = new JMenu();
+        newMenu = new JMenu();
+        newFileMenuItem = new JMenuItem();
+        newFolderMenuItem = new JMenuItem();
         fileMenuItemOpen = new JMenuItem();
         fileMenuItemCopy = new JMenuItem();
         fileMenuItemPaste = new JMenuItem();
         fileMenuItemDelete = new JMenuItem();
         fileMenuItemRename = new JMenuItem();
+        mgrToolbar = new JToolBar();
+        previousButton = new JButton();
+        nextButton = new JButton();
+        filepathTextField = new JTextField();
+        menuBar1 = new JMenuBar();
         themesMenu = new JMenu();
         napkinMenuItem = new JMenuItem();
         seaglassMenuItem = new JMenuItem();
@@ -266,11 +292,6 @@ public class MainForm extends JFrame {
         jTatAlumMenuItem = new JMenuItem();
         jTatHifiMenuItem = new JMenuItem();
         jTatBernsteinMenuItem = new JMenuItem();
-        mgrToolbar = new JToolBar();
-        previousButton = new JButton();
-        nextButton = new JButton();
-        filepathTextField = new JTextField();
-        menuBar1 = new JMenuBar();
         fileInfoPane = new JPanel();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
@@ -304,6 +325,32 @@ public class MainForm extends JFrame {
             //======== fileMenu ========
             {
                 fileMenu.setText("File");
+
+                //======== newMenu ========
+                {
+                    newMenu.setText("New");
+
+                    //---- newFileMenuItem ----
+                    newFileMenuItem.setText("File");
+                    newFileMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFileMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFileMenuItem);
+
+                    //---- newFolderMenuItem ----
+                    newFolderMenuItem.setText("Folder");
+                    newFolderMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFolderMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFolderMenuItem);
+                }
+                fileMenu.add(newMenu);
 
                 //---- fileMenuItemOpen ----
                 fileMenuItemOpen.setText("Open");
@@ -344,7 +391,6 @@ public class MainForm extends JFrame {
                 fileMenu.add(fileMenuItemRename);
             }
             menuBar2.add(fileMenu);
-
             //======== themesMenu ========
             {
                 themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -449,6 +495,7 @@ public class MainForm extends JFrame {
             //---- filepathTextField ----
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
+
             mgrToolbar.add(menuBar1);
         }
         contentPane.add(mgrToolbar, BorderLayout.PAGE_START);
@@ -459,7 +506,7 @@ public class MainForm extends JFrame {
                 new SoftBevelBorder(SoftBevelBorder.RAISED),
                 null));
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
-            fileInfoPane.setLayout(new FlowLayout());
+            fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
             //---- fileInfoLabel ----
             fileInfoLabel.setText("\u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03c3\u03c7\u03b5\u03c4\u03b9\u03ba\u03ac \u03bc\u03b5 \u03c4\u03bf \u03b1\u03c1\u03c7\u03ad\u03b9\u03bf / \u03c6\u03ac\u03ba\u03b5\u03bb\u03bf");
@@ -504,6 +551,7 @@ public class MainForm extends JFrame {
             //---- executeAttribute ----
             executeAttribute.setText("Execute");
             fileInfoPane.add(executeAttribute);
+
 
             //---- renameLabel ----
             renameLabel.setText("Rename");
@@ -596,11 +644,19 @@ public class MainForm extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JMenuBar menuBar2;
     private JMenu fileMenu;
+    private JMenu newMenu;
+    private JMenuItem newFileMenuItem;
+    private JMenuItem newFolderMenuItem;
     private JMenuItem fileMenuItemOpen;
     private JMenuItem fileMenuItemCopy;
     private JMenuItem fileMenuItemPaste;
     private JMenuItem fileMenuItemDelete;
     private JMenuItem fileMenuItemRename;
+    private JToolBar mgrToolbar;
+    private JButton previousButton;
+    private JButton nextButton;
+    private JTextField filepathTextField;
+    private JMenuBar menuBar1;
     private JMenu themesMenu;
     private JMenuItem napkinMenuItem;
     private JMenuItem seaglassMenuItem;
@@ -608,11 +664,6 @@ public class MainForm extends JFrame {
     private JMenuItem jTatAlumMenuItem;
     private JMenuItem jTatHifiMenuItem;
     private JMenuItem jTatBernsteinMenuItem;
-    private JToolBar mgrToolbar;
-    private JButton previousButton;
-    private JButton nextButton;
-    private JTextField filepathTextField;
-    private JMenuBar menuBar1;
     private JPanel fileInfoPane;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
