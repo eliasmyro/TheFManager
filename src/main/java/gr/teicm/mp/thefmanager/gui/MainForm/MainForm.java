@@ -28,7 +28,7 @@ import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import info.clearthought.layout.*;
+//import info.clearthought.layout.*;
 
 /**
  * @author Elias Myronidis
