@@ -18,6 +18,7 @@
     <orderEntry type="library" name="Maven: org.devzendo:Quaqua:7.3.4" level="project" />
     <orderEntry type="library" name="Maven: com.jtattoo:JTattoo:1.6.10" level="project" />
     <orderEntry type="library" name="TableLayout" level="project" />
+    <orderEntry type="library" name="JGoodies Forms" level="project" />
   </component>
 </module>
 

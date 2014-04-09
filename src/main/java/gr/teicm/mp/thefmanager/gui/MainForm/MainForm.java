@@ -2,9 +2,11 @@
  * Created by JFormDesigner on Wed Mar 12 12:44:13 EET 2014
  */
 
-package gr.teicm.mp.thefmanager.gui.MainForm;
+package gr.teicm.mp.thefmanager.gui;
 
+//import com.jgoodies.forms.layout.*;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
@@ -44,6 +46,8 @@ public class MainForm extends JFrame {
     private File selectedTableFile;
     private File fileToCopy;
 
+    private FileOperationsController foc = new FileOperationsController();
+    
     public MainForm() {
         treeFacade = new FileSystemController(new LocalFileSystemDAO());
         tableFacade = new TableFacade();
@@ -216,6 +220,8 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
+        renameLabel.setVisible(false);
+        renameTextField.setVisible(false);
     }
 
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
@@ -223,6 +229,51 @@ public class MainForm extends JFrame {
             boolean isDeleted = myDelete.deleteFile(selectedTableFile);
     }
 
+    private void newFileMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFile(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "File not created");
+        }
+
+    }
+
+    private void newFolderMenuItemActionPerformed(ActionEvent e) {
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = foc.fileCreateNewFolder(selectedTableFile,fileName);
+        if(fileCreated == false){
+            JOptionPane.showMessageDialog(this, "Folder not created");
+        }
+    }
+
+    private void fileMenuItemRenameMousePressed(MouseEvent e) {
+        // TODO add your code here
+        renameLabel.setVisible(true);
+        renameTextField.setVisible(true);
+        renameTextField.setText(selectedTableFile.getName());
+        renameTextField.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    IRenameFileController myController = new RenameFileController();
+                    boolean isRenamed = myController.renameFile(selectedTableFile,renameTextField.getText());
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+    }
+    
     private void settingsButtonActionPerformed(ActionEvent e) {
         PreferencesForm preferencesForm = new PreferencesForm(this);
         preferencesForm.setVisible(true);
@@ -280,10 +331,14 @@ public class MainForm extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
         fileMenu = new JMenu();
+        newMenu = new JMenu();
+        newFileMenuItem = new JMenuItem();
+        newFolderMenuItem = new JMenuItem();
         fileMenuItemOpen = new JMenuItem();
         fileMenuItemCopy = new JMenuItem();
         fileMenuItemPaste = new JMenuItem();
         fileMenuItemDelete = new JMenuItem();
+        fileMenuItemRename = new JMenuItem();
         mgrToolbar = new JToolBar();
         previousButton = new JButton();
         nextButton = new JButton();
@@ -316,6 +371,8 @@ public class MainForm extends JFrame {
         rightClickTreeMenu = new JPopupMenu();
         Paste = new JMenuItem();
         Exit2 = new JMenuItem();
+        renameLabel = new JLabel();
+        renameTextField = new JTextField();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
@@ -334,6 +391,32 @@ public class MainForm extends JFrame {
             //======== fileMenu ========
             {
                 fileMenu.setText("File");
+
+                //======== newMenu ========
+                {
+                    newMenu.setText("New");
+
+                    //---- newFileMenuItem ----
+                    newFileMenuItem.setText("File");
+                    newFileMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFileMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFileMenuItem);
+
+                    //---- newFolderMenuItem ----
+                    newFolderMenuItem.setText("Folder");
+                    newFolderMenuItem.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            newFolderMenuItemActionPerformed(e);
+                        }
+                    });
+                    newMenu.add(newFolderMenuItem);
+                }
+                fileMenu.add(newMenu);
 
                 //---- fileMenuItemOpen ----
                 fileMenuItemOpen.setText("Open");
@@ -362,8 +445,91 @@ public class MainForm extends JFrame {
                     }
                 });
                 fileMenu.add(fileMenuItemDelete);
+
+                //---- fileMenuItemRename ----
+                fileMenuItemRename.setText("Rename");
+                fileMenuItemRename.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileMenuItemRenameMousePressed(e);
+                    }
+                });
+                fileMenu.add(fileMenuItemRename);
             }
             menuBar2.add(fileMenu);
+            //======== themesMenu ========
+            {
+                themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
+                themesMenu.setText("Themes");
+                themesMenu.addChangeListener(new ChangeListener() {
+                    @Override
+                    public void stateChanged(ChangeEvent e) {
+                        themesMenuStateChanged(e);
+                        themesMenuStateChanged(e);
+                    }
+                });
+
+                //---- napkinMenuItem ----
+                napkinMenuItem.setText("Napkin");
+                napkinMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        napkinMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(napkinMenuItem);
+
+                //---- seaglassMenuItem ----
+                seaglassMenuItem.setText("Seaglass");
+                seaglassMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        seaglassMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(seaglassMenuItem);
+
+                //---- quaquaMenuItem ----
+                quaquaMenuItem.setText("Quaqua");
+                quaquaMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        quaquaMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(quaquaMenuItem);
+
+                //---- jTatAlumMenuItem ----
+                jTatAlumMenuItem.setText("JTattoo-Aluminium");
+                jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatAlumMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatAlumMenuItem);
+
+                //---- jTatHifiMenuItem ----
+                jTatHifiMenuItem.setText("JTattoo-HiFI");
+                jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatHifiMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatHifiMenuItem);
+
+                //---- jTatBernsteinMenuItem ----
+                jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
+                jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        jTatBernsteinMenuItemMousePressed(e);
+                    }
+                });
+                themesMenu.add(jTatBernsteinMenuItem);
+            }
+            menuBar2.add(themesMenu);
         }
         setJMenuBar(menuBar2);
 
@@ -396,83 +562,6 @@ public class MainForm extends JFrame {
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
 
-            //======== menuBar1 ========
-            {
-
-                //======== themesMenu ========
-                {
-                    themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
-                    themesMenu.setText("theme");
-                    themesMenu.addChangeListener(new ChangeListener() {
-                        @Override
-                        public void stateChanged(ChangeEvent e) {
-                            themesMenuStateChanged(e);
-                            themesMenuStateChanged(e);
-                        }
-                    });
-
-                    //---- napkinMenuItem ----
-                    napkinMenuItem.setText("Napkin");
-                    napkinMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            napkinMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(napkinMenuItem);
-
-                    //---- seaglassMenuItem ----
-                    seaglassMenuItem.setText("Seaglass");
-                    seaglassMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            seaglassMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(seaglassMenuItem);
-
-                    //---- quaquaMenuItem ----
-                    quaquaMenuItem.setText("Quaqua");
-                    quaquaMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            quaquaMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(quaquaMenuItem);
-
-                    //---- jTatAlumMenuItem ----
-                    jTatAlumMenuItem.setText("JTattoo-Aluminium");
-                    jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatAlumMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatAlumMenuItem);
-
-                    //---- jTatHifiMenuItem ----
-                    jTatHifiMenuItem.setText("JTattoo-HiFI");
-                    jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatHifiMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatHifiMenuItem);
-
-                    //---- jTatBernsteinMenuItem ----
-                    jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
-                    jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            jTatBernsteinMenuItemMousePressed(e);
-                        }
-                    });
-                    themesMenu.add(jTatBernsteinMenuItem);
-                }
-                menuBar1.add(themesMenu);
-            }
             mgrToolbar.add(menuBar1);
 
             //---- settingsButton ----
@@ -559,6 +648,18 @@ public class MainForm extends JFrame {
             //---- executeAttribute ----
             executeAttribute.setText("Execute");
             fileInfoPane.add(executeAttribute);
+
+
+            //---- renameLabel ----
+            renameLabel.setText("Rename");
+            renameLabel.setVisible(false);
+            fileInfoPane.add(renameLabel);
+
+            //---- renameTextField ----
+            renameTextField.setToolTipText("insert new name");
+            renameTextField.setMinimumSize(new Dimension(20, 22));
+            renameTextField.setVisible(false);
+            fileInfoPane.add(renameTextField);
 
             //======== rightClickTreeMenu ========
             {
@@ -670,10 +771,14 @@ public class MainForm extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     private JMenuBar menuBar2;
     private JMenu fileMenu;
+    private JMenu newMenu;
+    private JMenuItem newFileMenuItem;
+    private JMenuItem newFolderMenuItem;
     private JMenuItem fileMenuItemOpen;
     private JMenuItem fileMenuItemCopy;
     private JMenuItem fileMenuItemPaste;
     private JMenuItem fileMenuItemDelete;
+    private JMenuItem fileMenuItemRename;
     private JToolBar mgrToolbar;
     private JButton previousButton;
     private JButton nextButton;
@@ -706,6 +811,8 @@ public class MainForm extends JFrame {
     private JPopupMenu rightClickTreeMenu;
     private JMenuItem Paste;
     private JMenuItem Exit2;
+    private JLabel renameLabel;
+    private JTextField renameTextField;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;

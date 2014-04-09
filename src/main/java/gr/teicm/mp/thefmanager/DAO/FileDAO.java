@@ -47,4 +47,23 @@ public class FileDAO implements IFileDAO {
     }
 
 
+
+    public boolean renameFile(File selectedFile, File newFile){
+
+
+
+
+        if(selectedFile.renameTo(newFile))
+            System.out.print("Success");
+        else
+            System.out.print("Fail");
+        return true;
+    }
+
+    public boolean fileExists(File newFile){
+        if(newFile.exists())
+            return true;
+        else
+            return false;
+    }
 }

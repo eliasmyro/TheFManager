@@ -10,4 +10,6 @@ public interface IFileDAO {
     boolean deleteFile(File selectedFile);
     boolean copyFile(File selectedFileToCopy,File copyToDirectory);
     boolean checkIfFileForCopyExist(File selectedFileToCopy,File copyToDirectory);
+    boolean renameFile(File selectedFile, File newFile);
+    boolean fileExists(File newFile);
 }
