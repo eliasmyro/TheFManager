@@ -5,6 +5,8 @@
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
 import gr.teicm.mp.thefmanager.controllers.preferences.*;
+import gr.teicm.mp.thefmanager.models.themes.ITheme;
+import gr.teicm.mp.thefmanager.models.themes.NapkinTheme;
 
 import javax.swing.*;
 import java.awt.*;

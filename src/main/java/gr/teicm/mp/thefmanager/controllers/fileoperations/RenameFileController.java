@@ -11,7 +11,7 @@ import java.io.File;
 public class RenameFileController implements IRenameFileController {
     public boolean renameFile(File selectedFile, String newName){
         IFileDAO myDAO = new FileDAO();
-        String newFileName = selectedFile.getParent() +"\\" + newName ;
+        String newFileName = selectedFile.getParent() +File.separator + newName ;
         File newFile = new File(newFileName);
         boolean isRenamed = false;
 
