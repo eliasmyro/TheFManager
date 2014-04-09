@@ -16,11 +16,17 @@ public class CopyFileController implements ICopyFileController {
     public boolean copyFile(File selectedFileToCopy,File selectedDirectoryToCopy) {
         IMessagePane myPane = new MessagePane();
 
-        boolean copyAnswYes = myPane.showCopyFileMessage();
+        boolean copyAnswYes;
         boolean isCopied = false;
         boolean checkOverwriteFile = false;
 
         System.out.println(" File to copy: "+selectedFileToCopy.getName()+" Copy to Directory: "+selectedDirectoryToCopy);
+        if(selectedFileToCopy.getParentFile().getPath().toString().equals(selectedDirectoryToCopy.getPath().toString())){
+            System.out.println("You are trying to copy an already existing folder into the same Directory");
+            return false;
+        } else
+            copyAnswYes = myPane.showCopyFileMessage();
+
         if(copyAnswYes){
             checkOverwriteFile = checkForOverwrite(selectedFileToCopy, selectedDirectoryToCopy);
             if(checkOverwriteFile==true){

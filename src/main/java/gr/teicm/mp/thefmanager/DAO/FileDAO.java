@@ -24,10 +24,10 @@ public class FileDAO implements IFileDAO {
 
         try{
             if(selectedFileToCopy.isDirectory()){
-                FileUtils.copyDirectoryToDirectory(selectedFileToCopy,copyToDirectory);
-            } else if(selectedFileToCopy.isFile()) {
+                FileUtils.copyDirectoryToDirectory(selectedFileToCopy, copyToDirectory);
+            } else if(selectedFileToCopy.isFile())
                 FileUtils.copyFileToDirectory(selectedFileToCopy,copyToDirectory);
-            }
+             
         } catch (IOException e){
             e.printStackTrace();
             return false;
