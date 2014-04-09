@@ -7,4 +7,6 @@ import java.io.File;
  */
 public interface IFileDAO {
     boolean deleteFile(File selectedFile);
+    boolean renameFile(File selectedFile, File newFile);
+    boolean fileExists(File newFile);
 }

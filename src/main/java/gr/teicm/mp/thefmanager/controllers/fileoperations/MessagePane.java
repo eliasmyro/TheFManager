@@ -9,9 +9,9 @@ public class MessagePane implements IMessagePane{
 
 
     @Override
-    public boolean showMessage() {
+    public boolean showMessage(String title, String message) {
         JOptionPane myPane = new JOptionPane();
-        int reply = myPane.showConfirmDialog(null, "Do you want to delete the selected file?", "Delete File", JOptionPane.YES_NO_OPTION);
+        int reply = myPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == myPane.YES_OPTION) {
             return true;
         } else {
