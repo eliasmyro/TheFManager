@@ -44,11 +44,27 @@ new FormModel {
 				"preferredSize": new java.awt.Dimension( 592, 70 )
 				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 					name: "rightClickTableMenu"
-					"preferredSize": &Dimension0 new java.awt.Dimension( 70, 40 )
+					"preferredSize": new java.awt.Dimension( 70, 80 )
+					"minimumSize": new java.awt.Dimension( 4, 5 )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemOpen2"
+						"text": "Open"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fileMenuItemOpenActionPerformed", true ) )
+					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "CopyFile"
 						"text": "Copy"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "CopyFileMousePressed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemDelete2"
+						"text": "Delete"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "fileMenuItemRename2"
+						"text": "Rename"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "Exit"
@@ -120,7 +136,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
 					name: "rightClickTreeMenu"
-					"preferredSize": #Dimension0
+					"preferredSize": new java.awt.Dimension( 70, 40 )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "Paste"
 						"text": "Paste"

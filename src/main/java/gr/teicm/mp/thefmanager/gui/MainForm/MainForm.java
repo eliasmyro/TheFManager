@@ -166,7 +166,7 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
-        FileOperationsController foc = new FileOperationsController();
+
         int returnedCode = foc.fileOpen(selectedTableFile);
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
@@ -220,6 +220,12 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
+        if(e.getClickCount() ==2){
+            int returnedCode = foc.fileOpen(selectedTableFile);
+            if (returnedCode == 0) {
+                JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
+            }
+        }
     }
 
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
@@ -321,11 +327,6 @@ public class MainForm extends JFrame {
         fileMenuItemPaste = new JMenuItem();
         fileMenuItemDelete = new JMenuItem();
         fileMenuItemRename = new JMenuItem();
-        mgrToolbar = new JToolBar();
-        previousButton = new JButton();
-        nextButton = new JButton();
-        filepathTextField = new JTextField();
-        menuBar1 = new JMenuBar();
         themesMenu = new JMenu();
         napkinMenuItem = new JMenuItem();
         seaglassMenuItem = new JMenuItem();
@@ -333,10 +334,18 @@ public class MainForm extends JFrame {
         jTatAlumMenuItem = new JMenuItem();
         jTatHifiMenuItem = new JMenuItem();
         jTatBernsteinMenuItem = new JMenuItem();
+        mgrToolbar = new JToolBar();
+        previousButton = new JButton();
+        nextButton = new JButton();
+        filepathTextField = new JTextField();
+        menuBar1 = new JMenuBar();
         settingsButton = new JButton();
         fileInfoPane = new JPanel();
         rightClickTableMenu = new JPopupMenu();
+        fileMenuItemOpen2 = new JMenuItem();
         CopyFile = new JMenuItem();
+        fileMenuItemDelete2 = new JMenuItem();
+        fileMenuItemRename2 = new JMenuItem();
         Exit = new JMenuItem();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
@@ -350,6 +359,8 @@ public class MainForm extends JFrame {
         readAttribute = new JCheckBox();
         writeAttribute = new JCheckBox();
         executeAttribute = new JCheckBox();
+        renameLabel = new JLabel();
+        renameTextField = new JTextField();
         rightClickTreeMenu = new JPopupMenu();
         Paste = new JMenuItem();
         Exit2 = new JMenuItem();
@@ -437,6 +448,7 @@ public class MainForm extends JFrame {
                 fileMenu.add(fileMenuItemRename);
             }
             menuBar2.add(fileMenu);
+
             //======== themesMenu ========
             {
                 themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -541,7 +553,6 @@ public class MainForm extends JFrame {
             //---- filepathTextField ----
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
-
             mgrToolbar.add(menuBar1);
 
             //---- settingsButton ----
@@ -563,11 +574,22 @@ public class MainForm extends JFrame {
                 new SoftBevelBorder(SoftBevelBorder.RAISED),
                 null));
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
-            fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
+            fileInfoPane.setLayout(new FlowLayout());
 
             //======== rightClickTableMenu ========
             {
-                rightClickTableMenu.setPreferredSize(new Dimension(70, 40));
+                rightClickTableMenu.setPreferredSize(new Dimension(70, 80));
+                rightClickTableMenu.setMinimumSize(new Dimension(4, 5));
+
+                //---- fileMenuItemOpen2 ----
+                fileMenuItemOpen2.setText("Open");
+                fileMenuItemOpen2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        fileMenuItemOpenActionPerformed(e);
+                    }
+                });
+                rightClickTableMenu.add(fileMenuItemOpen2);
 
                 //---- CopyFile ----
                 CopyFile.setText("Copy");
@@ -578,6 +600,26 @@ public class MainForm extends JFrame {
                     }
                 });
                 rightClickTableMenu.add(CopyFile);
+
+                //---- fileMenuItemDelete2 ----
+                fileMenuItemDelete2.setText("Delete");
+                fileMenuItemDelete2.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileMenuItemDeleteMousePressed(e);
+                    }
+                });
+                rightClickTableMenu.add(fileMenuItemDelete2);
+
+                //---- fileMenuItemRename2 ----
+                fileMenuItemRename2.setText("Rename");
+                fileMenuItemRename2.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileMenuItemRenameMousePressed(e);
+                    }
+                });
+                rightClickTableMenu.add(fileMenuItemRename2);
 
                 //---- Exit ----
                 Exit.setText("Exit");
@@ -628,6 +670,17 @@ public class MainForm extends JFrame {
             //---- executeAttribute ----
             executeAttribute.setText("Execute");
             fileInfoPane.add(executeAttribute);
+
+            //---- renameLabel ----
+            renameLabel.setText("Rename");
+            renameLabel.setVisible(false);
+            fileInfoPane.add(renameLabel);
+
+            //---- renameTextField ----
+            renameTextField.setToolTipText("insert new name");
+            renameTextField.setMinimumSize(new Dimension(20, 22));
+            renameTextField.setVisible(false);
+            fileInfoPane.add(renameTextField);
 
             //======== rightClickTreeMenu ========
             {
@@ -747,11 +800,6 @@ public class MainForm extends JFrame {
     private JMenuItem fileMenuItemPaste;
     private JMenuItem fileMenuItemDelete;
     private JMenuItem fileMenuItemRename;
-    private JToolBar mgrToolbar;
-    private JButton previousButton;
-    private JButton nextButton;
-    private JTextField filepathTextField;
-    private JMenuBar menuBar1;
     private JMenu themesMenu;
     private JMenuItem napkinMenuItem;
     private JMenuItem seaglassMenuItem;
@@ -759,10 +807,18 @@ public class MainForm extends JFrame {
     private JMenuItem jTatAlumMenuItem;
     private JMenuItem jTatHifiMenuItem;
     private JMenuItem jTatBernsteinMenuItem;
+    private JToolBar mgrToolbar;
+    private JButton previousButton;
+    private JButton nextButton;
+    private JTextField filepathTextField;
+    private JMenuBar menuBar1;
     private JButton settingsButton;
     private JPanel fileInfoPane;
     private JPopupMenu rightClickTableMenu;
+    private JMenuItem fileMenuItemOpen2;
     private JMenuItem CopyFile;
+    private JMenuItem fileMenuItemDelete2;
+    private JMenuItem fileMenuItemRename2;
     private JMenuItem Exit;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
@@ -776,11 +832,11 @@ public class MainForm extends JFrame {
     private JCheckBox readAttribute;
     private JCheckBox writeAttribute;
     private JCheckBox executeAttribute;
+    private JLabel renameLabel;
+    private JTextField renameTextField;
     private JPopupMenu rightClickTreeMenu;
     private JMenuItem Paste;
     private JMenuItem Exit2;
-    private JLabel renameLabel;
-    private JTextField renameTextField;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;
