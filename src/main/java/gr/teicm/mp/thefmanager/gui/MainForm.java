@@ -4,7 +4,7 @@
 
 package gr.teicm.mp.thefmanager.gui;
 
-import com.jgoodies.forms.layout.*;
+//import com.jgoodies.forms.layout.*;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;

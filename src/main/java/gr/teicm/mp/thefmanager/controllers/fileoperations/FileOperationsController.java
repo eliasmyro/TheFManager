@@ -36,7 +36,7 @@ public class FileOperationsController implements IFileOperationsController {
         boolean fileCreated;
         File newFile;
         IFileDAO fdao = new FileDAO();
-        CreateFileMessage message = new CreateFileMessage();
+        IMessagePane message = new MessagePane();
 
             if(!currentFile.isDirectory()){
                 newFile = new File(currentFile.getParentFile(), fileName);
@@ -45,7 +45,7 @@ public class FileOperationsController implements IFileOperationsController {
                 newFile = new File(currentFile , fileName);
             }
         try{
-            if(newFile.exists() && message.showMessage()== true ){
+            if(newFile.exists() && message.showMessage("Do you want to replace the existing file/folder ?","File/Folder already exists.")== true ){
                 fdao.deleteFile(newFile);
                 fileCreated = newFile.createNewFile();
             }
@@ -64,7 +64,7 @@ public class FileOperationsController implements IFileOperationsController {
         boolean fileCreated;
         File newFile;
         IFileDAO fdao = new FileDAO();
-        CreateFileMessage message = new CreateFileMessage();
+        IMessagePane message = new MessagePane();
 
         if(!currentFile.isDirectory()){
             newFile = new File(currentFile.getParentFile(), fileName);
@@ -73,7 +73,7 @@ public class FileOperationsController implements IFileOperationsController {
             newFile = new File(currentFile , fileName);
         }
         try{
-            if(newFile.exists() && message.showMessage()== true ){
+            if(newFile.exists() && message.showMessage("Do you want to replace the existing file/folder ?","File/Folder already exists.")== true){
                 fdao.deleteFile(newFile);
                 fileCreated = newFile.mkdir();
             }
