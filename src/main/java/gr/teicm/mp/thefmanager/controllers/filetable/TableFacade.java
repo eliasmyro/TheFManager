@@ -58,16 +58,18 @@ public class TableFacade {
             while (tableModel.getRowCount() > 0) {
                 tableModel.removeRow(0);
             }
-            for(File file : allFiles){
-                tableModel.addRow(new Object[]{fileSystemView.getSystemIcon(file),
-                        file.getName(),file.getPath(),
-                        file.length(),
-                        file.lastModified(),
-                        file.canRead(),
-                        file.canWrite(),
-                        file.canExecute(),
-                        file.isDirectory(),
-                        file.isFile()});
+            if(allFiles != null) {
+                for (File file : allFiles) {
+                    tableModel.addRow(new Object[]{fileSystemView.getSystemIcon(file),
+                            file.getName(), file.getPath(),
+                            file.length(),
+                            file.lastModified(),
+                            file.canRead(),
+                            file.canWrite(),
+                            file.canExecute(),
+                            file.isDirectory(),
+                            file.isFile()});
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
