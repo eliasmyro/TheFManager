@@ -5,9 +5,7 @@
 package gr.teicm.mp.thefmanager.gui.MainForm;
 
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.DeleteFileController;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.FileOperationsController;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.IDeleteFileController;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
@@ -28,7 +26,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import info.clearthought.layout.*;
 
 /**
  * @author Elias Myronidis
@@ -42,6 +42,7 @@ public class MainForm extends JFrame {
     private ArrayList<String> visitedItems = new ArrayList<>();
     private String selectedFilePath;
     private File selectedTableFile;
+    private File fileToCopy;
 
     public MainForm() {
         treeFacade = new FileSystemController(new LocalFileSystemDAO());
@@ -227,6 +228,54 @@ public class MainForm extends JFrame {
         preferencesForm.setVisible(true);
     }
 
+    private void thisKeyReleased(KeyEvent e) {
+        // TODO add your code here
+    }
+
+    private void thisMouseReleased(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void filesTableMouseReleased(MouseEvent e) {
+        // TODO add your code here
+        if(e.isPopupTrigger()){
+            rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
+        }
+
+    }
+
+    private void CopyFileMousePressed(MouseEvent e) {
+        // TODO add your code here
+        tableFacade = new TableFacade(selectedFilePath);
+        this.fileToCopy = tableFacade.getSelectedTableFile();
+
+       // System.out.println("copy pressed! Name of file to copy:"+selectedTableFile.getName());
+    }
+
+    private void PasteMousePressed(MouseEvent e)  {
+        // TODO add your code here
+
+        ICopyFileController myCopyFile = new CopyFileController();
+        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,treeFacade.getSelectedFileItem(fileTree));
+
+    }
+
+    private void fileTreeMouseReleased(MouseEvent e) {
+        // TODO add your code here
+
+        if(e.isPopupTrigger()){
+            rightClickTreeMenu.show(e.getComponent(),e.getX(),e.getY());
+        }
+    }
+
+
+
+
+
+
+
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
@@ -249,6 +298,9 @@ public class MainForm extends JFrame {
         jTatBernsteinMenuItem = new JMenuItem();
         settingsButton = new JButton();
         fileInfoPane = new JPanel();
+        rightClickTableMenu = new JPopupMenu();
+        CopyFile = new JMenuItem();
+        Exit = new JMenuItem();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
         fileIconLbl = new JLabel();
@@ -261,6 +313,9 @@ public class MainForm extends JFrame {
         readAttribute = new JCheckBox();
         writeAttribute = new JCheckBox();
         executeAttribute = new JCheckBox();
+        rightClickTreeMenu = new JPopupMenu();
+        Paste = new JMenuItem();
+        Exit2 = new JMenuItem();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
@@ -441,6 +496,26 @@ public class MainForm extends JFrame {
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
             fileInfoPane.setLayout(new FlowLayout(FlowLayout.LEFT));
 
+            //======== rightClickTableMenu ========
+            {
+                rightClickTableMenu.setPreferredSize(new Dimension(70, 40));
+
+                //---- CopyFile ----
+                CopyFile.setText("Copy");
+                CopyFile.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        CopyFileMousePressed(e);
+                    }
+                });
+                rightClickTableMenu.add(CopyFile);
+
+                //---- Exit ----
+                Exit.setText("Exit");
+                rightClickTableMenu.add(Exit);
+            }
+            fileInfoPane.add(rightClickTableMenu);
+
             //---- fileInfoLabel ----
             fileInfoLabel.setText("\u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03c3\u03c7\u03b5\u03c4\u03b9\u03ba\u03ac \u03bc\u03b5 \u03c4\u03bf \u03b1\u03c1\u03c7\u03ad\u03b9\u03bf / \u03c6\u03ac\u03ba\u03b5\u03bb\u03bf");
             fileInfoLabel.setFont(fileInfoLabel.getFont().deriveFont(fileInfoLabel.getFont().getStyle() & ~Font.BOLD, fileInfoLabel.getFont().getSize() - 3f));
@@ -484,6 +559,26 @@ public class MainForm extends JFrame {
             //---- executeAttribute ----
             executeAttribute.setText("Execute");
             fileInfoPane.add(executeAttribute);
+
+            //======== rightClickTreeMenu ========
+            {
+                rightClickTreeMenu.setPreferredSize(new Dimension(70, 40));
+
+                //---- Paste ----
+                Paste.setText("Paste");
+                Paste.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        PasteMousePressed(e);
+                    }
+                });
+                rightClickTreeMenu.add(Paste);
+
+                //---- Exit2 ----
+                Exit2.setText("Exit");
+                rightClickTreeMenu.add(Exit2);
+            }
+            fileInfoPane.add(rightClickTreeMenu);
         }
         contentPane.add(fileInfoPane, BorderLayout.PAGE_END);
 
@@ -505,6 +600,12 @@ public class MainForm extends JFrame {
                     @Override
                     public void valueChanged(TreeSelectionEvent e) {
                         fileTreeItemSelect(e);
+                    }
+                });
+                fileTree.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        fileTreeMouseReleased(e);
                     }
                 });
                 fileTreeScroll.setViewportView(fileTree);
@@ -551,6 +652,10 @@ public class MainForm extends JFrame {
                     public void mousePressed(MouseEvent e) {
                         filesTableMousePressed(e);
                     }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        filesTableMouseReleased(e);
+                    }
                 });
                 tableScrollPane.setViewportView(filesTable);
             }
@@ -583,6 +688,9 @@ public class MainForm extends JFrame {
     private JMenuItem jTatBernsteinMenuItem;
     private JButton settingsButton;
     private JPanel fileInfoPane;
+    private JPopupMenu rightClickTableMenu;
+    private JMenuItem CopyFile;
+    private JMenuItem Exit;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
     private JLabel fileIconLbl;
@@ -595,6 +703,9 @@ public class MainForm extends JFrame {
     private JCheckBox readAttribute;
     private JCheckBox writeAttribute;
     private JCheckBox executeAttribute;
+    private JPopupMenu rightClickTreeMenu;
+    private JMenuItem Paste;
+    private JMenuItem Exit2;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;

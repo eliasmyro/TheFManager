@@ -17,6 +17,7 @@
     <orderEntry type="library" name="Maven: net.sf.squirrel-sql.thirdparty-non-maven:napkinlaf:1.2" level="project" />
     <orderEntry type="library" name="Maven: org.devzendo:Quaqua:7.3.4" level="project" />
     <orderEntry type="library" name="Maven: com.jtattoo:JTattoo:1.6.10" level="project" />
+    <orderEntry type="library" name="TableLayout" level="project" />
   </component>
 </module>
 

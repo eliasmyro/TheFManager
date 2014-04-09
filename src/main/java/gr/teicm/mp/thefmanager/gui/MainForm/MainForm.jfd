@@ -81,6 +81,19 @@ new FormModel {
 				name: "fileInfoPane"
 				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
 				"preferredSize": new java.awt.Dimension( 592, 70 )
+				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+					name: "rightClickTableMenu"
+					"preferredSize": &Dimension0 new java.awt.Dimension( 70, 40 )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "CopyFile"
+						"text": "Copy"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "CopyFileMousePressed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "Exit"
+						"text": "Exit"
+					} )
+				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "fileInfoLabel"
 					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"
@@ -133,6 +146,19 @@ new FormModel {
 					name: "executeAttribute"
 					"text": "Execute"
 				} )
+				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+					name: "rightClickTreeMenu"
+					"preferredSize": #Dimension0
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "Paste"
+						"text": "Paste"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteMousePressed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "Exit2"
+						"text": "Exit"
+					} )
+				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Last"
 			} )
@@ -153,6 +179,7 @@ new FormModel {
 							"JavaCodeGenerator.customCreateCode": "new JTree(treeFacade.getFileSystemModel());"
 						}
 						addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "fileTreeItemSelect", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "fileTreeMouseReleased", true ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "left"
@@ -168,6 +195,7 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "filesTableFocusGained", true ) )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "filesTableMouseReleased", true ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "right"
@@ -202,7 +230,7 @@ new FormModel {
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 10 )
-			"size": new java.awt.Dimension( 665, 405 )
+			"size": new java.awt.Dimension( 745, 475 )
 		} )
 	}
 }
