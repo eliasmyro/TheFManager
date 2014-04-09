@@ -220,8 +220,6 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
-        renameLabel.setVisible(false);
-        renameTextField.setVisible(false);
     }
 
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
@@ -248,29 +246,13 @@ public class MainForm extends JFrame {
 
     private void fileMenuItemRenameMousePressed(MouseEvent e) {
         // TODO add your code here
-        renameLabel.setVisible(true);
-        renameTextField.setVisible(true);
-        renameTextField.setText(selectedTableFile.getName());
-        renameTextField.addKeyListener(new KeyListener() {
+        IRenameFileController myRename = new RenameFileController();
+        String newFileName = JOptionPane.showInputDialog("Enter new name", selectedTableFile.getName());
 
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    IRenameFileController myController = new RenameFileController();
-                    boolean isRenamed = myController.renameFile(selectedTableFile,renameTextField.getText());
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
+        boolean fileRenamed = myRename.renameFile(selectedTableFile,newFileName);
+        if(fileRenamed == false){
+            JOptionPane.showMessageDialog(this, "File was not renamed!");
+        }
 
     }
     
@@ -371,8 +353,6 @@ public class MainForm extends JFrame {
         rightClickTreeMenu = new JPopupMenu();
         Paste = new JMenuItem();
         Exit2 = new JMenuItem();
-        renameLabel = new JLabel();
-        renameTextField = new JTextField();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
@@ -648,18 +628,6 @@ public class MainForm extends JFrame {
             //---- executeAttribute ----
             executeAttribute.setText("Execute");
             fileInfoPane.add(executeAttribute);
-
-
-            //---- renameLabel ----
-            renameLabel.setText("Rename");
-            renameLabel.setVisible(false);
-            fileInfoPane.add(renameLabel);
-
-            //---- renameTextField ----
-            renameTextField.setToolTipText("insert new name");
-            renameTextField.setMinimumSize(new Dimension(20, 22));
-            renameTextField.setVisible(false);
-            fileInfoPane.add(renameTextField);
 
             //======== rightClickTreeMenu ========
             {
