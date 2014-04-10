@@ -1,5 +1,8 @@
 package gr.teicm.mp.thefmanager.controllers.filetable;
 
+import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
+import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
+import gr.teicm.mp.thefmanager.models.filefilters.filetable.ETableNodePolicies;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
@@ -7,6 +10,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.TreeModel;
 import java.io.File;
+import java.io.FileFilter;
 
 /**
  * Created by Ilias on 1/4/2014.
@@ -16,8 +20,20 @@ public class TableFacade {
     private String selectedFilePath;
     private File selectedFile;
     private TreeModel fileSystemModel;
+    private FileFilter tableNodeFilter;
     public FileSystemView fileSystemView = FileSystemView.getFileSystemView();
 
+    {
+        IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
+        String _tableNodePolicy = String.valueOf(getHiddenFilesPolicy.getValue()).toUpperCase();
+        ETableNodePolicies tableNodePolicy = ETableNodePolicies.valueOf(_tableNodePolicy);
+
+        try {
+            tableNodeFilter = tableNodePolicy.getInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.getMessage();
+        }
+    }
 
     public TableFacade() {
     }
@@ -48,9 +64,8 @@ public class TableFacade {
        // FileSystemView fileSystemView = FileSystemView.getFileSystemView();
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
-        TableFileModel fileObject = new TableFileModel(node.listFiles());
+        TableFileModel fileObject = new TableFileModel(node.listFiles(tableNodeFilter));
         File[] allFiles;
-
 
         allFiles = fileObject.getFiles();
 
