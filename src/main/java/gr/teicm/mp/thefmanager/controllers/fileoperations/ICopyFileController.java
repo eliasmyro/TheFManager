@@ -1,7 +1,6 @@
 package gr.teicm.mp.thefmanager.controllers.fileoperations;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Ilias on 7/4/2014.

@@ -2,15 +2,15 @@
  * Created by JFormDesigner on Wed Mar 12 12:44:13 EET 2014
  */
 
-package gr.teicm.mp.thefmanager.gui;
+package gr.teicm.mp.thefmanager.gui.MainForm;
 
 //import com.jgoodies.forms.layout.*;
+
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
-import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
+import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
 import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
 import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
@@ -28,7 +28,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 //import info.clearthought.layout.*;
 

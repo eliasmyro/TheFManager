@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.models.filefilters;
+package gr.teicm.mp.thefmanager.models.filefilters.filetree;
 
 import java.io.File;
 import java.io.FileFilter;

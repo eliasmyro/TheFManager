@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.models.filefilters;
+package gr.teicm.mp.thefmanager.models.filefilters.filetree;
 
 import java.io.FileFilter;
 
@@ -6,8 +6,8 @@ import java.io.FileFilter;
  * Created by Achilleas Naoumidis on 3/28/14.
  */
 public enum  ETreeNodePolicies {
-    TRUE("gr.teicm.mp.thefmanager.models.filefilters.TreeNodePolicy"),
-    FALSE("gr.teicm.mp.thefmanager.models.filefilters.TreeHiddenNodePolicy");
+    TRUE("gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicy"),
+    FALSE("gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeHiddenNodePolicy");
 
     private String className;
 

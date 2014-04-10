@@ -2,7 +2,7 @@ package gr.teicm.mp.thefmanager.models.filesystems;
 
 import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
 import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
-import gr.teicm.mp.thefmanager.models.filefilters.ETreeNodePolicies;
+import gr.teicm.mp.thefmanager.models.filefilters.filetree.ETreeNodePolicies;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -54,7 +54,9 @@ public class LocalFileSystemModel implements TreeModel {
         if (parentNode.isDirectory()) {
             File[] children = parentNode.listFiles(treeNodeFilter);
 
-            return children.length;
+            if(children != null) {
+                return children.length;
+            }
         }
 
         return 0;

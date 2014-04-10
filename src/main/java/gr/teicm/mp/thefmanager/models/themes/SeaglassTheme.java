@@ -1,6 +1,6 @@
 package gr.teicm.mp.thefmanager.models.themes;
 
-import gr.teicm.mp.thefmanager.gui.MainForm;
+import gr.teicm.mp.thefmanager.gui.MainForm.MainForm;
 
 import javax.swing.*;
 

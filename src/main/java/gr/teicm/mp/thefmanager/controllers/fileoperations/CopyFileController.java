@@ -4,7 +4,6 @@ import gr.teicm.mp.thefmanager.DAO.FileDAO;
 import gr.teicm.mp.thefmanager.DAO.IFileDAO;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Ilias on 7/4/2014.

@@ -4,9 +4,8 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
+import gr.teicm.mp.thefmanager.controllers.formui.RecreateMainFormController;
 import gr.teicm.mp.thefmanager.controllers.preferences.*;
-import gr.teicm.mp.thefmanager.models.themes.ITheme;
-import gr.teicm.mp.thefmanager.models.themes.NapkinTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,6 +49,7 @@ public class PreferencesForm extends JFrame {
         themeName = (String) theme_comboBox.getSelectedItem();
         showHiddenFiles = showHiddenFiles_chBox.isSelected();
         storePreferences();
+        RecreateMainFormController.recreateForm(mainForm);
     }
 
     private void storePreferences() {

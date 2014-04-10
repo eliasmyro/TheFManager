@@ -1,7 +1,6 @@
 package gr.teicm.mp.thefmanager.DAO;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Elias Myronidis on 4/4/2014.
