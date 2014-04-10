@@ -205,6 +205,10 @@ public class MainForm extends JFrame {
     }
 
     private void filesTableMousePressed(MouseEvent e) {
+        if(e.isPopupTrigger()) {
+            rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
+        }
+
         int selectedRow = filesTable.getSelectedRow();
         int pathColumn = 2;
 
@@ -306,13 +310,11 @@ public class MainForm extends JFrame {
         }
     }
 
-
-
-
-
-
-
-
+    private void fileTreeMousePressed(MouseEvent e) {
+        if(e.isPopupTrigger()){
+            rightClickTreeMenu.show(e.getComponent(),e.getX(),e.getY());
+        }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -724,6 +726,10 @@ public class MainForm extends JFrame {
                     }
                 });
                 fileTree.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        fileTreeMousePressed(e);
+                    }
                     @Override
                     public void mouseReleased(MouseEvent e) {
                         fileTreeMouseReleased(e);
