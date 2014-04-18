@@ -4,7 +4,6 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
-import gr.teicm.mp.thefmanager.controllers.formui.RecreateMainFormController;
 import gr.teicm.mp.thefmanager.controllers.preferences.*;
 
 import javax.swing.*;
@@ -16,14 +15,10 @@ import java.awt.event.ActionListener;
  * @author Achilleas Naoumidis
  */
 public class PreferencesForm extends JFrame {
-    JFrame mainForm;
-
     boolean showHiddenFiles;
     String themeName;
 
-    public PreferencesForm(JFrame mainForm) {
-        this.mainForm = mainForm;
-
+    public PreferencesForm() {
         loadPreferences();
 
         initComponents();
@@ -49,7 +44,6 @@ public class PreferencesForm extends JFrame {
         themeName = (String) theme_comboBox.getSelectedItem();
         showHiddenFiles = showHiddenFiles_chBox.isSelected();
         storePreferences();
-        RecreateMainFormController.recreateForm(mainForm);
     }
 
     private void storePreferences() {

@@ -11,17 +11,12 @@ import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
-import gr.teicm.mp.thefmanager.controllers.themes.IWriteThemeController;
-import gr.teicm.mp.thefmanager.controllers.themes.ThemeFactory;
-import gr.teicm.mp.thefmanager.controllers.themes.WriteThemeController;
 import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
@@ -38,8 +33,6 @@ public class MainForm extends JFrame {
     private FileSystemController treeFacade;
     private TableFacade tableFacade;
     private TableFileModel tableFileModel;
-    private boolean themeIsSet = false;
-    private IWriteThemeController mThemeFile = new WriteThemeController();
     private ArrayList<String> visitedItems = new ArrayList<>();
     private String selectedFilePath;
     private File selectedTableFile;
@@ -55,81 +48,11 @@ public class MainForm extends JFrame {
         fileTree.setCellRenderer(new FileTreeCellRenderer());
     }
 
-    private void napkinMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("napkin");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("net.sourceforge.napkinlaf.NapkinLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
-    private void seaglassMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("seaglass");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
-    private void quaquaMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("quaqua");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
-    private void jTatAlumMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("jtatAluminium");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
-    private void jTatHifiMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("jtatHifi");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
-    private void jTatBernsteinMenuItemMousePressed(MouseEvent e) {
-        ThemeFactory newTheme = new ThemeFactory();
-        themeIsSet = newTheme.getTheme("jtatBernstein");
-
-        if (themeIsSet) {
-            mThemeFile.writeThemeToXML("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
-        }
-
-        this.dispose();
-    }
-
     private void fileTreeItemSelect(TreeSelectionEvent e) {
         String currentPath = treeFacade.getSelectedItemPath(fileTree);
         fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
         showFilePosition(currentPath, true);
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
-    }
-
-    private void themesMenuStateChanged(ChangeEvent e) {
-        // TODO add your code here
     }
 
     private void nextButtonMouseClicked(MouseEvent e) {
@@ -266,7 +189,7 @@ public class MainForm extends JFrame {
     }
     
     private void settingsButtonActionPerformed(ActionEvent e) {
-        PreferencesForm preferencesForm = new PreferencesForm(this);
+        PreferencesForm preferencesForm = new PreferencesForm();
         preferencesForm.setVisible(true);
     }
 
@@ -328,13 +251,6 @@ public class MainForm extends JFrame {
         fileMenuItemPaste = new JMenuItem();
         fileMenuItemDelete = new JMenuItem();
         fileMenuItemRename = new JMenuItem();
-        themesMenu = new JMenu();
-        napkinMenuItem = new JMenuItem();
-        seaglassMenuItem = new JMenuItem();
-        quaquaMenuItem = new JMenuItem();
-        jTatAlumMenuItem = new JMenuItem();
-        jTatHifiMenuItem = new JMenuItem();
-        jTatBernsteinMenuItem = new JMenuItem();
         mgrToolbar = new JToolBar();
         previousButton = new JButton();
         nextButton = new JButton();
@@ -449,80 +365,6 @@ public class MainForm extends JFrame {
                 fileMenu.add(fileMenuItemRename);
             }
             menuBar2.add(fileMenu);
-
-            //======== themesMenu ========
-            {
-                themesMenu.setHorizontalAlignment(SwingConstants.CENTER);
-                themesMenu.setText("Themes");
-                themesMenu.addChangeListener(new ChangeListener() {
-                    @Override
-                    public void stateChanged(ChangeEvent e) {
-                        themesMenuStateChanged(e);
-                        themesMenuStateChanged(e);
-                    }
-                });
-
-                //---- napkinMenuItem ----
-                napkinMenuItem.setText("Napkin");
-                napkinMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        napkinMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(napkinMenuItem);
-
-                //---- seaglassMenuItem ----
-                seaglassMenuItem.setText("Seaglass");
-                seaglassMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        seaglassMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(seaglassMenuItem);
-
-                //---- quaquaMenuItem ----
-                quaquaMenuItem.setText("Quaqua");
-                quaquaMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        quaquaMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(quaquaMenuItem);
-
-                //---- jTatAlumMenuItem ----
-                jTatAlumMenuItem.setText("JTattoo-Aluminium");
-                jTatAlumMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        jTatAlumMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(jTatAlumMenuItem);
-
-                //---- jTatHifiMenuItem ----
-                jTatHifiMenuItem.setText("JTattoo-HiFI");
-                jTatHifiMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        jTatHifiMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(jTatHifiMenuItem);
-
-                //---- jTatBernsteinMenuItem ----
-                jTatBernsteinMenuItem.setText("JTattoo-Bernstein");
-                jTatBernsteinMenuItem.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        jTatBernsteinMenuItemMousePressed(e);
-                    }
-                });
-                themesMenu.add(jTatBernsteinMenuItem);
-            }
-            menuBar2.add(themesMenu);
         }
         setJMenuBar(menuBar2);
 
@@ -805,13 +647,6 @@ public class MainForm extends JFrame {
     private JMenuItem fileMenuItemPaste;
     private JMenuItem fileMenuItemDelete;
     private JMenuItem fileMenuItemRename;
-    private JMenu themesMenu;
-    private JMenuItem napkinMenuItem;
-    private JMenuItem seaglassMenuItem;
-    private JMenuItem quaquaMenuItem;
-    private JMenuItem jTatAlumMenuItem;
-    private JMenuItem jTatHifiMenuItem;
-    private JMenuItem jTatBernsteinMenuItem;
     private JToolBar mgrToolbar;
     private JButton previousButton;
     private JButton nextButton;

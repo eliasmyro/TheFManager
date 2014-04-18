@@ -5,4 +5,5 @@ package gr.teicm.mp.thefmanager.controllers.preferences;
  */
 public interface IGetThemeName {
     String getValue();
+    String getValueClassName();
 }

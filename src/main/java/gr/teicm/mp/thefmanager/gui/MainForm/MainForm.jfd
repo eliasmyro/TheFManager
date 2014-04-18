@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_51" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -233,43 +233,6 @@ new FormModel {
 						name: "fileMenuItemRename"
 						"text": "Rename"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
-					} )
-				} )
-				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "themesMenu"
-					"horizontalAlignment": 0
-					"text": "Themes"
-					addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "themesMenuStateChanged", true ) )
-					addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "themesMenuStateChanged", true ) )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "napkinMenuItem"
-						"text": "Napkin"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "napkinMenuItemMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "seaglassMenuItem"
-						"text": "Seaglass"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "seaglassMenuItemMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "quaquaMenuItem"
-						"text": "Quaqua"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "quaquaMenuItemMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "jTatAlumMenuItem"
-						"text": "JTattoo-Aluminium"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "jTatAlumMenuItemMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "jTatHifiMenuItem"
-						"text": "JTattoo-HiFI"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "jTatHifiMenuItemMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "jTatBernsteinMenuItem"
-						"text": "JTattoo-Bernstein"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "jTatBernsteinMenuItemMousePressed", true ) )
 					} )
 				} )
 			}
