@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+
         IGetThemeName getThemeName = new GetThemeName();
         String themeClassName = getThemeName.getValueClassName();
         
