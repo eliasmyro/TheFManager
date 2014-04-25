@@ -1,9 +1,9 @@
-package gr.teicm.mp.thefmanager.models.themes;
+package gr.teicm.mp.thefmanager.models;
 
 /**
  * Created by Achilleas Naoumidis on 4/18/14.
  */
-public enum EThemes {
+public enum Themes {
     NAPKIN("net.sourceforge.napkinlaf.NapkinLookAndFeel"),
     SEAGLASS("com.seaglasslookandfeel.SeaGlassLookAndFeel"),
     QUAQUA("ch.randelshofer.quaqua.QuaquaLookAndFeel"),
@@ -13,7 +13,7 @@ public enum EThemes {
 
     private String themeClassName;
 
-    EThemes(String themeName) {
+    Themes(String themeName) {
         this.themeClassName = themeName;
     }
 
