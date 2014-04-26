@@ -37,8 +37,6 @@ public class MainForm extends JFrame {
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
-
-    private FileOperationsController foc = new FileOperationsController();
     
     public MainForm() {
         treeFacade = new FileSystemController(new LocalFileSystemDAO());
@@ -88,8 +86,8 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
-
-        int returnedCode = foc.fileOpen(selectedTableFile);
+        IFileOpenController fileOpen = new FileOpenController();
+        int returnedCode = fileOpen.fileOpen(selectedTableFile);
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
@@ -128,6 +126,7 @@ public class MainForm extends JFrame {
     }
 
     private void filesTableMousePressed(MouseEvent e) {
+        IFileOpenController fileOpen = new FileOpenController();
         if(e.isPopupTrigger()) {
             rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
         }
@@ -147,7 +146,7 @@ public class MainForm extends JFrame {
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
         if(e.getClickCount() ==2){
-            int returnedCode = foc.fileOpen(selectedTableFile);
+            int returnedCode = fileOpen.fileOpen(selectedTableFile);
             if (returnedCode == 0) {
                 JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
             }
@@ -160,17 +159,18 @@ public class MainForm extends JFrame {
     }
 
     private void newFileMenuItemActionPerformed(ActionEvent e) {
+        INewFileController newFile = new NewFileController();
         String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
-        boolean fileCreated = foc.fileCreateNewFile(selectedTableFile,fileName);
+        boolean fileCreated = newFile.createNewFile(selectedTableFile,fileName);
         if(fileCreated == false){
             JOptionPane.showMessageDialog(this, "File not created");
         }
-
     }
 
     private void newFolderMenuItemActionPerformed(ActionEvent e) {
+        INewFolderController newFolder = new NewFolderController();
         String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
-        boolean fileCreated = foc.fileCreateNewFolder(selectedTableFile,fileName);
+        boolean fileCreated = newFolder.createNewFolder(selectedTableFile,fileName);
         if(fileCreated == false){
             JOptionPane.showMessageDialog(this, "Folder not created");
         }
