@@ -22,7 +22,7 @@ public class LocalFileSystemModel implements TreeModel {
         this.root = root;
 
         IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
-        treeNodeFilter = getHiddenFilesPolicy.getFileFilterInstance();
+        treeNodeFilter = getHiddenFilesPolicy.getFileFilterInstance(false);
     }
 
     @Override

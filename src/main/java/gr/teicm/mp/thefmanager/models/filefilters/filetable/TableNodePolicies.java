@@ -1,11 +1,13 @@
 package gr.teicm.mp.thefmanager.models.filefilters.filetable;
 
+import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
+
 import java.io.FileFilter;
 
 /**
  * Created by Achilleas Naoumidis on 3/28/14.
  */
-public enum TableNodePolicies {
+public enum TableNodePolicies implements IFileFilter {
     TRUE("gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicy"),
     FALSE("gr.teicm.mp.thefmanager.models.filefilters.filetable.TableHiddenNodePolicy");
 
@@ -15,6 +17,7 @@ public enum TableNodePolicies {
         this.className = s;
     }
 
+    @Override
     public FileFilter getInstance()
             throws ClassNotFoundException,
             IllegalAccessException,
@@ -22,5 +25,3 @@ public enum TableNodePolicies {
         return (FileFilter) Class.forName(this.className).newInstance();
     }
 }
-
-

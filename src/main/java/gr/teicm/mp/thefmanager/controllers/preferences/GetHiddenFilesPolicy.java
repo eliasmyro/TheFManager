@@ -2,6 +2,8 @@ package gr.teicm.mp.thefmanager.controllers.preferences;
 
 import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
 import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
+import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
+import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
 import gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicies;
 
 import java.io.FileFilter;
@@ -25,17 +27,20 @@ public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
     }
 
     @Override
-    public FileFilter getFileFilterInstance() {
-        String _treeNodePolicy = String.valueOf(getValue()).toUpperCase();
-        TreeNodePolicies treeNodePolicy = TreeNodePolicies.valueOf(_treeNodePolicy);
+    public FileFilter getFileFilterInstance(boolean showFiles) {
+        IFileFilter fileFilter;
+        String _nodePolicy = String.valueOf(getValue()).toUpperCase();
+
+        if (showFiles) {
+            fileFilter = TableNodePolicies.valueOf(_nodePolicy);
+        }
+        else {
+            fileFilter = TreeNodePolicies.valueOf(_nodePolicy);
+        }
 
         try {
-            return treeNodePolicy.getInstance();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+            return fileFilter.getInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
 

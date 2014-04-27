@@ -2,7 +2,6 @@ package gr.teicm.mp.thefmanager.controllers.filetable;
 
 import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
 import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
-import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
@@ -25,14 +24,7 @@ public class TableFacade {
 
     {
         IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
-        String _tableNodePolicy = String.valueOf(getHiddenFilesPolicy.getValue()).toUpperCase();
-        TableNodePolicies tableNodePolicy = TableNodePolicies.valueOf(_tableNodePolicy);
-
-        try {
-            tableNodeFilter = tableNodePolicy.getInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getMessage();
-        }
+        tableNodeFilter = getHiddenFilesPolicy.getFileFilterInstance(true);
     }
 
     public TableFacade() {
