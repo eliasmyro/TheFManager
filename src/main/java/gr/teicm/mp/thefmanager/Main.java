@@ -17,8 +17,9 @@ public class Main {
 
         try {
             UIManager.setLookAndFeel(getThemeName.getValueClassName());
-        } catch (Exception e) {
-            e.getMessage();
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException
+                | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         } finally {
             MainForm myMainForm = new MainForm();
             myMainForm.setVisible(true);
