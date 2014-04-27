@@ -1,17 +1,17 @@
-package gr.teicm.mp.thefmanager.models.filefilters.filetree;
+package gr.teicm.mp.thefmanager.models.filefilters.filetable;
 
 import java.io.FileFilter;
 
 /**
  * Created by Achilleas Naoumidis on 3/28/14.
  */
-public enum  ETreeNodePolicies {
-    TRUE("gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicy"),
-    FALSE("gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeHiddenNodePolicy");
+public enum TableNodePolicies {
+    TRUE("gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicy"),
+    FALSE("gr.teicm.mp.thefmanager.models.filefilters.filetable.TableHiddenNodePolicy");
 
     private String className;
 
-    ETreeNodePolicies(String s) {
+    TableNodePolicies(String s) {
         this.className = s;
     }
 

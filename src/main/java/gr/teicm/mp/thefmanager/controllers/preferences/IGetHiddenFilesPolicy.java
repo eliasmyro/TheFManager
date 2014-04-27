@@ -7,5 +7,5 @@ import java.io.FileFilter;
  */
 public interface IGetHiddenFilesPolicy {
     boolean getValue();
-    FileFilter getFileFilter();
+    FileFilter getFileFilterInstance();
 }
