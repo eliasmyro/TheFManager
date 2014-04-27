@@ -26,6 +26,10 @@ public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
         return userPreferences.getBoolean("showHiddenFiles", false);
     }
 
+    /*
+     * After introduce of a favorites panel and remove tree panel
+     * the parameter showFiles should be deleted same as the if else statement
+     */
     @Override
     public FileFilter getFileFilterInstance(boolean showFiles) {
         IFileFilter fileFilter;
@@ -41,9 +45,7 @@ public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
         try {
             return fileFilter.getInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+            return pathname -> false;
         }
-
-        return pathname -> false;
     }
 }
