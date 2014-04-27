@@ -255,7 +255,6 @@ public class MainForm extends JFrame {
         previousButton = new JButton();
         nextButton = new JButton();
         filepathTextField = new JTextField();
-        menuBar1 = new JMenuBar();
         settingsButton = new JButton();
         fileInfoPane = new JPanel();
         rightClickTableMenu = new JPopupMenu();
@@ -396,7 +395,6 @@ public class MainForm extends JFrame {
             //---- filepathTextField ----
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
             mgrToolbar.add(filepathTextField);
-            mgrToolbar.add(menuBar1);
 
             //---- settingsButton ----
             settingsButton.setText("Settings");
@@ -651,7 +649,6 @@ public class MainForm extends JFrame {
     private JButton previousButton;
     private JButton nextButton;
     private JTextField filepathTextField;
-    private JMenuBar menuBar1;
     private JButton settingsButton;
     private JPanel fileInfoPane;
     private JPopupMenu rightClickTableMenu;
