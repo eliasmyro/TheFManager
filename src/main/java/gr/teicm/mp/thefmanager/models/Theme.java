@@ -3,7 +3,7 @@ package gr.teicm.mp.thefmanager.models;
 /**
  * Created by Achilleas Naoumidis on 4/18/14.
  */
-public enum Themes {
+public enum Theme {
     NAPKIN("net.sourceforge.napkinlaf.NapkinLookAndFeel"),
     SEAGLASS("com.seaglasslookandfeel.SeaGlassLookAndFeel"),
     QUAQUA("ch.randelshofer.quaqua.QuaquaLookAndFeel"),
@@ -13,7 +13,7 @@ public enum Themes {
 
     private String themeClassName;
 
-    Themes(String themeName) {
+    Theme(String themeName) {
         this.themeClassName = themeName;
     }
 

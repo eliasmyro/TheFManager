@@ -2,7 +2,11 @@ package gr.teicm.mp.thefmanager.controllers.preferences;
 
 import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
 import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
+import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
+import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
+import gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicies;
 
+import java.io.FileFilter;
 import java.util.prefs.Preferences;
 
 /**
@@ -20,5 +24,28 @@ public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
     @Override
     public boolean getValue() {
         return userPreferences.getBoolean("showHiddenFiles", false);
+    }
+
+    /*
+     * After introduce of a favorites panel and remove tree panel
+     * the parameter showFiles should be deleted same as the if else statement
+     */
+    @Override
+    public FileFilter getFileFilterInstance(boolean showFiles) {
+        IFileFilter fileFilter;
+        String _nodePolicy = String.valueOf(getValue()).toUpperCase();
+
+        if (showFiles) {
+            fileFilter = TableNodePolicies.valueOf(_nodePolicy);
+        }
+        else {
+            fileFilter = TreeNodePolicies.valueOf(_nodePolicy);
+        }
+
+        try {
+            return fileFilter.getInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            return pathname -> false;
+        }
     }
 }
