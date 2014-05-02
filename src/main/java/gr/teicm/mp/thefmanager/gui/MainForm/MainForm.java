@@ -37,7 +37,9 @@ public class MainForm extends JFrame {
     public MainForm() {
         treeFacade = new FileSystemController(fileSystemDAO);
         tableFacade = new TableFacade();
+
         initComponents();
+
         tableFileModel = new TableFileModel(filesTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
         tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), filesTable);
@@ -73,16 +75,17 @@ public class MainForm extends JFrame {
     }
 
     public void showFilePosition(String filePath, boolean addToList) {
-
         filepathTextField.setText(filePath);
 
-        if (addToList)
+        if (addToList) {
             visitedItems.add(filePath);
+        }
     }
 
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
         IFileOpenController fileOpen = new FileOpenController();
         int returnedCode = fileOpen.fileOpen(selectedTableFile);
+
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
@@ -108,6 +111,7 @@ public class MainForm extends JFrame {
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());
         executeAttribute.setSelected(selectedTableFile.canExecute());
+
         if(e.getClickCount() ==2){
             int returnedCode = fileOpen.fileOpen(selectedTableFile);
             if (returnedCode == 0) {
@@ -140,7 +144,6 @@ public class MainForm extends JFrame {
     }
 
     private void fileMenuItemRenameMousePressed(MouseEvent e) {
-        // TODO add your code here
         IRenameFileController myRename = new RenameFileController();
         String newFileName = JOptionPane.showInputDialog("Enter new name", selectedTableFile.getName());
 
@@ -148,7 +151,6 @@ public class MainForm extends JFrame {
         if(!fileRenamed){
             JOptionPane.showMessageDialog(this, "File was not renamed!");
         }
-
     }
     
     private void settingsButtonActionPerformed(ActionEvent e) {
