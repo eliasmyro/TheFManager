@@ -6,6 +6,7 @@ package gr.teicm.mp.thefmanager.gui.MainForm;
 
 //import com.jgoodies.forms.layout.*;
 
+import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 //import info.clearthought.layout.*;
 
 /**
- * @author Elias Myronidis
+ *
  */
 public class MainForm extends JFrame {
     private FileSystemController treeFacade;
@@ -37,13 +38,15 @@ public class MainForm extends JFrame {
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
+    private IFileSystemDAO fileSystemDAO = new LocalFileSystemDAO();
     
     public MainForm() {
-        treeFacade = new FileSystemController(new LocalFileSystemDAO());
+        treeFacade = new FileSystemController(fileSystemDAO);
         tableFacade = new TableFacade();
         initComponents();
         tableFileModel = new TableFileModel(filesTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
+        tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), filesTable);
     }
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
