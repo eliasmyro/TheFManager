@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_55" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -172,14 +172,8 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "tableScrollPane"
-					addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "tableScrollPaneFocusGained", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "tableScrollPaneMouseClicked", true ) )
-					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "tableScrollPaneKeyPressed", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "filesTable"
-						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
-						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filesTableKeyPressed", true ) )
-						addEvent( new FormEvent( "java.awt.event.FocusListener", "focusGained", "filesTableFocusGained", true ) )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "filesTableMouseReleased", true ) )
 					} )

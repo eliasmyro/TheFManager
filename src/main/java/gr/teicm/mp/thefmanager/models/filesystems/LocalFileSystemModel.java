@@ -9,6 +9,7 @@ import javax.swing.tree.TreePath;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class LocalFileSystemModel implements TreeModel {
     private File root;
     private FileFilter treeNodeFilter;
-    private ArrayList<TreeModelListener> listeners = new ArrayList<>();
+    private List<TreeModelListener> listeners = new ArrayList<>();
 
     public LocalFileSystemModel(File root) {
         this.root = root;

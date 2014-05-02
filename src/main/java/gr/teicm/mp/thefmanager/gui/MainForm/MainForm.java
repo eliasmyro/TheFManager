@@ -4,8 +4,6 @@
 
 package gr.teicm.mp.thefmanager.gui.MainForm;
 
-//import com.jgoodies.forms.layout.*;
-
 import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
@@ -25,11 +23,7 @@ import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.ArrayList;
-//import info.clearthought.layout.*;
 
-/**
- *
- */
 public class MainForm extends JFrame {
     private FileSystemController treeFacade;
     private TableFacade tableFacade;
@@ -57,7 +51,6 @@ public class MainForm extends JFrame {
     }
 
     private void nextButtonMouseClicked(MouseEvent e) {
-        // TODO add your code here
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
@@ -69,7 +62,6 @@ public class MainForm extends JFrame {
     }
 
     private void previousButtonMouseClicked(MouseEvent e) {
-        // TODO add your code here
         String currentPath = filepathTextField.getText();
         int pathIndex = visitedItems.indexOf(currentPath);
 
@@ -94,38 +86,6 @@ public class MainForm extends JFrame {
         if (returnedCode == 0) {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
-    }
-
-    private void tableScrollPaneFocusGained(FocusEvent e) {
-        // TODO add your code here
-    }
-
-    private void tableScrollPaneMouseClicked(MouseEvent e) {
-        // TODO add your code here
-    }
-
-    private void tableScrollPaneKeyPressed(KeyEvent e) {
-        // TODO add your code here
-    }
-
-    private void filesTableKeyPressed(KeyEvent e) {
-        // TODO add your code here
-    }
-
-    private void filesTableFocusGained(FocusEvent e) {
-        // TODO add your code here
-    }
-
-    private void filesTablePropertyChange(PropertyChangeEvent e) {
-        // TODO add your code here
-    }
-
-    private void filesTableFocusLost(FocusEvent e) {
-        // TODO add your code here
-    }
-
-    private void filesTableKeyReleased(KeyEvent e) {
-        // TODO add your code here
     }
 
     private void filesTableMousePressed(MouseEvent e) {
@@ -165,7 +125,7 @@ public class MainForm extends JFrame {
         INewFileController newFile = new NewFileController();
         String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
         boolean fileCreated = newFile.createNewFile(selectedTableFile,fileName);
-        if(fileCreated == false){
+        if(!fileCreated){
             JOptionPane.showMessageDialog(this, "File not created");
         }
     }
@@ -174,7 +134,7 @@ public class MainForm extends JFrame {
         INewFolderController newFolder = new NewFolderController();
         String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
         boolean fileCreated = newFolder.createNewFolder(selectedTableFile,fileName);
-        if(fileCreated == false){
+        if(!fileCreated){
             JOptionPane.showMessageDialog(this, "Folder not created");
         }
     }
@@ -185,7 +145,7 @@ public class MainForm extends JFrame {
         String newFileName = JOptionPane.showInputDialog("Enter new name", selectedTableFile.getName());
 
         boolean fileRenamed = myRename.renameFile(selectedTableFile,newFileName);
-        if(fileRenamed == false){
+        if(!fileRenamed){
             JOptionPane.showMessageDialog(this, "File was not renamed!");
         }
 
@@ -196,24 +156,13 @@ public class MainForm extends JFrame {
         preferencesForm.setVisible(true);
     }
 
-    private void thisKeyReleased(KeyEvent e) {
-        // TODO add your code here
-    }
-
-    private void thisMouseReleased(MouseEvent e) {
-        // TODO add your code here
-    }
-
     private void filesTableMouseReleased(MouseEvent e) {
-        // TODO add your code here
         if(e.isPopupTrigger()){
             rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
         }
-
     }
 
     private void CopyFileMousePressed(MouseEvent e) {
-        // TODO add your code here
         tableFacade = new TableFacade(selectedFilePath);
         this.fileToCopy = tableFacade.getSelectedTableFile();
 
@@ -221,16 +170,11 @@ public class MainForm extends JFrame {
     }
 
     private void PasteMousePressed(MouseEvent e)  {
-        // TODO add your code here
-
         ICopyFileController myCopyFile = new CopyFileController();
         boolean isCopied = myCopyFile.copyFile(this.fileToCopy,treeFacade.getSelectedFileItem(fileTree));
-
     }
 
     private void fileTreeMouseReleased(MouseEvent e) {
-        // TODO add your code here
-
         if(e.isPopupTrigger()){
             rightClickTreeMenu.show(e.getComponent(),e.getX(),e.getY());
         }
@@ -584,39 +528,8 @@ public class MainForm extends JFrame {
 
             //======== tableScrollPane ========
             {
-                tableScrollPane.addFocusListener(new FocusAdapter() {
-                    @Override
-                    public void focusGained(FocusEvent e) {
-                        tableScrollPaneFocusGained(e);
-                    }
-                });
-                tableScrollPane.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        tableScrollPaneMouseClicked(e);
-                    }
-                });
-                tableScrollPane.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        tableScrollPaneKeyPressed(e);
-                    }
-                });
 
                 //---- filesTable ----
-                filesTable.addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        filesTableKeyPressed(e);
-                        filesTableKeyPressed(e);
-                    }
-                });
-                filesTable.addFocusListener(new FocusAdapter() {
-                    @Override
-                    public void focusGained(FocusEvent e) {
-                        filesTableFocusGained(e);
-                    }
-                });
                 filesTable.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
