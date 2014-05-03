@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_55" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -25,6 +25,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "filepathTextField"
 					"horizontalAlignment": 2
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filepathTextFieldKeyPressed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "settingsButton"

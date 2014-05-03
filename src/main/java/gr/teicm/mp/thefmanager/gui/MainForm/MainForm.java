@@ -21,10 +21,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 
 public class MainForm extends JFrame {
@@ -46,7 +43,7 @@ public class MainForm extends JFrame {
         tableFileModel = new TableFileModel(filesTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
         tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), filesTable);
-        showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true);
+        showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true, true);
     }
 
     /**
@@ -56,12 +53,41 @@ public class MainForm extends JFrame {
      * @param addToHistory
      */
 
-    public void showFilePosition(String filePath, boolean addToHistory) {
-        String path = FilenameUtils.getFullPath(FilenameUtils.normalize(filePath + File.separator));
+    public void showFilePosition(String filePath, boolean addToHistory, boolean addSeparatorToEnd) {
+        String path;
+
+        path = addSeparatorToEnd ? FilenameUtils.normalize(filePath + File.separator) : FilenameUtils.normalize(filePath);
+
         filepathTextField.setText(path);
 
         if (addToHistory) {
             history.add(path);
+        }
+    }
+
+    /**
+     * Open location by typing path in top menu bar.
+     *
+     * @param e
+     */
+
+    private void filepathTextFieldKeyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            String path = filepathTextField.getText();
+            File directory = new File(path);
+
+            if (directory.exists()) {
+                tableFacade.updateFileTable(directory, filesTable);
+                showFilePosition(path, true, true);
+            }
+        } else if (e.getKeyCode() == File.separatorChar) {
+            String path = filepathTextField.getText();
+            File directory = new File(path);
+
+            if (directory.exists()) {
+                tableFacade.updateFileTable(directory, filesTable);
+                showFilePosition(path, true, false);
+            }
         }
     }
 
@@ -74,7 +100,7 @@ public class MainForm extends JFrame {
     private void nextButtonMouseClicked(MouseEvent e) {
         String path = history.forward();
         tableFacade.updateFileTable(new File(path), filesTable);
-        showFilePosition(path, false);
+        showFilePosition(path, false, true);
     }
 
     /**
@@ -86,7 +112,7 @@ public class MainForm extends JFrame {
     private void previousButtonMouseClicked(MouseEvent e) {
         String path = history.back();
         tableFacade.updateFileTable(new File(path), filesTable);
-        showFilePosition(path, false);
+        showFilePosition(path, false, true);
     }
 
     /**
@@ -192,7 +218,7 @@ public class MainForm extends JFrame {
     private void fileTreeItemSelect(TreeSelectionEvent e) {
         String currentPath = treeFacade.getSelectedItemPath(fileTree);
         fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
-        showFilePosition(currentPath, true);
+        showFilePosition(currentPath, true, true);
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
     }
 
@@ -432,6 +458,12 @@ public class MainForm extends JFrame {
 
             //---- filepathTextField ----
             filepathTextField.setHorizontalAlignment(SwingConstants.LEFT);
+            filepathTextField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    filepathTextFieldKeyPressed(e);
+                }
+            });
             mgrToolbar.add(filepathTextField);
 
             //---- settingsButton ----
