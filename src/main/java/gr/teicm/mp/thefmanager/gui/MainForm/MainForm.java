@@ -56,7 +56,11 @@ public class MainForm extends JFrame {
     public void showFilePosition(String filePath, boolean addToHistory, boolean addSeparatorToEnd) {
         String path;
 
-        path = addSeparatorToEnd ? FilenameUtils.normalize(filePath + File.separator) : FilenameUtils.normalize(filePath);
+        if (addSeparatorToEnd) {
+            path = FilenameUtils.normalize(filePath + File.separator);
+        } else {
+            path = FilenameUtils.normalize(filePath);
+        }
 
         filepathTextField.setText(path);
 
@@ -72,21 +76,18 @@ public class MainForm extends JFrame {
      */
 
     private void filepathTextFieldKeyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == File.separatorChar) {
             String path = filepathTextField.getText();
             File directory = new File(path);
 
             if (directory.exists()) {
                 tableFacade.updateFileTable(directory, filesTable);
-                showFilePosition(path, true, true);
-            }
-        } else if (e.getKeyCode() == File.separatorChar) {
-            String path = filepathTextField.getText();
-            File directory = new File(path);
 
-            if (directory.exists()) {
-                tableFacade.updateFileTable(directory, filesTable);
-                showFilePosition(path, true, false);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    showFilePosition(path, true, true);
+                } else if (e.getKeyCode() == File.separatorChar) {
+                    showFilePosition(path, true, false);
+                }
             }
         }
     }
