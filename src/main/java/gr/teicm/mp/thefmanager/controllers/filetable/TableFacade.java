@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.controllers.filetable;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
-import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
+import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
@@ -23,8 +23,8 @@ public class TableFacade {
     public FileSystemView fileSystemView = FileSystemView.getFileSystemView();
 
     {
-        IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
-        tableNodeFilter = getHiddenFilesPolicy.getFileFilterInstance(true);
+        IPreferencesDAO preferencesDAO = new PreferencesDAO();
+        tableNodeFilter = preferencesDAO.getHiddenFilesPolicy(true);
     }
 
     public TableFacade() {

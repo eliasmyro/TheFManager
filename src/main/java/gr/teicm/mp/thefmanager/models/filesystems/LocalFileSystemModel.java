@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.GetHiddenFilesPolicy;
-import gr.teicm.mp.thefmanager.controllers.preferences.IGetHiddenFilesPolicy;
+import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -22,8 +22,8 @@ public class LocalFileSystemModel implements TreeModel {
     public LocalFileSystemModel(File root) {
         this.root = root;
 
-        IGetHiddenFilesPolicy getHiddenFilesPolicy = new GetHiddenFilesPolicy();
-        treeNodeFilter = getHiddenFilesPolicy.getFileFilterInstance(false);
+        IPreferencesDAO preferencesDAO = new PreferencesDAO();
+        treeNodeFilter = preferencesDAO.getHiddenFilesPolicy(true);
     }
 
     @Override

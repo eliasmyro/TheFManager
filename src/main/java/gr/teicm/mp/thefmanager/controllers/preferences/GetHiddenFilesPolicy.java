@@ -1,6 +1,5 @@
 package gr.teicm.mp.thefmanager.controllers.preferences;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
 import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
 import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
 import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
@@ -13,7 +12,7 @@ import java.util.prefs.Preferences;
  * Created by Achilleas Naoumidis on 4/8/14.
  */
 public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
-    IPreferencesDAO preferencesDAO;
+    PreferencesDAO preferencesDAO;
     Preferences userPreferences;
 
     public GetHiddenFilesPolicy() {
@@ -26,7 +25,7 @@ public class GetHiddenFilesPolicy implements IGetHiddenFilesPolicy {
         return userPreferences.getBoolean("showHiddenFiles", false);
     }
 
-    /*
+    /**
      * After introduce of a favorites panel and remove tree panel
      * the parameter showFiles should be deleted same as the if else statement
      */

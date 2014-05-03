@@ -1,6 +1,5 @@
 package gr.teicm.mp.thefmanager.controllers.preferences;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
 import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
 
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.util.prefs.Preferences;
  * Created by Achilleas Naoumidis on 4/27/14.
  */
 public class PutLastRunDate implements IPutLastRunDate {
-    IPreferencesDAO preferencesDAO;
+    PreferencesDAO preferencesDAO;
     Preferences userPreferences;
 
     SimpleDateFormat simpleDateFormat;
