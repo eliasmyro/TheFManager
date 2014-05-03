@@ -143,8 +143,6 @@ public class MainForm extends JFrame {
     private void CopyFileMousePressed(MouseEvent e) {
         tableFacade = new TableFacade(selectedFilePath);
         this.fileToCopy = tableFacade.getSelectedTableFile();
-
-        // System.out.println("copy pressed! Name of file to copy:"+selectedTableFile.getName());
     }
 
     /**
@@ -186,8 +184,7 @@ public class MainForm extends JFrame {
     }
 
     /**
-     * Actions that have to be taken when item from
-     * filetree was selected.
+     * Tree Item Select Event
      *
      * @param e
      */
@@ -200,8 +197,7 @@ public class MainForm extends JFrame {
     }
 
     /**
-     * Actions that have to be taken when mouse pressed
-     * on Files Table.
+     * File Table Mouse Pressed Event.
      *
      * @param e
      */
@@ -235,46 +231,43 @@ public class MainForm extends JFrame {
     }
 
     /**
-     * Actions that have to be taken when mouse released
-     * from Files Table.
+     * File Table Mouse Released Event.
      *
      * @param e
      */
 
     private void filesTableMouseReleased(MouseEvent e) {
-        if(e.isPopupTrigger()){
-            rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
+        if (e.isPopupTrigger()) {
+            rightClickTableMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
 
     /**
-     * Actions that have to be taken when mouse pressed
-     * on Files Tree.
+     * File Tree Mouse Pressed Event.
      *
      * @param e
      */
 
     private void fileTreeMousePressed(MouseEvent e) {
-        if(e.isPopupTrigger()){
+        if (e.isPopupTrigger()) {
             rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
 
     /**
-     * Actions that have to be taken when mouse released
-     * from Files Tree.
+     * File Tree Mouse Released Event.
      *
      * @param e
      */
 
     private void fileTreeMouseReleased(MouseEvent e) {
-        if(e.isPopupTrigger()){
+        if (e.isPopupTrigger()) {
             rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
 
     /**
-     * Opens Settings Form.
+     * Opens Settings Form Button Click.
      *
      * @param e
      */
