@@ -6,12 +6,14 @@ package gr.teicm.mp.thefmanager.gui.MainForm;
 
 import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
 import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
+import gr.teicm.mp.thefmanager.controllers.History;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -19,16 +21,17 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
 
 public class MainForm extends JFrame {
     private FileSystemController treeFacade;
     private TableFacade tableFacade;
     private TableFileModel tableFileModel;
-    private ArrayList<String> visitedItems = new ArrayList<>();
+    private History history = new History();
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
@@ -43,6 +46,7 @@ public class MainForm extends JFrame {
         tableFileModel = new TableFileModel(filesTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
         tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), filesTable);
+        showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true);
     }
 
     private void fileTreeItemSelect(TreeSelectionEvent e) {
@@ -53,32 +57,23 @@ public class MainForm extends JFrame {
     }
 
     private void nextButtonMouseClicked(MouseEvent e) {
-        String currentPath = filepathTextField.getText();
-        int pathIndex = visitedItems.indexOf(currentPath);
-
-        try {
-            showFilePosition(visitedItems.get(pathIndex + 1), false);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String path = history.forward();
+        tableFacade.updateFileTable(new File(path), filesTable);
+        showFilePosition(path, false);
     }
 
     private void previousButtonMouseClicked(MouseEvent e) {
-        String currentPath = filepathTextField.getText();
-        int pathIndex = visitedItems.indexOf(currentPath);
-
-        try {
-            showFilePosition(visitedItems.get(pathIndex - 1), false);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        String path = history.back();
+        tableFacade.updateFileTable(new File(path), filesTable);
+        showFilePosition(path, false);
     }
 
-    public void showFilePosition(String filePath, boolean addToList) {
-        filepathTextField.setText(filePath);
+    public void showFilePosition(String filePath, boolean addToHistory) {
+        String path = FilenameUtils.getFullPath(FilenameUtils.normalize(filePath + File.separator));
+        filepathTextField.setText(path);
 
-        if (addToList) {
-            visitedItems.add(filePath);
+        if (addToHistory) {
+            history.add(path);
         }
     }
 
@@ -106,7 +101,6 @@ public class MainForm extends JFrame {
         fileIconLbl.setIcon(tableFacade.fileSystemView.getSystemIcon(selectedTableFile));
         fileName.setText(selectedTableFile.getName());
         filePath.setText(selectedTableFile.getPath());
-        filepathTextField.setText(selectedTableFile.getPath());
         fileSize.setText(selectedTableFile.length() + " Bytes");
         readAttribute.setSelected(selectedTableFile.canRead());
         writeAttribute.setSelected(selectedTableFile.canWrite());

@@ -14,6 +14,7 @@ public class History {
     {
         history = new ArrayList<>();
         curr = -1;
+        last = -1;
     }
 
     public History() {
@@ -24,16 +25,21 @@ public class History {
     }
 
     public void add(String path) {
-        if (history.get(curr + 1).equals(path)) {
-            curr++;
+        if (hasForward()) {
+            if (history.get(curr + 1).equals(path)) {
+                curr++;
+            } else {
+                history.add(++curr, path);
+                last = curr;
+            }
         } else {
-            history.add(curr++, path);
+            history.add(++curr, path);
             last = curr;
         }
     }
 
     public String back() {
-        return hasBack() ? history.get(curr--) : null;
+        return hasBack() ? history.get(--curr) : null;
     }
 
     public String current() {
@@ -41,7 +47,7 @@ public class History {
     }
 
     public String forward() {
-        return hasForward() ? history.get(curr++) : null;
+        return hasForward() ? history.get(++curr) : null;
     }
 
     public boolean hasBack() {
