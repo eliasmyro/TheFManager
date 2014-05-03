@@ -49,24 +49,12 @@ public class MainForm extends JFrame {
         showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true);
     }
 
-    private void fileTreeItemSelect(TreeSelectionEvent e) {
-        String currentPath = treeFacade.getSelectedItemPath(fileTree);
-        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
-        showFilePosition(currentPath, true);
-        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
-    }
-
-    private void nextButtonMouseClicked(MouseEvent e) {
-        String path = history.forward();
-        tableFacade.updateFileTable(new File(path), filesTable);
-        showFilePosition(path, false);
-    }
-
-    private void previousButtonMouseClicked(MouseEvent e) {
-        String path = history.back();
-        tableFacade.updateFileTable(new File(path), filesTable);
-        showFilePosition(path, false);
-    }
+    /**
+     * Shows current location in top menu bar.
+     *
+     * @param filePath
+     * @param addToHistory
+     */
 
     public void showFilePosition(String filePath, boolean addToHistory) {
         String path = FilenameUtils.getFullPath(FilenameUtils.normalize(filePath + File.separator));
@@ -77,6 +65,36 @@ public class MainForm extends JFrame {
         }
     }
 
+    /**
+     * On "Forward" button click.
+     *
+     * @param e
+     */
+
+    private void nextButtonMouseClicked(MouseEvent e) {
+        String path = history.forward();
+        tableFacade.updateFileTable(new File(path), filesTable);
+        showFilePosition(path, false);
+    }
+
+    /**
+     * On "Back" button click.
+     *
+     * @param e
+     */
+
+    private void previousButtonMouseClicked(MouseEvent e) {
+        String path = history.back();
+        tableFacade.updateFileTable(new File(path), filesTable);
+        showFilePosition(path, false);
+    }
+
+    /**
+     * "Open" Command.
+     *
+     * @param e
+     */
+
     private void fileMenuItemOpenActionPerformed(ActionEvent e) {
         IFileOpenController fileOpen = new FileOpenController();
         int returnedCode = fileOpen.fileOpen(selectedTableFile);
@@ -85,6 +103,108 @@ public class MainForm extends JFrame {
             JOptionPane.showMessageDialog(this, "There is no App for this file or Desktop is not supported");
         }
     }
+
+    /**
+     * "New File" Command.
+     *
+     * @param e
+     */
+
+    private void newFileMenuItemActionPerformed(ActionEvent e) {
+        INewFileController newFile = new NewFileController();
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = newFile.createNewFile(selectedTableFile,fileName);
+        if(!fileCreated){
+            JOptionPane.showMessageDialog(this, "File not created");
+        }
+    }
+
+    /**
+     * "New Folder" Command.
+     *
+     * @param e
+     */
+
+    private void newFolderMenuItemActionPerformed(ActionEvent e) {
+        INewFolderController newFolder = new NewFolderController();
+        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
+        boolean fileCreated = newFolder.createNewFolder(selectedTableFile,fileName);
+        if(!fileCreated){
+            JOptionPane.showMessageDialog(this, "Folder not created");
+        }
+    }
+
+    /**
+     * "Copy" Command.
+     *
+     * @param e
+     */
+
+    private void CopyFileMousePressed(MouseEvent e) {
+        tableFacade = new TableFacade(selectedFilePath);
+        this.fileToCopy = tableFacade.getSelectedTableFile();
+
+        // System.out.println("copy pressed! Name of file to copy:"+selectedTableFile.getName());
+    }
+
+    /**
+     * "Paste" Command.
+     *
+     * @param e
+     */
+
+    private void PasteMousePressed(MouseEvent e)  {
+        ICopyFileController myCopyFile = new CopyFileController();
+        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,treeFacade.getSelectedFileItem(fileTree));
+    }
+
+    /**
+     * "Rename" Command.
+     *
+     * @param e
+     */
+
+    private void fileMenuItemRenameMousePressed(MouseEvent e) {
+        IRenameFileController myRename = new RenameFileController();
+        String newFileName = JOptionPane.showInputDialog("Enter new name", selectedTableFile.getName());
+
+        boolean fileRenamed = myRename.renameFile(selectedTableFile,newFileName);
+        if(!fileRenamed){
+            JOptionPane.showMessageDialog(this, "File was not renamed!");
+        }
+    }
+
+    /**
+     * "Delete" Command.
+     *
+     * @param e
+     */
+
+    private void fileMenuItemDeleteMousePressed(MouseEvent e) {
+        IDeleteFileController myDelete = new DeleteFileController();
+        boolean isDeleted = myDelete.deleteFile(selectedTableFile);
+    }
+
+    /**
+     * Actions that have to be taken when item from
+     * filetree was selected.
+     *
+     * @param e
+     */
+
+    private void fileTreeItemSelect(TreeSelectionEvent e) {
+        String currentPath = treeFacade.getSelectedItemPath(fileTree);
+        fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
+        showFilePosition(currentPath, true);
+        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
+    }
+
+    /**
+     * Actions that have to be taken when mouse pressed
+     * on Files Table.
+     *
+     * @param e
+     */
 
     private void filesTableMousePressed(MouseEvent e) {
         IFileOpenController fileOpen = new FileOpenController();
@@ -114,43 +234,12 @@ public class MainForm extends JFrame {
         }
     }
 
-    private void fileMenuItemDeleteMousePressed(MouseEvent e) {
-            IDeleteFileController myDelete = new DeleteFileController();
-            boolean isDeleted = myDelete.deleteFile(selectedTableFile);
-    }
-
-    private void newFileMenuItemActionPerformed(ActionEvent e) {
-        INewFileController newFile = new NewFileController();
-        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
-        boolean fileCreated = newFile.createNewFile(selectedTableFile,fileName);
-        if(!fileCreated){
-            JOptionPane.showMessageDialog(this, "File not created");
-        }
-    }
-
-    private void newFolderMenuItemActionPerformed(ActionEvent e) {
-        INewFolderController newFolder = new NewFolderController();
-        String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
-        boolean fileCreated = newFolder.createNewFolder(selectedTableFile,fileName);
-        if(!fileCreated){
-            JOptionPane.showMessageDialog(this, "Folder not created");
-        }
-    }
-
-    private void fileMenuItemRenameMousePressed(MouseEvent e) {
-        IRenameFileController myRename = new RenameFileController();
-        String newFileName = JOptionPane.showInputDialog("Enter new name", selectedTableFile.getName());
-
-        boolean fileRenamed = myRename.renameFile(selectedTableFile,newFileName);
-        if(!fileRenamed){
-            JOptionPane.showMessageDialog(this, "File was not renamed!");
-        }
-    }
-    
-    private void settingsButtonActionPerformed(ActionEvent e) {
-        PreferencesForm preferencesForm = new PreferencesForm();
-        preferencesForm.setVisible(true);
-    }
+    /**
+     * Actions that have to be taken when mouse released
+     * from Files Table.
+     *
+     * @param e
+     */
 
     private void filesTableMouseReleased(MouseEvent e) {
         if(e.isPopupTrigger()){
@@ -158,28 +247,41 @@ public class MainForm extends JFrame {
         }
     }
 
-    private void CopyFileMousePressed(MouseEvent e) {
-        tableFacade = new TableFacade(selectedFilePath);
-        this.fileToCopy = tableFacade.getSelectedTableFile();
-
-       // System.out.println("copy pressed! Name of file to copy:"+selectedTableFile.getName());
-    }
-
-    private void PasteMousePressed(MouseEvent e)  {
-        ICopyFileController myCopyFile = new CopyFileController();
-        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,treeFacade.getSelectedFileItem(fileTree));
-    }
-
-    private void fileTreeMouseReleased(MouseEvent e) {
-        if(e.isPopupTrigger()){
-            rightClickTreeMenu.show(e.getComponent(),e.getX(),e.getY());
-        }
-    }
+    /**
+     * Actions that have to be taken when mouse pressed
+     * on Files Tree.
+     *
+     * @param e
+     */
 
     private void fileTreeMousePressed(MouseEvent e) {
         if(e.isPopupTrigger()){
-            rightClickTreeMenu.show(e.getComponent(),e.getX(),e.getY());
+            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
         }
+    }
+
+    /**
+     * Actions that have to be taken when mouse released
+     * from Files Tree.
+     *
+     * @param e
+     */
+
+    private void fileTreeMouseReleased(MouseEvent e) {
+        if(e.isPopupTrigger()){
+            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
+
+    /**
+     * Opens Settings Form.
+     *
+     * @param e
+     */
+
+    private void settingsButtonActionPerformed(ActionEvent e) {
+        PreferencesForm preferencesForm = new PreferencesForm();
+        preferencesForm.setVisible(true);
     }
 
     private void initComponents() {
