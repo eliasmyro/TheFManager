@@ -20,10 +20,6 @@ public class PreferencesDAO implements IPreferencesDAO {
     public PreferencesDAO() {
     }
 
-    public Preferences userRootPreferences() {
-        return userPreferences;
-    }
-
     /**
      * After introduce of a favorites panel and remove tree panel
      * the parameter showFiles should be deleted same as the if else statement
