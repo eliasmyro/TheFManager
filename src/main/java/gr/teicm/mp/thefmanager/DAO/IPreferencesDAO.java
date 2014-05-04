@@ -11,8 +11,4 @@ public interface IPreferencesDAO {
     FileFilter getHiddenFilesFilter(boolean showFiles);
     Date getLastRunDate() throws ParseException;
     String getThemeClass();
-
-    boolean putHiddenFilesPolicy(boolean value);
-    boolean putLastRunDate();
-    boolean putThemeName(String themeName);
 }

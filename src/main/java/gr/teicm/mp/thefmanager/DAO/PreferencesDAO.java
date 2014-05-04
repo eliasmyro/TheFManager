@@ -7,9 +7,7 @@ import gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicies;
 
 import java.io.FileFilter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -62,28 +60,30 @@ public class PreferencesDAO implements IPreferencesDAO {
 
     @Override
     public Date getLastRunDate() throws ParseException {
-        String value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
+//        String value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
+//
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+//        Date date;
+//
+//        int count = 0;
+//        int maxTries = 3;
+//
+//        while (true) {
+//            try {
+//                date = simpleDateFormat.parse(value);
+//                return date;
+//            } catch (ParseException e) {
+//                putLastRunDate();
+//
+//                value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
+//
+//                if (++count == maxTries) {
+//                    throw e;
+//                }
+//            }
+//        }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-        Date date;
-
-        int count = 0;
-        int maxTries = 3;
-
-        while (true) {
-            try {
-                date = simpleDateFormat.parse(value);
-                return date;
-            } catch (ParseException e) {
-                putLastRunDate();
-
-                value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
-
-                if (++count == maxTries) {
-                    throw e;
-                }
-            }
-        }
+        return null;
     }
 
     @Override
@@ -91,42 +91,5 @@ public class PreferencesDAO implements IPreferencesDAO {
         String themeName = userAppearancePreferences.get("lookAndFeel", "Quaqua").toUpperCase();
         Theme theme = Theme.valueOf(themeName);
         return theme.getThemeClassName();
-    }
-
-    @Override
-    public boolean putHiddenFilesPolicy(boolean value) {
-        userPreferences.putBoolean("showHiddenFiles", value);
-
-        try {
-            userPreferences.flush();
-            return true;
-        } catch (BackingStoreException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean putLastRunDate() {
-        String timestamp = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss").format(new Date());
-        userPreferences.put("lastRunDate", timestamp);
-
-        try {
-            userPreferences.flush();
-            return true;
-        } catch (BackingStoreException e) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean putThemeName(String themeName) {
-        userAppearancePreferences.put("lookAndFeel", themeName);
-
-        try {
-            userPreferences.flush();
-            return true;
-        } catch (BackingStoreException e) {
-            return false;
-        }
     }
 }
