@@ -4,9 +4,8 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
-import gr.teicm.mp.thefmanager.controllers.preferences.*;
+import gr.teicm.mp.thefmanager.DAO.IPreferencesValuesDAO;
+import gr.teicm.mp.thefmanager.DAO.PreferencesValuesDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +16,7 @@ import java.awt.event.ActionListener;
  * @author Achilleas Naoumidis
  */
 public class PreferencesForm extends JFrame {
-    IPreferencesDAO preferencesDAO = new PreferencesDAO();
+    IPreferencesValuesDAO preferencesDAO = new PreferencesValuesDAO();
 
     boolean showHiddenFiles;
     String themeName;
@@ -56,10 +55,8 @@ public class PreferencesForm extends JFrame {
     }
 
     private void loadPreferences() {
-        this.showHiddenFiles = preferencesDAO.getHiddenFilesPolicyValue();
-
-        IGetThemeName getThemeName = new GetThemeName();
-        this.themeName = getThemeName.getValue();
+        this.showHiddenFiles = preferencesDAO.getHiddenFilesPolicy();
+        this.themeName = preferencesDAO.getThemeName();
     }
 
     private void initComponents() {

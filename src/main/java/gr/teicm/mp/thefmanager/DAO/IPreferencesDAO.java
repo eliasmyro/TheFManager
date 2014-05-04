@@ -8,14 +8,9 @@ import java.util.Date;
  * Created by Achilleas Naoumidis on 4/8/14.
  */
 public interface IPreferencesDAO {
-    boolean getHiddenFilesPolicyValue();
-    FileFilter getHiddenFilesPolicy(boolean showFiles);
-
-    String getLastRunDateValue();
+    FileFilter getHiddenFilesFilter(boolean showFiles);
     Date getLastRunDate() throws ParseException;
-
-    String getThemeValue();
-    String getTheme();
+    String getThemeClass();
 
     boolean putHiddenFilesPolicy(boolean value);
     boolean putLastRunDate();

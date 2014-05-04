@@ -23,7 +23,7 @@ public class LocalFileSystemModel implements TreeModel {
         this.root = root;
 
         IPreferencesDAO preferencesDAO = new PreferencesDAO();
-        treeNodeFilter = preferencesDAO.getHiddenFilesPolicy(true);
+        treeNodeFilter = preferencesDAO.getHiddenFilesFilter(false);
     }
 
     @Override

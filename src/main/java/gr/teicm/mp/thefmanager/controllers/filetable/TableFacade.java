@@ -24,7 +24,7 @@ public class TableFacade {
 
     {
         IPreferencesDAO preferencesDAO = new PreferencesDAO();
-        tableNodeFilter = preferencesDAO.getHiddenFilesPolicy(true);
+        tableNodeFilter = preferencesDAO.getHiddenFilesFilter(true);
     }
 
     public TableFacade() {

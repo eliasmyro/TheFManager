@@ -1,7 +1,5 @@
 package gr.teicm.mp.thefmanager.DAO;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.IPutLastRunDate;
-import gr.teicm.mp.thefmanager.controllers.preferences.PutLastRunDate;
 import gr.teicm.mp.thefmanager.models.Theme;
 import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
 import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
@@ -28,18 +26,13 @@ public class PreferencesDAO implements IPreferencesDAO {
         return userPreferences;
     }
 
-    @Override
-    public boolean getHiddenFilesPolicyValue() {
-        return userPreferences.getBoolean("showHiddenFiles", false);
-    }
-
     /**
      * After introduce of a favorites panel and remove tree panel
      * the parameter showFiles should be deleted same as the if else statement
      */
 
     @Override
-    public FileFilter getHiddenFilesPolicy(boolean showFiles) {
+    public FileFilter getHiddenFilesFilter(boolean showFiles) {
         boolean value = userPreferences.getBoolean("showHiddenFiles", false);
 
         IFileFilter fileFilter;
@@ -82,8 +75,7 @@ public class PreferencesDAO implements IPreferencesDAO {
                 date = simpleDateFormat.parse(value);
                 return date;
             } catch (ParseException e) {
-                IPutLastRunDate putLastRunDate = new PutLastRunDate();
-                putLastRunDate.putTimestamp();
+                putLastRunDate();
 
                 value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
 
@@ -95,7 +87,7 @@ public class PreferencesDAO implements IPreferencesDAO {
     }
 
     @Override
-    public String getTheme() {
+    public String getThemeClass() {
         String themeName = userAppearancePreferences.get("lookAndFeel", "Quaqua").toUpperCase();
         Theme theme = Theme.valueOf(themeName);
         return theme.getThemeClassName();
