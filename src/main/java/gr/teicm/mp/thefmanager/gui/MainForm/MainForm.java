@@ -28,7 +28,7 @@ public class MainForm extends JFrame {
     private FileSystemController treeFacade;
     private TableFacade tableFacade;
     private TableFileModel tableFileModel;
-    private History history = new History();
+    private History history;
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
@@ -37,6 +37,7 @@ public class MainForm extends JFrame {
     public MainForm() {
         treeFacade = new FileSystemController(fileSystemDAO);
         tableFacade = new TableFacade();
+        history = new History();
 
         initComponents();
 
