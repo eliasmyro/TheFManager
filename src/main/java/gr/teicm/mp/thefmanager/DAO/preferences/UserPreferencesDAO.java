@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.DAO;
+package gr.teicm.mp.thefmanager.DAO.preferences;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

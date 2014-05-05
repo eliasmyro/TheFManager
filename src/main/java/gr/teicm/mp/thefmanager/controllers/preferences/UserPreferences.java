@@ -1,5 +1,7 @@
 package gr.teicm.mp.thefmanager.controllers.preferences;
 
+import gr.teicm.mp.thefmanager.DAO.preferences.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.preferences.UserPreferencesDAO;
 import gr.teicm.mp.thefmanager.models.Theme;
 import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
 import gr.teicm.mp.thefmanager.models.filefilters.filetable.TableNodePolicies;
@@ -7,15 +9,14 @@ import gr.teicm.mp.thefmanager.models.filefilters.filetree.TreeNodePolicies;
 
 import java.io.FileFilter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.prefs.Preferences;
 
 /**
  * Created by Achilleas Naoumidis on 4/8/14.
  */
 public class UserPreferences implements IUserPreferences {
-    Preferences userPreferences = Preferences.userRoot().node("/thefmanager");
-    Preferences userAppearancePreferences = userPreferences.node("appearance");
+    IUserPreferencesDAO userPreferencesDao = new UserPreferencesDAO();
 
     public UserPreferences() {
     }
@@ -27,7 +28,7 @@ public class UserPreferences implements IUserPreferences {
 
     @Override
     public FileFilter getHiddenFilesFilter(boolean showFiles) {
-        boolean value = userPreferences.getBoolean("showHiddenFiles", false);
+        boolean value = userPreferencesDao.getHiddenFilesPolicy();
 
         IFileFilter fileFilter;
         String _nodePolicy = String.valueOf(value).toUpperCase();
@@ -55,36 +56,34 @@ public class UserPreferences implements IUserPreferences {
      */
 
     @Override
-    public Date getLastRunDate() throws ParseException {
-//        String value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
-//
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-//        Date date;
-//
-//        int count = 0;
-//        int maxTries = 3;
-//
-//        while (true) {
-//            try {
-//                date = simpleDateFormat.parse(value);
-//                return date;
-//            } catch (ParseException e) {
-//                putLastRunDate();
-//
-//                value = userPreferences.get("lastRunDate", "2000-01-01 00:00:00");
-//
-//                if (++count == maxTries) {
-//                    throw e;
-//                }
-//            }
-//        }
+    public Date getLastRunDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        String value;
+        Date date;
 
-        return null;
+        int count = 0;
+        int maxTries = 3;
+
+        while (true) {
+            try {
+                value = userPreferencesDao.getLastRunDateString();
+                date = simpleDateFormat.parse(value);
+                return date;
+            } catch (ParseException e) {
+                userPreferencesDao.putLastRunDate();
+
+                value = userPreferencesDao.getLastRunDateString();
+
+                if (++count == maxTries) {
+                    return new Date();
+                }
+            }
+        }
     }
 
     @Override
     public String getThemeClass() {
-        String themeName = userAppearancePreferences.get("lookAndFeel", "Quaqua").toUpperCase();
+        String themeName = userPreferencesDao.getThemeName().toUpperCase();
         Theme theme = Theme.valueOf(themeName);
         return theme.getThemeClassName();
     }

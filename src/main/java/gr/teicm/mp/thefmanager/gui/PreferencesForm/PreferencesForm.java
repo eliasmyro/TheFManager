@@ -4,8 +4,8 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
-import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.preferences.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.preferences.UserPreferencesDAO;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.DAO;
+package gr.teicm.mp.thefmanager.DAO.preferences;
 
 /**
  * Created by Achilleas Naoumidis on 5/4/14.
