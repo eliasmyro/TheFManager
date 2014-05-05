@@ -61,24 +61,18 @@ public class UserPreferences implements IUserPreferences {
         String value;
         Date date;
 
-        int count = 0;
-        int maxTries = 3;
-
-        while (true) {
+        for (int i = 0; i < 3; i++) {
             try {
                 value = userPreferencesDao.getLastRunDateString();
                 date = simpleDateFormat.parse(value);
                 return date;
             } catch (ParseException e) {
                 userPreferencesDao.putLastRunDate();
-
                 value = userPreferencesDao.getLastRunDateString();
-
-                if (++count == maxTries) {
-                    return new Date();
-                }
             }
         }
+
+        return new Date();
     }
 
     @Override
