@@ -344,7 +344,6 @@ public class MainForm extends JFrame {
         renameTextField = new JTextField();
         rightClickTreeMenu = new JPopupMenu();
         Paste = new JMenuItem();
-        Exit2 = new JMenuItem();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
@@ -603,10 +602,6 @@ public class MainForm extends JFrame {
                     }
                 });
                 rightClickTreeMenu.add(Paste);
-
-                //---- Exit2 ----
-                Exit2.setText("Exit");
-                rightClickTreeMenu.add(Exit2);
             }
             fileInfoPane.add(rightClickTreeMenu);
         }
@@ -708,7 +703,6 @@ public class MainForm extends JFrame {
     private JTextField renameTextField;
     private JPopupMenu rightClickTreeMenu;
     private JMenuItem Paste;
-    private JMenuItem Exit2;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;

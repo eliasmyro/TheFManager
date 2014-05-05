@@ -136,10 +136,6 @@ new FormModel {
 						"text": "Paste"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteMousePressed", true ) )
 					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "Exit2"
-						"text": "Exit"
-					} )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Last"
