@@ -8,7 +8,7 @@ import java.util.prefs.Preferences;
 /**
  * Created by Achilleas Naoumidis on 5/4/14.
  */
-public class PreferencesValuesDAO implements IPreferencesValuesDAO {
+public class UserPreferencesDAO implements IUserPreferencesDAO {
     Preferences userPreferences = Preferences.userRoot().node("/thefmanager");
     Preferences userAppearancePreferences = userPreferences.node("appearance");
 

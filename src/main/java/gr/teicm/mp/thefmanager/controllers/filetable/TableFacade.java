@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.controllers.filetable;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
+import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
+import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
 import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class TableFacade {
     public FileSystemView fileSystemView = FileSystemView.getFileSystemView();
 
     {
-        IPreferencesDAO preferencesDAO = new PreferencesDAO();
+        IUserPreferences preferencesDAO = new UserPreferences();
         tableNodeFilter = preferencesDAO.getHiddenFilesFilter(true);
     }
 

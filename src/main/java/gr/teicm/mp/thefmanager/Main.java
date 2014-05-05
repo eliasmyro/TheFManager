@@ -1,14 +1,14 @@
 package gr.teicm.mp.thefmanager;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
+import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
+import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
 import gr.teicm.mp.thefmanager.gui.MainForm.MainForm;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        IPreferencesDAO preferencesDAO = new PreferencesDAO();
+        IUserPreferences preferencesDAO = new UserPreferences();
 
 //        preferencesDAO.putLastRunDate();
 

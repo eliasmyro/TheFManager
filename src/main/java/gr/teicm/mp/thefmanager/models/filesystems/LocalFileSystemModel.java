@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.PreferencesDAO;
+import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
+import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -22,7 +22,7 @@ public class LocalFileSystemModel implements TreeModel {
     public LocalFileSystemModel(File root) {
         this.root = root;
 
-        IPreferencesDAO preferencesDAO = new PreferencesDAO();
+        IUserPreferences preferencesDAO = new UserPreferences();
         treeNodeFilter = preferencesDAO.getHiddenFilesFilter(false);
     }
 

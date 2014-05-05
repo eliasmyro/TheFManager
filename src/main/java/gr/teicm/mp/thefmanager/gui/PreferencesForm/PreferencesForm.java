@@ -4,8 +4,8 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
-import gr.teicm.mp.thefmanager.DAO.IPreferencesValuesDAO;
-import gr.teicm.mp.thefmanager.DAO.PreferencesValuesDAO;
+import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  * @author Achilleas Naoumidis
  */
 public class PreferencesForm extends JFrame {
-    IPreferencesValuesDAO preferencesDAO = new PreferencesValuesDAO();
+    IUserPreferencesDAO preferencesDAO = new UserPreferencesDAO();
 
     boolean showHiddenFiles;
     String themeName;

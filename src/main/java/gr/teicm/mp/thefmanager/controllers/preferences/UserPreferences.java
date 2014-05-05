@@ -1,4 +1,4 @@
-package gr.teicm.mp.thefmanager.DAO;
+package gr.teicm.mp.thefmanager.controllers.preferences;
 
 import gr.teicm.mp.thefmanager.models.Theme;
 import gr.teicm.mp.thefmanager.models.filefilters.IFileFilter;
@@ -13,11 +13,11 @@ import java.util.prefs.Preferences;
 /**
  * Created by Achilleas Naoumidis on 4/8/14.
  */
-public class PreferencesDAO implements IPreferencesDAO {
+public class UserPreferences implements IUserPreferences {
     Preferences userPreferences = Preferences.userRoot().node("/thefmanager");
     Preferences userAppearancePreferences = userPreferences.node("appearance");
 
-    public PreferencesDAO() {
+    public UserPreferences() {
     }
 
     /**
