@@ -36,23 +36,15 @@ public class FileDAO implements IFileDAO {
     }
 
     @Override
-    public boolean checkIfFileForCopyExist(File selectedFileToCopy,File copyToDirectory){
+    public boolean checkIfFileForCopyExist(File selectedFileToCopy, File copyToDirectory){
 
         File file = new File(copyToDirectory, selectedFileToCopy.getName());
-        if (file.exists()) {
-            return true;
-        } else {
-            return false;
-        }
+        return file.exists();
     }
 
 
 
     public boolean renameFile(File selectedFile, File newFile){
-
-
-
-
         if(selectedFile.renameTo(newFile))
             System.out.print("Success");
         else
@@ -61,9 +53,6 @@ public class FileDAO implements IFileDAO {
     }
 
     public boolean fileExists(File newFile){
-        if(newFile.exists())
-            return true;
-        else
-            return false;
+        return newFile.exists();
     }
 }
