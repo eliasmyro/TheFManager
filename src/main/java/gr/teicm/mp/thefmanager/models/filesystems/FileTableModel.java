@@ -10,20 +10,20 @@ import java.util.Date;
  * Creating an object of the selected tree file, so we can add it to the table rows
  *
  */
-public class TableFileModel {
+public class FileTableModel {
 
     private File[] files;
     private File file;
 
-    public TableFileModel(File[] files) {
+    public FileTableModel(File[] files) {
         this.files = files;
     }
 
-    public TableFileModel(File file) {
+    public FileTableModel(File file) {
         this.file = file;
     }
 
-    public TableFileModel(JTable fileTable) {
+    public FileTableModel(JTable fileTable) {
 
         fileTable.setModel((new javax.swing.table.DefaultTableModel (
                 new Object [][]  {

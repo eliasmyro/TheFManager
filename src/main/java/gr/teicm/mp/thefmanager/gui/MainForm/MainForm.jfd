@@ -64,10 +64,6 @@ new FormModel {
 						"text": "Rename"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
 					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "Exit"
-						"text": "Exit"
-					} )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "fileInfoLabel"
@@ -174,7 +170,7 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "tableScrollPane"
 					add( new FormComponent( "javax.swing.JTable" ) {
-						name: "filesTable"
+						name: "fileTable"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "filesTableMouseReleased", true ) )
 					} )

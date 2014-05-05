@@ -2,7 +2,7 @@ package gr.teicm.mp.thefmanager.controllers.filetable;
 
 import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
 import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
-import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
+import gr.teicm.mp.thefmanager.models.filesystems.FileTableModel;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -56,7 +56,7 @@ public class TableFacade {
        // FileSystemView fileSystemView = FileSystemView.getFileSystemView();
         DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
-        TableFileModel fileObject = new TableFileModel(node.listFiles(tableNodeFilter));
+        FileTableModel fileObject = new FileTableModel(node.listFiles(tableNodeFilter));
         File[] allFiles;
 
         allFiles = fileObject.getFiles();

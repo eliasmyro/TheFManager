@@ -9,10 +9,10 @@ import gr.teicm.mp.thefmanager.DAO.FileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.History;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
-import gr.teicm.mp.thefmanager.controllers.filetree.FileSystemController;
+import gr.teicm.mp.thefmanager.controllers.filetree.TreeFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
-import gr.teicm.mp.thefmanager.models.filesystems.TableFileModel;
+import gr.teicm.mp.thefmanager.models.filesystems.FileTableModel;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
@@ -25,9 +25,9 @@ import java.awt.event.*;
 import java.io.File;
 
 public class MainForm extends JFrame {
-    private FileSystemController treeFacade;
+    private TreeFacade treeFacade;
     private TableFacade tableFacade;
-    private TableFileModel tableFileModel;
+    private FileTableModel fileTableModel;
     private History history;
     private String selectedFilePath;
     private File selectedTableFile;
@@ -35,15 +35,15 @@ public class MainForm extends JFrame {
     private IFileSystemDAO fileSystemDAO = new FileSystemDAO();
     
     public MainForm() {
-        treeFacade = new FileSystemController(fileSystemDAO);
+        treeFacade = new TreeFacade(fileSystemDAO);
         tableFacade = new TableFacade();
         history = new History();
 
         initComponents();
 
-        tableFileModel = new TableFileModel(filesTable);
+        fileTableModel = new FileTableModel(fileTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
-        tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), filesTable);
+        tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), fileTable);
         showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true, true);
     }
 
@@ -82,7 +82,7 @@ public class MainForm extends JFrame {
             File directory = new File(path);
 
             if (directory.exists()) {
-                tableFacade.updateFileTable(directory, filesTable);
+                tableFacade.updateFileTable(directory, fileTable);
 
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     showFilePosition(path, true, true);
@@ -101,7 +101,7 @@ public class MainForm extends JFrame {
 
     private void nextButtonMouseClicked(MouseEvent e) {
         String path = history.forward();
-        tableFacade.updateFileTable(new File(path), filesTable);
+        tableFacade.updateFileTable(new File(path), fileTable);
         showFilePosition(path, false, true);
     }
 
@@ -113,7 +113,7 @@ public class MainForm extends JFrame {
 
     private void previousButtonMouseClicked(MouseEvent e) {
         String path = history.back();
-        tableFacade.updateFileTable(new File(path), filesTable);
+        tableFacade.updateFileTable(new File(path), fileTable);
         showFilePosition(path, false, true);
     }
 
@@ -221,7 +221,7 @@ public class MainForm extends JFrame {
         String currentPath = treeFacade.getSelectedItemPath(fileTree);
         fileInfoLabel.setText("Folder items: " + Integer.toString(treeFacade.getSelectedItemChildCount(fileTree)));
         showFilePosition(currentPath, true, true);
-        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), filesTable);
+        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
     }
 
     /**
@@ -236,10 +236,10 @@ public class MainForm extends JFrame {
             rightClickTableMenu.show(e.getComponent(),e.getX(),e.getY());
         }
 
-        int selectedRow = filesTable.getSelectedRow();
+        int selectedRow = fileTable.getSelectedRow();
         int pathColumn = 2;
 
-        selectedFilePath = filesTable.getValueAt(selectedRow, pathColumn).toString();
+        selectedFilePath = fileTable.getValueAt(selectedRow, pathColumn).toString();
         tableFacade = new TableFacade(selectedFilePath);
         selectedTableFile = tableFacade.getSelectedTableFile();
         fileIconLbl.setIcon(tableFacade.fileSystemView.getSystemIcon(selectedTableFile));
@@ -328,7 +328,6 @@ public class MainForm extends JFrame {
         CopyFile = new JMenuItem();
         fileMenuItemDelete2 = new JMenuItem();
         fileMenuItemRename2 = new JMenuItem();
-        Exit = new JMenuItem();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
         fileIconLbl = new JLabel();
@@ -350,7 +349,7 @@ public class MainForm extends JFrame {
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
         tableScrollPane = new JScrollPane();
-        filesTable = new JTable();
+        fileTable = new JTable();
 
         //======== this ========
         setTitle("The F* manager");
@@ -533,10 +532,6 @@ public class MainForm extends JFrame {
                     }
                 });
                 rightClickTableMenu.add(fileMenuItemRename2);
-
-                //---- Exit ----
-                Exit.setText("Exit");
-                rightClickTableMenu.add(Exit);
             }
             fileInfoPane.add(rightClickTableMenu);
 
@@ -654,8 +649,8 @@ public class MainForm extends JFrame {
             //======== tableScrollPane ========
             {
 
-                //---- filesTable ----
-                filesTable.addMouseListener(new MouseAdapter() {
+                //---- fileTable ----
+                fileTable.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         filesTableMousePressed(e);
@@ -665,7 +660,7 @@ public class MainForm extends JFrame {
                         filesTableMouseReleased(e);
                     }
                 });
-                tableScrollPane.setViewportView(filesTable);
+                tableScrollPane.setViewportView(fileTable);
             }
             mgrSplitPane.setRightComponent(tableScrollPane);
         }
@@ -697,7 +692,6 @@ public class MainForm extends JFrame {
     private JMenuItem CopyFile;
     private JMenuItem fileMenuItemDelete2;
     private JMenuItem fileMenuItemRename2;
-    private JMenuItem Exit;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
     private JLabel fileIconLbl;
@@ -719,6 +713,6 @@ public class MainForm extends JFrame {
     private JScrollPane fileTreeScroll;
     private JTree fileTree;
     private JScrollPane tableScrollPane;
-    private JTable filesTable;
+    private JTable fileTable;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
