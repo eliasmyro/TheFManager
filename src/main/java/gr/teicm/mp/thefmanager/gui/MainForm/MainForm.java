@@ -5,7 +5,7 @@
 package gr.teicm.mp.thefmanager.gui.MainForm;
 
 import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
-import gr.teicm.mp.thefmanager.DAO.LocalFileSystemDAO;
+import gr.teicm.mp.thefmanager.DAO.FileSystemDAO;
 import gr.teicm.mp.thefmanager.controllers.History;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
@@ -32,7 +32,7 @@ public class MainForm extends JFrame {
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
-    private IFileSystemDAO fileSystemDAO = new LocalFileSystemDAO();
+    private IFileSystemDAO fileSystemDAO = new FileSystemDAO();
     
     public MainForm() {
         treeFacade = new FileSystemController(fileSystemDAO);

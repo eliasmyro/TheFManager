@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class LocalFileSystemModel implements TreeModel {
+public class TreeFileModel implements TreeModel {
     private File root;
     private FileFilter treeNodeFilter;
     private List<TreeModelListener> listeners = new ArrayList<>();
 
-    public LocalFileSystemModel(File root) {
+    public TreeFileModel(File root) {
         this.root = root;
 
         IUserPreferences preferencesDAO = new UserPreferences();

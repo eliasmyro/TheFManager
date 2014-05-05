@@ -6,10 +6,10 @@ import java.io.File;
 /**
  * Created by Achilleas Naoumidis on 3/24/14.
  */
-public class LocalFileSystemDAO implements IFileSystemDAO {
+public class FileSystemDAO implements IFileSystemDAO {
     private FileSystemView fileSystemView;
 
-    public LocalFileSystemDAO() {
+    public FileSystemDAO() {
         this.fileSystemView = FileSystemView.getFileSystemView();
     }
 

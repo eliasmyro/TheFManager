@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.controllers.filetree;
 
 import gr.teicm.mp.thefmanager.DAO.IFileSystemDAO;
-import gr.teicm.mp.thefmanager.models.filesystems.LocalFileSystemModel;
+import gr.teicm.mp.thefmanager.models.filesystems.TreeFileModel;
 
 import javax.swing.*;
 import javax.swing.tree.TreeModel;
@@ -15,7 +15,7 @@ public class FileSystemController {
     private TreeModel fileSystemModel;
 
     public FileSystemController(IFileSystemDAO dao) {
-        fileSystemModel = new LocalFileSystemModel(dao.getHomeDirectory());
+        fileSystemModel = new TreeFileModel(dao.getHomeDirectory());
     }
 
     public String getSelectedItemPath(JTree fileTree) {
