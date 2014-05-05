@@ -27,21 +27,22 @@ import java.io.File;
 public class MainForm extends JFrame {
     private TreeFacade treeFacade;
     private TableFacade tableFacade;
-    private FileTableModel fileTableModel;
     private History history;
+
     private String selectedFilePath;
     private File selectedTableFile;
     private File fileToCopy;
-    private IFileSystemDAO fileSystemDAO = new FileSystemDAO();
-    
+
     public MainForm() {
+        IFileSystemDAO fileSystemDAO = new FileSystemDAO();
+
         treeFacade = new TreeFacade(fileSystemDAO);
         tableFacade = new TableFacade();
         history = new History();
 
         initComponents();
 
-        fileTableModel = new FileTableModel(fileTable);
+        new FileTableModel(fileTable);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
         tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), fileTable);
         showFilePosition(fileSystemDAO.getHomeDirectory().getPath(), true, true);
