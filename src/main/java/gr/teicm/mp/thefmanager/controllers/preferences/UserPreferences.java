@@ -68,7 +68,6 @@ public class UserPreferences implements IUserPreferences {
                 return date;
             } catch (ParseException e) {
                 userPreferencesDao.putLastRunDate();
-                value = userPreferencesDao.getLastRunDateString();
             }
         }
 
