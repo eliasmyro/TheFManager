@@ -146,6 +146,8 @@ public class MainForm extends JFrame {
         if(!fileCreated){
             JOptionPane.showMessageDialog(this, "File not created");
         }
+        else
+            tableRefresh();
     }
 
     /**
@@ -161,6 +163,8 @@ public class MainForm extends JFrame {
         if(!fileCreated){
             JOptionPane.showMessageDialog(this, "Folder not created");
         }
+        else
+            tableRefresh();
     }
 
     /**
@@ -199,6 +203,8 @@ public class MainForm extends JFrame {
         if(!fileRenamed){
             JOptionPane.showMessageDialog(this, "File was not renamed!");
         }
+        else
+            tableRefresh();
     }
 
     /**
@@ -210,6 +216,9 @@ public class MainForm extends JFrame {
     private void fileMenuItemDeleteMousePressed(MouseEvent e) {
         IDeleteFileController myDelete = new DeleteFileController();
         boolean isDeleted = myDelete.deleteFile(selectedTableFile);
+
+        if(isDeleted)
+            tableRefresh();
     }
 
     /**
@@ -304,6 +313,10 @@ public class MainForm extends JFrame {
     private void settingsButtonActionPerformed(ActionEvent e) {
         PreferencesForm preferencesForm = new PreferencesForm();
         preferencesForm.setVisible(true);
+    }
+
+    private void tableRefresh(){
+        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
     }
 
     private void initComponents() {
