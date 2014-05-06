@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -63,6 +63,11 @@ new FormModel {
 						name: "fileMenuItemRename2"
 						"text": "Rename"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "PasteFile"
+						"text": "Paste"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteFileMousePressed", true ) )
 					} )
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -157,14 +162,13 @@ new FormModel {
 							"JavaCodeGenerator.customCreateCode": "new JTree(treeFacade.getFileSystemModel());"
 						}
 						addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "fileTreeItemSelect", true ) )
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "fileTreeMouseReleased", true ) )
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileTreeMousePressed", true ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "left"
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "tableScrollPane"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "tableScrollPaneMouseReleased", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "fileTable"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )

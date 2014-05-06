@@ -142,7 +142,7 @@ public class MainForm extends JFrame {
     private void newFileMenuItemActionPerformed(ActionEvent e) {
         INewFileController newFile = new NewFileController();
         String fileName = JOptionPane.showInputDialog("Give the name of the file", "New File Name");
-        boolean fileCreated = newFile.createNewFile(selectedTableFile,fileName);
+        boolean fileCreated = newFile.createNewFile(selectedTableFile, fileName);
         if(!fileCreated){
             JOptionPane.showMessageDialog(this, "File not created");
         }
@@ -186,7 +186,7 @@ public class MainForm extends JFrame {
 
     private void PasteMousePressed(MouseEvent e)  {
         ICopyFileController myCopyFile = new CopyFileController();
-        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,treeFacade.getSelectedFileItem(fileTree));
+        boolean isCopied = myCopyFile.copyFile(this.fileToCopy, new File(history.current()));
     }
 
     /**
@@ -319,6 +319,17 @@ public class MainForm extends JFrame {
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
     }
 
+    private void PasteFileMousePressed(MouseEvent e) {
+        ICopyFileController myCopyFile = new CopyFileController();
+        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,new File(history.current()));
+    }  
+
+    private void tableScrollPaneMouseReleased(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         menuBar2 = new JMenuBar();
@@ -342,6 +353,7 @@ public class MainForm extends JFrame {
         CopyFile = new JMenuItem();
         fileMenuItemDelete2 = new JMenuItem();
         fileMenuItemRename2 = new JMenuItem();
+        PasteFile = new JMenuItem();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
         fileIconLbl = new JLabel();
@@ -545,6 +557,16 @@ public class MainForm extends JFrame {
                     }
                 });
                 rightClickTableMenu.add(fileMenuItemRename2);
+
+                //---- PasteFile ----
+                PasteFile.setText("Paste");
+                PasteFile.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        PasteFileMousePressed(e);
+                    }
+                });
+                rightClickTableMenu.add(PasteFile);
             }
             fileInfoPane.add(rightClickTableMenu);
 
@@ -641,22 +663,18 @@ public class MainForm extends JFrame {
                         fileTreeItemSelect(e);
                     }
                 });
-                fileTree.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        fileTreeMousePressed(e);
-                    }
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        fileTreeMouseReleased(e);
-                    }
-                });
                 fileTreeScroll.setViewportView(fileTree);
             }
             mgrSplitPane.setLeftComponent(fileTreeScroll);
 
             //======== tableScrollPane ========
             {
+                tableScrollPane.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        tableScrollPaneMouseReleased(e);
+                    }
+                });
 
                 //---- fileTable ----
                 fileTable.addMouseListener(new MouseAdapter() {
@@ -701,6 +719,7 @@ public class MainForm extends JFrame {
     private JMenuItem CopyFile;
     private JMenuItem fileMenuItemDelete2;
     private JMenuItem fileMenuItemRename2;
+    private JMenuItem PasteFile;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
     private JLabel fileIconLbl;
