@@ -184,9 +184,9 @@ public class MainForm extends JFrame {
      * @param e
      */
 
-    private void PasteMousePressed(MouseEvent e)  {
+    private void PasteFileMousePressed(MouseEvent e) {
         ICopyFileController myCopyFile = new CopyFileController();
-        boolean isCopied = myCopyFile.copyFile(this.fileToCopy, new File(history.current()));
+        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,new File(history.current()));
     }
 
     /**
@@ -281,30 +281,6 @@ public class MainForm extends JFrame {
     }
 
     /**
-     * File Tree Mouse Pressed Event.
-     *
-     * @param e
-     */
-
-    private void fileTreeMousePressed(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
-        }
-    }
-
-    /**
-     * File Tree Mouse Released Event.
-     *
-     * @param e
-     */
-
-    private void fileTreeMouseReleased(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
-        }
-    }
-
-    /**
      * Opens Settings Form Button Click.
      *
      * @param e
@@ -317,17 +293,6 @@ public class MainForm extends JFrame {
 
     private void tableRefresh(){
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
-    }
-
-    private void PasteFileMousePressed(MouseEvent e) {
-        ICopyFileController myCopyFile = new CopyFileController();
-        boolean isCopied = myCopyFile.copyFile(this.fileToCopy,new File(history.current()));
-    }  
-
-    private void tableScrollPaneMouseReleased(MouseEvent e) {
-        if (e.isPopupTrigger()) {
-            rightClickTreeMenu.show(e.getComponent(), e.getX(), e.getY());
-        }
     }
 
     private void initComponents() {
@@ -368,8 +333,6 @@ public class MainForm extends JFrame {
         executeAttribute = new JCheckBox();
         renameLabel = new JLabel();
         renameTextField = new JTextField();
-        rightClickTreeMenu = new JPopupMenu();
-        Paste = new JMenuItem();
         mgrSplitPane = new JSplitPane();
         fileTreeScroll = new JScrollPane();
         fileTree = new JTree(treeFacade.getFileSystemModel());
@@ -624,22 +587,6 @@ public class MainForm extends JFrame {
             renameTextField.setMinimumSize(new Dimension(20, 22));
             renameTextField.setVisible(false);
             fileInfoPane.add(renameTextField);
-
-            //======== rightClickTreeMenu ========
-            {
-                rightClickTreeMenu.setPreferredSize(new Dimension(70, 40));
-
-                //---- Paste ----
-                Paste.setText("Paste");
-                Paste.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        PasteMousePressed(e);
-                    }
-                });
-                rightClickTreeMenu.add(Paste);
-            }
-            fileInfoPane.add(rightClickTreeMenu);
         }
         contentPane.add(fileInfoPane, BorderLayout.PAGE_END);
 
@@ -669,12 +616,6 @@ public class MainForm extends JFrame {
 
             //======== tableScrollPane ========
             {
-                tableScrollPane.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-                        tableScrollPaneMouseReleased(e);
-                    }
-                });
 
                 //---- fileTable ----
                 fileTable.addMouseListener(new MouseAdapter() {
@@ -734,8 +675,6 @@ public class MainForm extends JFrame {
     private JCheckBox executeAttribute;
     private JLabel renameLabel;
     private JTextField renameTextField;
-    private JPopupMenu rightClickTreeMenu;
-    private JMenuItem Paste;
     private JSplitPane mgrSplitPane;
     private JScrollPane fileTreeScroll;
     private JTree fileTree;

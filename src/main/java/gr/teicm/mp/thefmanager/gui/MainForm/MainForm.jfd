@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -133,15 +133,6 @@ new FormModel {
 					"minimumSize": new java.awt.Dimension( 20, 22 )
 					"visible": false
 				} )
-				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
-					name: "rightClickTreeMenu"
-					"preferredSize": new java.awt.Dimension( 70, 40 )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "Paste"
-						"text": "Paste"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteMousePressed", true ) )
-					} )
-				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "Last"
 			} )
@@ -168,7 +159,6 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "tableScrollPane"
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "tableScrollPaneMouseReleased", true ) )
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "fileTable"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
