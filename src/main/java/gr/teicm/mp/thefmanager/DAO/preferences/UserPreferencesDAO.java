@@ -24,7 +24,7 @@ public class UserPreferencesDAO implements IUserPreferencesDAO {
 
     @Override
     public String getThemeName() {
-        return userPreferences.get("lookAndFeel", "Quaqua");
+        return userAppearancePreferences.get("lookAndFeel", "Quaqua");
     }
 
     @Override

@@ -8,12 +8,10 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        IUserPreferences preferencesDAO = new UserPreferences();
-
-//        preferencesDAO.putLastRunDate();
+        IUserPreferences userPreferences = new UserPreferences();
 
         try {
-            UIManager.setLookAndFeel(preferencesDAO.getThemeClass());
+            UIManager.setLookAndFeel(userPreferences.getThemeClass());
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException
                 | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
