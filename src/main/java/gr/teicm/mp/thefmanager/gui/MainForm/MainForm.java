@@ -296,7 +296,7 @@ public class MainForm extends JFrame {
      */
 
     private void tableRefresh(){
-        tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
+        tableFacade.updateFileTable(new File(history.current()), fileTable);
     }
 
     private void initComponents() {
