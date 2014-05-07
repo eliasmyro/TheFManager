@@ -291,6 +291,10 @@ public class MainForm extends JFrame {
         preferencesForm.setVisible(true);
     }
 
+    /**
+     * Refreshes the File Table.
+     */
+
     private void tableRefresh(){
         tableFacade.updateFileTable(treeFacade.getSelectedFileItem(fileTree), fileTable);
     }
