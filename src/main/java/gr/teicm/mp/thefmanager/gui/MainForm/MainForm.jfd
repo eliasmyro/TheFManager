@@ -3,6 +3,36 @@ JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "rightClickTableMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileMenuItemOpen2"
+				"text": "Open"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fileMenuItemOpenActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "CopyFile"
+				"text": "Copy"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "CopyFileMousePressed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileMenuItemDelete2"
+				"text": "Delete"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileMenuItemRename2"
+				"text": "Rename"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "PasteFile"
+				"text": "Paste"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteFileMousePressed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 495 )
+		} )
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"title": "The F* manager"
@@ -40,36 +70,6 @@ new FormModel {
 				name: "fileInfoPane"
 				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
 				"preferredSize": new java.awt.Dimension( 592, 70 )
-				add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
-					name: "rightClickTableMenu"
-					"preferredSize": new java.awt.Dimension( 70, 80 )
-					"minimumSize": new java.awt.Dimension( 4, 5 )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemOpen2"
-						"text": "Open"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fileMenuItemOpenActionPerformed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "CopyFile"
-						"text": "Copy"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "CopyFileMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemDelete2"
-						"text": "Delete"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemRename2"
-						"text": "Rename"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "PasteFile"
-						"text": "Paste"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteFileMousePressed", true ) )
-					} )
-				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "fileInfoLabel"
 					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"

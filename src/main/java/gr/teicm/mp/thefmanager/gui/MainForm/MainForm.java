@@ -301,6 +301,12 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        rightClickTableMenu = new JPopupMenu();
+        fileMenuItemOpen2 = new JMenuItem();
+        CopyFile = new JMenuItem();
+        fileMenuItemDelete2 = new JMenuItem();
+        fileMenuItemRename2 = new JMenuItem();
+        PasteFile = new JMenuItem();
         menuBar2 = new JMenuBar();
         fileMenu = new JMenu();
         newMenu = new JMenu();
@@ -317,12 +323,6 @@ public class MainForm extends JFrame {
         filepathTextField = new JTextField();
         settingsButton = new JButton();
         fileInfoPane = new JPanel();
-        rightClickTableMenu = new JPopupMenu();
-        fileMenuItemOpen2 = new JMenuItem();
-        CopyFile = new JMenuItem();
-        fileMenuItemDelete2 = new JMenuItem();
-        fileMenuItemRename2 = new JMenuItem();
-        PasteFile = new JMenuItem();
         fileInfoLabel = new JLabel();
         fileNameLbl = new JLabel();
         fileIconLbl = new JLabel();
@@ -342,6 +342,60 @@ public class MainForm extends JFrame {
         fileTree = new JTree(treeFacade.getFileSystemModel());
         tableScrollPane = new JScrollPane();
         fileTable = new JTable();
+
+        //======== rightClickTableMenu ========
+        {
+
+            //---- fileMenuItemOpen2 ----
+            fileMenuItemOpen2.setText("Open");
+            fileMenuItemOpen2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    fileMenuItemOpenActionPerformed(e);
+                }
+            });
+            rightClickTableMenu.add(fileMenuItemOpen2);
+
+            //---- CopyFile ----
+            CopyFile.setText("Copy");
+            CopyFile.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    CopyFileMousePressed(e);
+                }
+            });
+            rightClickTableMenu.add(CopyFile);
+
+            //---- fileMenuItemDelete2 ----
+            fileMenuItemDelete2.setText("Delete");
+            fileMenuItemDelete2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    fileMenuItemDeleteMousePressed(e);
+                }
+            });
+            rightClickTableMenu.add(fileMenuItemDelete2);
+
+            //---- fileMenuItemRename2 ----
+            fileMenuItemRename2.setText("Rename");
+            fileMenuItemRename2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    fileMenuItemRenameMousePressed(e);
+                }
+            });
+            rightClickTableMenu.add(fileMenuItemRename2);
+
+            //---- PasteFile ----
+            PasteFile.setText("Paste");
+            PasteFile.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    PasteFileMousePressed(e);
+                }
+            });
+            rightClickTableMenu.add(PasteFile);
+        }
 
         //======== this ========
         setTitle("The F* manager");
@@ -480,63 +534,6 @@ public class MainForm extends JFrame {
             fileInfoPane.setPreferredSize(new Dimension(592, 70));
             fileInfoPane.setLayout(new FlowLayout());
 
-            //======== rightClickTableMenu ========
-            {
-                rightClickTableMenu.setPreferredSize(new Dimension(70, 80));
-                rightClickTableMenu.setMinimumSize(new Dimension(4, 5));
-
-                //---- fileMenuItemOpen2 ----
-                fileMenuItemOpen2.setText("Open");
-                fileMenuItemOpen2.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        fileMenuItemOpenActionPerformed(e);
-                    }
-                });
-                rightClickTableMenu.add(fileMenuItemOpen2);
-
-                //---- CopyFile ----
-                CopyFile.setText("Copy");
-                CopyFile.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        CopyFileMousePressed(e);
-                    }
-                });
-                rightClickTableMenu.add(CopyFile);
-
-                //---- fileMenuItemDelete2 ----
-                fileMenuItemDelete2.setText("Delete");
-                fileMenuItemDelete2.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        fileMenuItemDeleteMousePressed(e);
-                    }
-                });
-                rightClickTableMenu.add(fileMenuItemDelete2);
-
-                //---- fileMenuItemRename2 ----
-                fileMenuItemRename2.setText("Rename");
-                fileMenuItemRename2.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        fileMenuItemRenameMousePressed(e);
-                    }
-                });
-                rightClickTableMenu.add(fileMenuItemRename2);
-
-                //---- PasteFile ----
-                PasteFile.setText("Paste");
-                PasteFile.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        PasteFileMousePressed(e);
-                    }
-                });
-                rightClickTableMenu.add(PasteFile);
-            }
-            fileInfoPane.add(rightClickTableMenu);
-
             //---- fileInfoLabel ----
             fileInfoLabel.setText("\u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03c3\u03c7\u03b5\u03c4\u03b9\u03ba\u03ac \u03bc\u03b5 \u03c4\u03bf \u03b1\u03c1\u03c7\u03ad\u03b9\u03bf / \u03c6\u03ac\u03ba\u03b5\u03bb\u03bf");
             fileInfoLabel.setFont(fileInfoLabel.getFont().deriveFont(fileInfoLabel.getFont().getStyle() & ~Font.BOLD, fileInfoLabel.getFont().getSize() - 3f));
@@ -643,6 +640,12 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    private JPopupMenu rightClickTableMenu;
+    private JMenuItem fileMenuItemOpen2;
+    private JMenuItem CopyFile;
+    private JMenuItem fileMenuItemDelete2;
+    private JMenuItem fileMenuItemRename2;
+    private JMenuItem PasteFile;
     private JMenuBar menuBar2;
     private JMenu fileMenu;
     private JMenu newMenu;
@@ -659,12 +662,6 @@ public class MainForm extends JFrame {
     private JTextField filepathTextField;
     private JButton settingsButton;
     private JPanel fileInfoPane;
-    private JPopupMenu rightClickTableMenu;
-    private JMenuItem fileMenuItemOpen2;
-    private JMenuItem CopyFile;
-    private JMenuItem fileMenuItemDelete2;
-    private JMenuItem fileMenuItemRename2;
-    private JMenuItem PasteFile;
     private JLabel fileInfoLabel;
     private JLabel fileNameLbl;
     private JLabel fileIconLbl;
