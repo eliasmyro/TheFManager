@@ -1,17 +1,17 @@
 package gr.teicm.mp.thefmanager;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
-import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
+import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
 import gr.teicm.mp.thefmanager.gui.MainForm.MainForm;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        IUserPreferences userPreferences = new UserPreferences();
+        IUserPreferencesDAO userPreferences = new UserPreferencesDAO();
 
         try {
-            UIManager.setLookAndFeel(userPreferences.getThemeClass());
+            UIManager.setLookAndFeel(userPreferences.getThemeName());
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException
                 | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();

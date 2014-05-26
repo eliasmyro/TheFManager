@@ -1,8 +1,5 @@
 package gr.teicm.mp.thefmanager.models;
 
-/**
- * Created by Achilleas Naoumidis on 4/18/14.
- */
 public enum Theme {
     NAPKIN("net.sourceforge.napkinlaf.NapkinLookAndFeel"),
     SEAGLASS("com.seaglasslookandfeel.SeaGlassLookAndFeel"),

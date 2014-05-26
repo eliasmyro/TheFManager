@@ -5,54 +5,104 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Elias Myronidis on 3/4/2014.
- */
 public class FileDAO implements IFileDAO {
     @Override
-    public boolean deleteFile(File selectedFile){
+    public boolean copyFile(String sourceFilePath, String destinationDirectoryPath) throws IOException {
+        File sourceFile = new File(sourceFilePath);
+        File destinationFolder = new File(destinationDirectoryPath);
 
-        if (selectedFile.delete())
-            return true;
-        else
-            return false;
+        FileUtils.copyFileToDirectory(sourceFile, destinationFolder);
 
-    }
-
-    @Override
-    public boolean copyFile(File selectedFileToCopy,File copyToDirectory) {
-
-        try{
-            if(selectedFileToCopy.isDirectory()){
-                FileUtils.copyDirectoryToDirectory(selectedFileToCopy, copyToDirectory);
-            } else if(selectedFileToCopy.isFile())
-                FileUtils.copyFileToDirectory(selectedFileToCopy,copyToDirectory);
-             
-        } catch (IOException e){
-            e.printStackTrace();
-            return false;
-        }
         return true;
     }
 
     @Override
-    public boolean checkIfFileForCopyExist(File selectedFileToCopy, File copyToDirectory){
+    public boolean copyDirectory(String sourceDirectoryPath, String destinationDirectoryPath) throws IOException {
+        File sourceFolder = new File(sourceDirectoryPath);
+        File destinationFolder = new File(destinationDirectoryPath);
 
-        File file = new File(copyToDirectory, selectedFileToCopy.getName());
+        FileUtils.copyDirectoryToDirectory(sourceFolder, destinationFolder);
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteFile(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        FileUtils.forceDelete(file);
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteDirectory(String directoryPath) throws IOException {
+        File directory = new File(directoryPath);
+
+        FileUtils.deleteDirectory(directory);
+
+        return true;
+    }
+
+    @Override
+    public boolean renameFile(String filePath, String newFileNamePath) {
+        File file = new File(filePath);
+        File newFile = new File(newFileNamePath);
+
+        return file.renameTo(newFile);
+    }
+
+    @Override
+    public boolean renameDirectory(String directoryPath, String newDirectoryNamePath) {
+        File folder = new File(directoryPath);
+        File newDirectory = new File(newDirectoryNamePath);
+
+        return folder.renameTo(newDirectory);
+    }
+
+    @Override
+    public boolean createFile(String filePath) throws IOException {
+        File file = new File(filePath);
+
+        return file.createNewFile();
+    }
+
+    @Override
+    public boolean createDirectory(String directoryPath) {
+        File directory = new File(directoryPath);
+
+        return directory.mkdir();
+    }
+
+    @Override
+    public boolean canRead(String path) {
+        return new File(path).canRead();
+    }
+
+    @Override
+    public boolean canWrite(String path) {
+        return new File(path).canWrite();
+    }
+
+    @Override
+    public boolean canExecute(String filePath) {
+        return new File(filePath).canExecute();
+    }
+
+    @Override
+    public boolean exists(String filePath) {
+        File file = new File(filePath);
+
         return file.exists();
     }
 
-
-
-    public boolean renameFile(File selectedFile, File newFile){
-        if(selectedFile.renameTo(newFile))
-            System.out.print("Success");
-        else
-            System.out.print("Fail");
-        return true;
+    @Override
+    public boolean isFile(String path) {
+        return new File(path).isFile();
     }
 
-    public boolean fileExists(File newFile){
-        return newFile.exists();
+    @Override
+    public boolean isDirectory(String path) {
+        return new File(path).isDirectory();
     }
 }

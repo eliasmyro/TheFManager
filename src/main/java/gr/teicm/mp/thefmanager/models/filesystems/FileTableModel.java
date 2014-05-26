@@ -1,82 +1,75 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
+import gr.teicm.mp.thefmanager.controllers.fileoperations.IRenameController;
+import gr.teicm.mp.thefmanager.controllers.fileoperations.RenameController;
+
 import javax.swing.*;
-import java.io.File;
-import java.util.Date;
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Ilias on 31/3/2014.
- *
- * Creating an object of the selected tree file, so we can add it to the table rows
- *
- */
-public class FileTableModel {
+public class FileTableModel extends AbstractTableModel {
+    private String[] columnNames = {
+            "",
+            "Filename",
+            "Size",
+            "Type",
+            "Modified"
+    };
 
-    private File[] files;
-    private File file;
+    private List<Object[]> data;
 
-    public FileTableModel(File[] files) {
-        this.files = files;
+    public FileTableModel() {
+        data = new ArrayList<>();
     }
 
-    public FileTableModel(File file) {
-        this.file = file;
+    @Override
+    public int getRowCount() {
+        return data.size();
     }
 
-    public FileTableModel(JTable fileTable) {
-
-        fileTable.setModel((new javax.swing.table.DefaultTableModel (
-                new Object [][]  {
-
-                },
-                new String [] {
-                        "Icon",
-                        "File",
-                        "Path/name",
-                        "Size",
-                        "Last Modified",
-                        "R",
-                        "W",
-                        "E",
-                        "Directory",
-                        "File",
-                }
-
-
-        )
-        { public boolean isCellEditable(int row, int column){return false;}
-
-            public Class getColumnClass(int columnIndex) {
-                switch (columnIndex) {
-                    case 0:
-                        return ImageIcon.class;
-                    case 3:
-                        return Long.class;
-                    case 4:
-                        return Date.class;
-                    case 5:
-                        return Boolean.class;
-                    case 6:
-                        return Boolean.class;
-                    case 7:
-                        return Boolean.class;
-                    case 8:
-                        return Boolean.class;
-                    case 9:
-                        return Boolean.class;
-                }
-                return String.class;
-
-            }
-        }));
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
     }
 
-    public File[] getFiles() {
-        return files;
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return data.get(rowIndex)[columnIndex];
     }
 
+    @Override
+    public String getColumnName(int columnIndex) {
+        return columnNames[columnIndex];
+    }
 
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        return getValueAt(0, columnIndex).getClass();
+    }
 
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex == 1;
+    }
 
+    @Override
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        String oldValue = (String) data.get(rowIndex)[columnIndex];
+        String newValue = (String) value;
+        String location = (String) getValueAt(rowIndex, 5);
 
+        IRenameController renameController = new RenameController();
+        boolean done = renameController.perform(location, oldValue, newValue);
+
+        if (done) {
+            data.get(rowIndex)[columnIndex] = newValue;
+            fireTableCellUpdated(rowIndex, columnIndex);
+        }
+    }
+
+    public void addRow(Object[] rowData) {
+        data.add(rowData);
+        this.fireTableDataChanged();
+    }
 }

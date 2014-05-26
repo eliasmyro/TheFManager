@@ -1,144 +1,43 @@
-JFDML JFormDesigner: "5.1.2.0.134" Java: "1.8.0_05" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
-			name: "rightClickTableMenu"
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "fileMenuItemOpen2"
-				"text": "Open"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fileMenuItemOpenActionPerformed", true ) )
-			} )
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "CopyFile"
-				"text": "Copy"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "CopyFileMousePressed", true ) )
-			} )
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "fileMenuItemDelete2"
-				"text": "Delete"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
-			} )
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "fileMenuItemRename2"
-				"text": "Rename"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
-			} )
-			add( new FormComponent( "javax.swing.JMenuItem" ) {
-				name: "PasteFile"
-				"text": "Paste"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "PasteFileMousePressed", true ) )
-			} )
-		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 495 )
-			"size": new java.awt.Dimension( 110, 150 )
-		} )
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
-			"title": "The F* manager"
+			"title": "Scope"
 			"$locationPolicy": 0
 			"defaultCloseOperation": 2
 			add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
-				name: "mgrToolbar"
+				name: "toolbar"
 				"floatable": false
 				"componentOrientation": sfield java.awt.ComponentOrientation LEFT_TO_RIGHT
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "previousButton"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/arrow-89-m-L.png" )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "previousButtonMouseClicked", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "previousButtonMouseClicked", false ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "nextButton"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/arrow-89-m-R.png" )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "nextButtonMouseClicked", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "nextButtonMouseClicked", false ) )
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "filepathTextField"
+					name: "currentLocationPathTextField"
 					"horizontalAlignment": 2
-					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "filepathTextFieldKeyPressed", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "locationPathTextFieldKeyPressed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "settingsButton"
 					"text": "Settings"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/settings-3-m.png" )
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "settingsButtonActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "settingsButtonActionPerformed", false ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "First"
 			} )
-			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
-				name: "fileInfoPane"
-				"border": new javax.swing.border.CompoundBorder( new javax.swing.border.SoftBevelBorder( 0, null, null, null, null ), null )
-				"preferredSize": new java.awt.Dimension( 592, 70 )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileInfoLabel"
-					"text": "πληροφορίες σχετικά με το αρχέιο / φάκελο"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 65536, -3, false )
-					"maximumSize": new java.awt.Dimension( 133, 10 )
-					"minimumSize": new java.awt.Dimension( 133, 10 )
-					"preferredSize": new java.awt.Dimension( 160, 10 )
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileNameLbl"
-					"text": "File : "
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileIconLbl"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileName"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "filePathLbl"
-					"text": "Path :"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "filePath"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileSizeLbl"
-					"text": "Size : "
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileSize"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "fileAttributesLbl"
-					"text": "File attributes :"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
-				} )
-				add( new FormComponent( "javax.swing.JCheckBox" ) {
-					name: "readAttribute"
-					"text": "Read"
-				} )
-				add( new FormComponent( "javax.swing.JCheckBox" ) {
-					name: "writeAttribute"
-					"text": "Write"
-				} )
-				add( new FormComponent( "javax.swing.JCheckBox" ) {
-					name: "executeAttribute"
-					"text": "Execute"
-				} )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "renameLabel"
-					"text": "Rename"
-					"visible": false
-				} )
-				add( new FormComponent( "javax.swing.JTextField" ) {
-					name: "renameTextField"
-					"toolTipText": "insert new name"
-					"minimumSize": new java.awt.Dimension( 20, 22 )
-					"visible": false
-				} )
-			}, new FormLayoutConstraints( class java.lang.String ) {
-				"value": "Last"
-			} )
 			add( new FormContainer( "javax.swing.JSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
-				name: "mgrSplitPane"
+				name: "mainSplitPane"
 				"background": sfield java.awt.Color white
 				"oneTouchExpandable": true
 				"resizeWeight": 0.1
@@ -146,24 +45,27 @@ new FormModel {
 				"dividerLocation": 150
 				"lastDividerLocation": -1
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-					name: "fileTreeScroll"
+					name: "fileTreeScrollPane"
 					"preferredSize": new java.awt.Dimension( 79, 324 )
 					add( new FormComponent( "javax.swing.JTree" ) {
 						name: "fileTree"
 						auxiliary() {
-							"JavaCodeGenerator.customCreateCode": "new JTree(treeFacade.getFileSystemModel());"
+							"JavaCodeGenerator.customCreateCode": "new JTree(treeFacade.getFileTreeModel());"
 						}
-						addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "fileTreeItemSelect", true ) )
+						addEvent( new FormEvent( "javax.swing.event.TreeSelectionListener", "valueChanged", "fileTreeItemSelect", false ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "left"
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-					name: "tableScrollPane"
+					name: "fileTableScrollPane"
 					add( new FormComponent( "javax.swing.JTable" ) {
 						name: "fileTable"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "filesTableMousePressed", true ) )
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "filesTableMouseReleased", true ) )
+						"fillsViewportHeight": true
+						"dragEnabled": true
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileTableMousePressed", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseReleased", "fileTableMouseReleased", true ) )
+						addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "fileTableKeyPressed", true ) )
 					} )
 				}, new FormLayoutConstraints( class java.lang.String ) {
 					"value": "right"
@@ -172,52 +74,123 @@ new FormModel {
 				"value": "Center"
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
-				name: "menuBar2"
+				name: "mainMenuBar"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-					name: "fileMenu"
+					name: "mainFileMenu"
 					"text": "File"
-					add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
-						name: "newMenu"
-						"text": "New"
-						add( new FormComponent( "javax.swing.JMenuItem" ) {
-							name: "newFileMenuItem"
-							"text": "File"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newFileMenuItemActionPerformed", true ) )
-						} )
-						add( new FormComponent( "javax.swing.JMenuItem" ) {
-							name: "newFolderMenuItem"
-							"text": "Folder"
-							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "newFolderMenuItemActionPerformed", true ) )
-						} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mainFileMenuNewFolder"
+						"text": "New Folder"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "newFolderMousePressed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemOpen"
-						"text": "Open"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "fileMenuItemOpenActionPerformed", true ) )
+						name: "mainFileMenuNewFile"
+						"text": "New File"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "newFileMousePressed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemCopy"
-						"text": "Copy"
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemPaste"
+						name: "mainFileMenuNewPaste"
 						"text": "Paste"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "pasteMousePressed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemDelete"
-						"text": "Delete"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemDeleteMousePressed", true ) )
+						name: "mainFileMenuNewProperties"
+						"text": "Properties"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "mainEditMenu"
+					"text": "Edit"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "mainEditMenuUndo"
+						"text": "Undo"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "undoMousePressed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "fileMenuItemRename"
-						"text": "Rename"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "fileMenuItemRenameMousePressed", true ) )
+						name: "mainEditMenuRedo"
+						"text": "Redo"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "redoMousePressed", false ) )
 					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 10 )
-			"size": new java.awt.Dimension( 745, 475 )
+			"size": new java.awt.Dimension( 640, 430 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "fileTablePopupMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTablePopupMenuNewFolder"
+				"text": "New Folder"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "newFolderMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTablePopupMenuNewFile"
+				"text": "New File"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "newFileMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "fileTablePopupMenuSeparator1"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTablePopupMenuPaste"
+				"text": "Paste"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "pasteMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "fileTablePopupMenuSeparator2"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTablePopupMenuProperties"
+				"text": "Properties"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 450 )
+			"size": new java.awt.Dimension( 155, 145 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "fileTableItemPopupMenu"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuOpen"
+				"text": "Open"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "openMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "fileTableItemPopupMenuSeparator1"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuCopy"
+				"text": "Copy"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "copyMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuCut"
+				"text": "Cut"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "cutMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "fileTableItemPopupMenuSeparator2"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuDelete"
+				"text": "Delete"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "deleteMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuRename"
+				"text": "Rename"
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "renameMousePressed", false ) )
+			} )
+			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
+				name: "fileTableItemPopupMenuSeparator3"
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "fileTableItemPopupMenuProperties"
+				"text": "Properties"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 170, 450 )
+			"size": new java.awt.Dimension( 150, 195 )
 		} )
 	}
 }

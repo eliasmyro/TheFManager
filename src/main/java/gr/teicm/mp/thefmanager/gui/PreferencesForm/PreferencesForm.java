@@ -4,22 +4,19 @@
 
 package gr.teicm.mp.thefmanager.gui.PreferencesForm;
 
-import gr.teicm.mp.thefmanager.DAO.preferences.IUserPreferencesDAO;
-import gr.teicm.mp.thefmanager.DAO.preferences.UserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * @author Achilleas Naoumidis
- */
 public class PreferencesForm extends JFrame {
-    IUserPreferencesDAO preferencesDAO = new UserPreferencesDAO();
+    private IUserPreferencesDAO preferencesDAO = new UserPreferencesDAO();
 
-    boolean showHiddenFiles;
-    String themeName;
+    private boolean showHiddenFiles;
+    private String themeName;
 
     public PreferencesForm() {
         loadPreferences();
@@ -55,8 +52,8 @@ public class PreferencesForm extends JFrame {
     }
 
     private void loadPreferences() {
-        this.showHiddenFiles = preferencesDAO.getHiddenFilesPolicy();
-        this.themeName = preferencesDAO.getThemeName();
+        this.showHiddenFiles = preferencesDAO.getHiddenFilesPolicyRaw();
+        this.themeName = preferencesDAO.getThemeNameRaw();
     }
 
     private void initComponents() {
@@ -107,54 +104,54 @@ public class PreferencesForm extends JFrame {
         label1.setText("Theme");
 
         //---- theme_comboBox ----
-        theme_comboBox.setModel(new DefaultComboBoxModel<>(new String[] {
-            "Napkin",
-            "Seaglass",
-            "Quaqua",
-            "Aluminium",
-            "HiFi",
-            "Bernstein"
+        theme_comboBox.setModel(new DefaultComboBoxModel<>(new String[]{
+                "Napkin",
+                "Seaglass",
+                "Quaqua",
+                "Aluminium",
+                "HiFi",
+                "Bernstein"
         }));
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(0, 192, Short.MAX_VALUE)
-                            .addComponent(ok_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(apply_btn)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cancel_btn)
-                            .addContainerGap())
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGroup(contentPaneLayout.createParallelGroup()
-                                .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addComponent(label1)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addComponent(showHiddenFiles_chBox))
-                            .addGap(132, 248, Short.MAX_VALUE))))
+                                .addContainerGap()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGap(0, 192, Short.MAX_VALUE)
+                                                .addComponent(ok_btn)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(apply_btn)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cancel_btn)
+                                                .addContainerGap())
+                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                .addGroup(contentPaneLayout.createParallelGroup()
+                                                        .addGroup(contentPaneLayout.createSequentialGroup()
+                                                                .addComponent(label1)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(showHiddenFiles_chBox))
+                                                .addGap(132, 248, Short.MAX_VALUE))))
         );
         contentPaneLayout.setVerticalGroup(
-            contentPaneLayout.createParallelGroup()
-                .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(label1)
-                        .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(11, 11, 11)
-                    .addComponent(showHiddenFiles_chBox)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancel_btn)
-                        .addComponent(apply_btn)
-                        .addComponent(ok_btn))
-                    .addContainerGap())
+                contentPaneLayout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(label1)
+                                        .addComponent(theme_comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addComponent(showHiddenFiles_chBox)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cancel_btn)
+                                        .addComponent(apply_btn)
+                                        .addComponent(ok_btn))
+                                .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());

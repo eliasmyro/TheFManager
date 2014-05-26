@@ -1,86 +1,45 @@
 package gr.teicm.mp.thefmanager.controllers.filetable;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
-import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
+import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
 import gr.teicm.mp.thefmanager.models.filesystems.FileTableModel;
+import gr.teicm.mp.thefmanager.models.filesystems.FileTableRow;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.TreeModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by Ilias on 1/4/2014.
- */
 public class TableFacade {
-
-    private String selectedFilePath;
-    private File selectedFile;
-    private TreeModel fileSystemModel;
     private FileFilter tableNodeFilter;
-    public FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-
-    {
-        IUserPreferences preferencesDAO = new UserPreferences();
-        tableNodeFilter = preferencesDAO.getHiddenFilesFilter(true);
-    }
+    private FileTableRow fileTableRow;
 
     public TableFacade() {
+        fileTableRow = null;
+
+        IUserPreferencesDAO userPreferencesDAO = new UserPreferencesDAO();
+        this.tableNodeFilter = userPreferencesDAO.getHiddenFilesPolicy(true);
     }
 
-    public TableFacade(String filePath) {
+    public void updateFileTable(String parent, JTable table) {
+        File parentDirectory = new File(parent);
 
-        this.selectedFilePath = filePath;
+        FileTableModel tableModel = new FileTableModel();
 
-    }
+        File[] children = parentDirectory.listFiles(tableNodeFilter);
 
-    public File getSelectedTableFile(){
-
-        try{
-            selectedFile = new File(selectedFilePath);
-            if(selectedFile.isFile())
-                return selectedFile;
-            else if(selectedFile.isDirectory())
-                return selectedFile;
-            else
-                return null;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void updateFileTable(File node,JTable table) {
-       // FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-
-        FileTableModel fileObject = new FileTableModel(node.listFiles(tableNodeFilter));
-        File[] allFiles;
-
-        allFiles = fileObject.getFiles();
-
-        try{
-            while (tableModel.getRowCount() > 0) {
-                tableModel.removeRow(0);
+        if (children != null) {
+            for (File file : children) {
+                fileTableRow = new FileTableRow(file);
+                tableModel.addRow(fileTableRow.getRow());
             }
-            if(allFiles != null) {
-                for (File file : allFiles) {
-                    tableModel.addRow(new Object[]{fileSystemView.getSystemIcon(file),
-                            file.getName(), file.getPath(),
-                            file.length(),
-                            file.lastModified(),
-                            file.canRead(),
-                            file.canWrite(),
-                            file.canExecute(),
-                            file.isDirectory(),
-                            file.isFile()});
-                }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
         }
 
+        table.setModel(tableModel);
+        table.getColumnModel().getColumn(0).setMinWidth(30);
+        table.getColumnModel().getColumn(0).setMaxWidth(30);
     }
 }

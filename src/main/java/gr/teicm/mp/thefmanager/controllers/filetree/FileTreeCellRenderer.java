@@ -6,9 +6,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 import java.io.File;
 
-/**
- * Created by Achilleas Naoumidis on 3/27/14.
- */
 public class FileTreeCellRenderer extends DefaultTreeCellRenderer {
     private FileSystemView fileSystemView;
     private JLabel label;

@@ -1,7 +1,7 @@
 package gr.teicm.mp.thefmanager.models.filesystems;
 
-import gr.teicm.mp.thefmanager.controllers.preferences.IUserPreferences;
-import gr.teicm.mp.thefmanager.controllers.preferences.UserPreferences;
+import gr.teicm.mp.thefmanager.DAO.IUserPreferencesDAO;
+import gr.teicm.mp.thefmanager.DAO.UserPreferencesDAO;
 
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
@@ -11,9 +11,6 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Achilleas Naoumidis on 3/24/14.
- */
 public class FileTreeModel implements TreeModel {
     private File root;
     private FileFilter treeNodeFilter;
@@ -22,8 +19,8 @@ public class FileTreeModel implements TreeModel {
     public FileTreeModel(File root) {
         this.root = root;
 
-        IUserPreferences preferencesDAO = new UserPreferences();
-        treeNodeFilter = preferencesDAO.getHiddenFilesFilter(false);
+        IUserPreferencesDAO userPreferencesDAO = new UserPreferencesDAO();
+        treeNodeFilter = userPreferencesDAO.getHiddenFilesPolicy(false);
     }
 
     @Override
@@ -47,7 +44,7 @@ public class FileTreeModel implements TreeModel {
         if (parentNode.isDirectory()) {
             File[] children = parentNode.listFiles(treeNodeFilter);
 
-            if(children != null) {
+            if (children != null) {
                 return children.length;
             }
         }

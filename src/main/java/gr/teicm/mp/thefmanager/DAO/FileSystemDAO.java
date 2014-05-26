@@ -1,25 +1,27 @@
 package gr.teicm.mp.thefmanager.DAO;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 
-/**
- * Created by Achilleas Naoumidis on 3/24/14.
- */
 public class FileSystemDAO implements IFileSystemDAO {
-    private FileSystemView fileSystemView;
 
     public FileSystemDAO() {
-        this.fileSystemView = FileSystemView.getFileSystemView();
     }
 
     @Override
-    public File[] getRoots() {
-        return fileSystemView.getRoots();
+    public String[] getRoots() {
+        File[] rootsFiles = File.listRoots();
+        int rootsCount = rootsFiles.length;
+        String[] roots = new String[rootsCount];
+
+        for (int i = 0; i < rootsCount; i++) {
+            roots[i] = rootsFiles[i].getPath();
+        }
+
+        return roots;
     }
 
     @Override
-    public File getHomeDirectory() {
-        return new File(System.getProperty("user.home"));
+    public String getHomeDirectory() {
+        return new File(System.getProperty("user.home")).getPath();
     }
 }
