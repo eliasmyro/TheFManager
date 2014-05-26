@@ -279,7 +279,7 @@ public class MainForm extends JFrame {
         fileTableItemPopupMenuProperties = new JMenuItem();
 
         //======== this ========
-        setTitle("Scope");
+        setTitle("The F* Manager");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
