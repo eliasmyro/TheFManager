@@ -24,7 +24,7 @@ public class UserPreferencesDAO implements IUserPreferencesDAO {
     }
 
     /**
-     * After introduce of a favorites panel and remove tree panel
+     * TODO: After introduce of a favorites panel and remove tree panel
      * the parameter showFiles should be deleted same as the if else statement
      */
 
