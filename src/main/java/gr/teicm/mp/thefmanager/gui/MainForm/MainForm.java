@@ -86,6 +86,10 @@ public class MainForm extends JFrame {
         fileTableItemPopupMenuCopy.addActionListener(med);
         med.registerCopyPopMenu(fileTableItemPopupMenuCopy);
         med.registerFileTable(fileTable);
+        mainFileMenuNewFolder.addActionListener(med);
+        med.registerNewFolderMenu(mainFileMenuNewFolder);
+        mainFileMenuNewFile.addActionListener(med);
+        med.registerNewFileMenu(mainFileMenuNewFile);
     }
 
     private void showCurrentLocationPath(String filePath, boolean addToHistory) {
@@ -126,20 +130,6 @@ public class MainForm extends JFrame {
         openController.perform(currentLocationPath, selectedTableItemName);
     }
 
-    private void newFileMousePressed() {
-        createFileController.perform(currentLocationPath);
-        tableFacade.updateFileTable(currentLocationPath, fileTable);
-        // TODO: Select the new created item
-//        renameMousePressed(e);
-    }
-
-    private void newFolderMousePressed() {
-        createDirectoryController.perform(currentLocationPath);
-        tableFacade.updateFileTable(currentLocationPath, fileTable);
-        // TODO: Select the new created item
-//        renameMousePressed(e);
-
-    }
 
 //    private void copyMousePressed() {
 //        copyController.setSource(currentLocationPath, selectedTableItemName);
@@ -227,6 +217,14 @@ public class MainForm extends JFrame {
         preferencesForm.setVisible(true);
     }
 
+    private void fileTableKeyPressed(KeyEvent e) {
+        // TODO add your code here
+    }
+
+    private void copyMousePressed() {
+        // TODO add your code here
+    }
+
 //    private void fileTableKeyPressed(KeyEvent e) {
 //        if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 //            undoMousePressed();
@@ -298,22 +296,10 @@ public class MainForm extends JFrame {
 
                 //---- mainFileMenuNewFolder ----
                 mainFileMenuNewFolder.setText("New Folder");
-                mainFileMenuNewFolder.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        newFolderMousePressed();
-                    }
-                });
                 mainFileMenu.add(mainFileMenuNewFolder);
 
                 //---- mainFileMenuNewFile ----
                 mainFileMenuNewFile.setText("New File");
-                mainFileMenuNewFile.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        newFileMousePressed();
-                    }
-                });
                 mainFileMenu.add(mainFileMenuNewFile);
 
                 //---- mainFileMenuNewPaste ----
@@ -398,12 +384,7 @@ public class MainForm extends JFrame {
             //---- settingsButton ----
             settingsButton.setText("Settings");
             settingsButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/settings-3-m.png")));
-            settingsButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    settingsButtonActionPerformed();
-                }
-            });
+            settingsButton.addActionListener(e -> settingsButtonActionPerformed());
             toolbar.add(settingsButton);
         }
         contentPane.add(toolbar, BorderLayout.PAGE_START);
@@ -422,12 +403,7 @@ public class MainForm extends JFrame {
                 fileTreeScrollPane.setPreferredSize(new Dimension(79, 324));
 
                 //---- fileTree ----
-                fileTree.addTreeSelectionListener(new TreeSelectionListener() {
-                    @Override
-                    public void valueChanged(TreeSelectionEvent e) {
-                        fileTreeItemSelect();
-                    }
-                });
+                fileTree.addTreeSelectionListener(e -> fileTreeItemSelect());
                 fileTreeScrollPane.setViewportView(fileTree);
             }
             mainSplitPane.setLeftComponent(fileTreeScrollPane);
@@ -451,7 +427,7 @@ public class MainForm extends JFrame {
                 fileTable.addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
-                        //fileTableKeyPressed(e);
+                        fileTableKeyPressed(e);
                     }
                 });
                 fileTableScrollPane.setViewportView(fileTable);
@@ -467,22 +443,10 @@ public class MainForm extends JFrame {
 
             //---- fileTablePopupMenuNewFolder ----
             fileTablePopupMenuNewFolder.setText("New Folder");
-            fileTablePopupMenuNewFolder.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    newFolderMousePressed();
-                }
-            });
             fileTablePopupMenu.add(fileTablePopupMenuNewFolder);
 
             //---- fileTablePopupMenuNewFile ----
             fileTablePopupMenuNewFile.setText("New File");
-            fileTablePopupMenuNewFile.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    newFileMousePressed();
-                }
-            });
             fileTablePopupMenu.add(fileTablePopupMenuNewFile);
             fileTablePopupMenu.addSeparator();
 
@@ -521,7 +485,7 @@ public class MainForm extends JFrame {
             fileTableItemPopupMenuCopy.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-//                    copyMousePressed();
+                    copyMousePressed();
                 }
             });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCopy);

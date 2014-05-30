@@ -9,5 +9,7 @@ import java.awt.event.ActionListener;
 public interface IMediator extends ActionListener{
     void registerDeletePopMenu(JMenuItem fileTableItemPopupMenuDelete);
     void registerCopyPopMenu(JMenuItem fileTableItemPopupMenuCopy);
+    void registerNewFolderMenu(JMenuItem fileTablePopupMenuNewFolder);
+    void registerNewFileMenu(JMenuItem fileTablePopupMenuNewFile);
     void registerFileTable(JTable fileTable);
 }
