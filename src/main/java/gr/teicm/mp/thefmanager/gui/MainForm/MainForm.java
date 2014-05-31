@@ -46,8 +46,8 @@ public class MainForm extends JFrame {
     private ICutController cutController;
     private IDeleteController deleteController;
 
-    private static String currentLocationPath;
-    private static String selectedTableItemName;
+    public static String currentLocationPath;
+    public static String selectedTableItemName;
 
     private String lastCopyOrCut;
 
@@ -85,6 +85,10 @@ public class MainForm extends JFrame {
         med.registerDeletePopMenu(fileTableItemPopupMenuDelete);
         fileTableItemPopupMenuCopy.addActionListener(med);
         med.registerCopyPopMenu(fileTableItemPopupMenuCopy);
+        fileTableItemPopupMenuCut.addActionListener(med);
+        med.registerCutPopMenu(fileTableItemPopupMenuCut);
+        fileTablePopupMenuPaste.addActionListener(med);
+        med.registerPastePopMenu(fileTablePopupMenuPaste);
         med.registerFileTable(fileTable);
         mainFileMenuNewFolder.addActionListener(med);
         med.registerNewFolderMenu(mainFileMenuNewFolder);
@@ -130,29 +134,26 @@ public class MainForm extends JFrame {
         openController.perform(currentLocationPath, selectedTableItemName);
     }
 
-
-//    private void copyMousePressed() {
-//        copyController.setSource(currentLocationPath, selectedTableItemName);
-//        lastCopyOrCut = "Copy";
-//    }
-
-    private void cutMousePressed() {
+ /*   private void cutMousePressed() {
         cutController.setSource(currentLocationPath, selectedTableItemName);
-        lastCopyOrCut = "Cut";
+       lastCopyOrCut = "Cut";
+        System.out.println("error");
     }
 
     private void pasteMousePressed() {
+        lastCopyOrCut = med.getLastCopyOrCut();
         if (lastCopyOrCut != null) {
             if (lastCopyOrCut.equals("Copy")) {
                 copyController.perform(currentLocationPath);
+                System.out.println("asd lastCopyOrCut tou mediator:  "+med.getLastCopyOrCut()+ "last copy or cut tou form:"+lastCopyOrCut + "currentLocationPath :"+currentLocationPath);
             } else if (lastCopyOrCut.equals("Cut")) {
                 cutController.perform(currentLocationPath);
             }
-        }
+        } else System.out.println("asd lastCopyOrCut tou mediator:  "+med.getLastCopyOrCut()+ "last copy or cut tou form:"+lastCopyOrCut + "currentLocationPath :"+currentLocationPath);
 
         tableFacade.updateFileTable(currentLocationPath, fileTable);
     }
-
+*/
     private void undoMousePressed() {
         undoRedoController.undo();
         tableFacade.updateFileTable(currentLocationPath, fileTable);
@@ -221,9 +222,21 @@ public class MainForm extends JFrame {
         // TODO add your code here
     }
 
-    private void copyMousePressed() {
+    private void pasteMousePressed() {
         // TODO add your code here
     }
+
+    /*private void copyMousePressed() {
+        // TODO add your code here
+    }*/
+
+    private void cutMousePressed() {
+        // TODO add your code here
+    }
+
+   /* private void copyMousePressed() {
+        // TODO add your code here
+    }*/
 
 //    private void fileTableKeyPressed(KeyEvent e) {
 //        if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
@@ -249,6 +262,7 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        // Generated using JFormDesigner Evaluation license - kostas papadopoulos
         mainMenuBar = new JMenuBar();
         mainFileMenu = new JMenu();
         mainFileMenuNewFolder = new JMenuItem();
@@ -452,12 +466,6 @@ public class MainForm extends JFrame {
 
             //---- fileTablePopupMenuPaste ----
             fileTablePopupMenuPaste.setText("Paste");
-            fileTablePopupMenuPaste.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    pasteMousePressed();
-                }
-            });
             fileTablePopupMenu.add(fileTablePopupMenuPaste);
             fileTablePopupMenu.addSeparator();
 
@@ -482,24 +490,11 @@ public class MainForm extends JFrame {
 
             //---- fileTableItemPopupMenuCopy ----
             fileTableItemPopupMenuCopy.setText("Copy");
-            fileTableItemPopupMenuCopy.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    copyMousePressed();
-                }
-            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCopy);
 
             //---- fileTableItemPopupMenuCut ----
             fileTableItemPopupMenuCut.setText("Cut");
-            fileTableItemPopupMenuCut.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    cutMousePressed();
-                }
-            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCut);
-            fileTableItemPopupMenu.addSeparator();
 
             //---- fileTableItemPopupMenuDelete ----
             fileTableItemPopupMenuDelete.setText("Delete");
@@ -518,6 +513,7 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - kostas papadopoulos
     private JMenuBar mainMenuBar;
     private JMenu mainFileMenu;
     private JMenuItem mainFileMenuNewFolder;

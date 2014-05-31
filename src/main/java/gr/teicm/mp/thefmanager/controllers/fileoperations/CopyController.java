@@ -37,11 +37,12 @@ public class CopyController implements ICopyController {
         return true;
     }
 
+
+
     @Override
     public boolean perform(String destinationLocationPath) {
         String destinationPath = destinationLocationPath + File.separator + name;
         boolean done = false;
-
         if (isReady()) {
             ICommand copyCommand = new CopyCommand(sourcePath, destinationLocationPath);
             int confirmDialogResult = MessageBox.NO_OPTION;

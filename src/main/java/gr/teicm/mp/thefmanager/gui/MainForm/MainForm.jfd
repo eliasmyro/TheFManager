@@ -131,7 +131,6 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "fileTablePopupMenuPaste"
 				"text": "Paste"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "pasteMousePressed", false ) )
 			} )
 			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 				name: "fileTablePopupMenuSeparator2"
