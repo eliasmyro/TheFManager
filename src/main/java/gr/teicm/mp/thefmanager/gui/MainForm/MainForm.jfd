@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.2.0.0.109" Java: "1.7.0_40" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.2.0.134" Java: "1.7.0_40" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -31,7 +31,6 @@ new FormModel {
 					name: "settingsButton"
 					"text": "Settings"
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/actions/settings-3-m.png" )
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "settingsButtonActionPerformed", false ) )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "First"

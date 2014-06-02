@@ -94,6 +94,9 @@ public class MainForm extends JFrame {
         med.registerNewFolderMenu(mainFileMenuNewFolder);
         mainFileMenuNewFile.addActionListener(med);
         med.registerNewFileMenu(mainFileMenuNewFile);
+        settingsButton.addActionListener(med);
+        med.registerSettingsButton(settingsButton);
+
     }
 
     private void showCurrentLocationPath(String filePath, boolean addToHistory) {
@@ -213,10 +216,7 @@ public class MainForm extends JFrame {
         fileTablePopupMenu.show(e.getComponent(), e.getX(), e.getY());
     }
 
-    private void settingsButtonActionPerformed() {
-        PreferencesForm preferencesForm = new PreferencesForm();
-        preferencesForm.setVisible(true);
-    }
+
 
     private void fileTableKeyPressed(KeyEvent e) {
         // TODO add your code here
@@ -231,6 +231,10 @@ public class MainForm extends JFrame {
     }*/
 
     private void cutMousePressed() {
+        // TODO add your code here
+    }
+
+    private void copyMousePressed() {
         // TODO add your code here
     }
 
@@ -262,7 +266,6 @@ public class MainForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - kostas papadopoulos
         mainMenuBar = new JMenuBar();
         mainFileMenu = new JMenu();
         mainFileMenuNewFolder = new JMenuItem();
@@ -398,7 +401,6 @@ public class MainForm extends JFrame {
             //---- settingsButton ----
             settingsButton.setText("Settings");
             settingsButton.setIcon(new ImageIcon(getClass().getResource("/images/actions/settings-3-m.png")));
-            settingsButton.addActionListener(e -> settingsButtonActionPerformed());
             toolbar.add(settingsButton);
         }
         contentPane.add(toolbar, BorderLayout.PAGE_START);
@@ -417,7 +419,12 @@ public class MainForm extends JFrame {
                 fileTreeScrollPane.setPreferredSize(new Dimension(79, 324));
 
                 //---- fileTree ----
-                fileTree.addTreeSelectionListener(e -> fileTreeItemSelect());
+                fileTree.addTreeSelectionListener(new TreeSelectionListener() {
+                    @Override
+                    public void valueChanged(TreeSelectionEvent e) {
+                        fileTreeItemSelect();
+                    }
+                });
                 fileTreeScrollPane.setViewportView(fileTree);
             }
             mainSplitPane.setLeftComponent(fileTreeScrollPane);
@@ -490,11 +497,24 @@ public class MainForm extends JFrame {
 
             //---- fileTableItemPopupMenuCopy ----
             fileTableItemPopupMenuCopy.setText("Copy");
+            fileTableItemPopupMenuCopy.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    copyMousePressed();
+                }
+            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCopy);
 
             //---- fileTableItemPopupMenuCut ----
             fileTableItemPopupMenuCut.setText("Cut");
+            fileTableItemPopupMenuCut.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    cutMousePressed();
+                }
+            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCut);
+            fileTableItemPopupMenu.addSeparator();
 
             //---- fileTableItemPopupMenuDelete ----
             fileTableItemPopupMenuDelete.setText("Delete");
@@ -513,7 +533,6 @@ public class MainForm extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - kostas papadopoulos
     private JMenuBar mainMenuBar;
     private JMenu mainFileMenu;
     private JMenuItem mainFileMenuNewFolder;
