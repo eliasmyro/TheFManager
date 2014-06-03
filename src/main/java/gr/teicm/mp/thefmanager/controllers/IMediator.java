@@ -15,4 +15,5 @@ public interface IMediator extends ActionListener{
     void registerNewFileMenu(JMenuItem fileTablePopupMenuNewFile);
     void registerFileTable(JTable fileTable);
     void registerSettingsButton(JButton settingsButton);
+    void registerOpenPopupMenu(JMenuItem fileTableItemPopupMenuOpen);
 }

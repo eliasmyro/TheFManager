@@ -96,6 +96,8 @@ public class MainForm extends JFrame {
         med.registerNewFileMenu(mainFileMenuNewFile);
         settingsButton.addActionListener(med);
         med.registerSettingsButton(settingsButton);
+        fileTableItemPopupMenuOpen.addActionListener(med);
+        med.registerOpenPopupMenu(fileTableItemPopupMenuOpen);
 
     }
 
@@ -133,9 +135,9 @@ public class MainForm extends JFrame {
         showCurrentLocationPath(path, false);
     }
 
-    private void openMousePressed() {
-        openController.perform(currentLocationPath, selectedTableItemName);
-    }
+//    private void openMousePressed() {
+//        openController.perform(currentLocationPath, selectedTableItemName);
+//    }
 
  /*   private void cutMousePressed() {
         cutController.setSource(currentLocationPath, selectedTableItemName);
@@ -199,7 +201,7 @@ public class MainForm extends JFrame {
         fileTableMouseClickedAction(e);
 
         if (e.getClickCount() == 2) {
-            openMousePressed();
+            //openMousePressed();
 //            fileTable.getCellEditor().stopCellEditing();
         }
     }
@@ -489,7 +491,7 @@ public class MainForm extends JFrame {
             fileTableItemPopupMenuOpen.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    openMousePressed();
+                    //openMousePressed();
                 }
             });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuOpen);

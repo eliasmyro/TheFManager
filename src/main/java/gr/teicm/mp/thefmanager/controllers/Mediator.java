@@ -20,6 +20,7 @@ public class Mediator implements IMediator {
     JMenuItem fileTablePopupMenuPaste;
     JMenuItem fileTablePopupMenuNewFolder;
     JMenuItem fileTablePopupMenuNewFile;
+    JMenuItem fileTableItemPopupMenuOpen;
     JMenuItem mainFileMenuNewFile;
     JMenuItem mainFileMenuNewFolder;
     JTable fileTable;
@@ -28,6 +29,7 @@ public class Mediator implements IMediator {
     IDeleteController deleteController;
     ICopyController copyController;
     ICutController cutController;
+    IOpenController openController;
         TableFacade tableFacade;
         ICreateDirectoryController createDirectoryController;
         ICreateFileController createFileController;
@@ -44,6 +46,7 @@ public class Mediator implements IMediator {
             cutController = new CutController();
             createDirectoryController = new CreateDirectoryController();
             createFileController = new CreateFileController();
+            openController = new OpenController();
         }
 
     /* To currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);  prepi na bi mono sta ifs pou epilegeis row count, px to delete rename klp, giati alios evgaze -1 null rowcount
@@ -54,7 +57,6 @@ public class Mediator implements IMediator {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow=  fileTable.getSelectedRow();
-
             System.out.println("currentLocationPath"+ MainForm.currentLocationPath);
             System.out.println("selectedTableItemName"+ MainForm.selectedTableItemName);
 
@@ -84,14 +86,22 @@ public class Mediator implements IMediator {
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
         }
         else if(e.getSource() == mainFileMenuNewFolder) {
+            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
+            selectedTableItemName = (String) fileTable.getModel().getValueAt(selectedRow, 1);
             createDirectoryController.perform(currentLocationPath);
             tableFacade.updateFileTable(currentLocationPath, fileTable);
         }else if(e.getSource() == mainFileMenuNewFile) {
+            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
+            selectedTableItemName = (String) fileTable.getModel().getValueAt(selectedRow, 1);
             createFileController.perform(currentLocationPath);
             tableFacade.updateFileTable(currentLocationPath, fileTable);
         }else if(e.getSource() == settingsButton){
             PreferencesForm preferencesForm = new PreferencesForm();
             preferencesForm.setVisible(true);
+        }else if(e.getSource() == fileTableItemPopupMenuOpen){
+            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
+            selectedTableItemName = (String) fileTable.getModel().getValueAt(selectedRow, 1);
+            openController.perform(currentLocationPath, selectedTableItemName);
         }
 
     }
@@ -123,6 +133,11 @@ public class Mediator implements IMediator {
     @Override
     public void registerSettingsButton(JButton settingsButton) {
         this.settingsButton = settingsButton;
+    }
+
+    @Override
+    public void registerOpenPopupMenu(JMenuItem fileTableItemPopupMenuOpen) {
+        this.fileTableItemPopupMenuOpen = fileTableItemPopupMenuOpen;
     }
 
     @Override
