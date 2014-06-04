@@ -6,14 +6,21 @@ import java.awt.event.ActionListener;
 /**
  * Created by Elias Myronidis on 26/5/2014.
  */
-public interface IMediator extends ActionListener{
-    void registerDeletePopMenu(JMenuItem fileTableItemPopupMenuDelete);
-    void registerCopyPopMenu(JMenuItem fileTableItemPopupMenuCopy);
-    void registerCutPopMenu(JMenuItem fileTableItemPopupMenuCut);
-    void registerPastePopMenu(JMenuItem fileTablePopupMenuPaste);
-    void registerNewFolderMenu(JMenuItem fileTablePopupMenuNewFolder);
-    void registerNewFileMenu(JMenuItem fileTablePopupMenuNewFile);
-    void registerFileTable(JTable fileTable);
-    void registerSettingsButton(JButton settingsButton);
-    void registerOpenPopupMenu(JMenuItem fileTableItemPopupMenuOpen);
+public interface IMediator extends ActionListener {
+    void regFileTable(JTable fileTable);
+
+    void regFileTableItemPopupMenuOpen(JMenuItem fileTableItemPopupMenuOpen);
+    void regFileTablePopupMenuNewFolder(JMenuItem fileTablePopupMenuNewFolder);
+    void regFileTablePopupMenuNewFile(JMenuItem fileTablePopupMenuNewFile);
+    void regFileTableItemPopupMenuCopy(JMenuItem fileTableItemPopupMenuCopy);
+    void regFileTableItemPopupMenuCut(JMenuItem fileTableItemPopupMenuCut);
+    void regFileTablePopupMenuPaste(JMenuItem fileTablePopupMenuPaste);
+    void regFileTableItemPopupMenuRename(JMenuItem fileTableItemPopupMenuRename);
+    void regFileTableItemPopupMenuDelete(JMenuItem fileTableItemPopupMenuDelete);
+
+    void regMainFileMenuNewFolder(JMenuItem mainFileMenuNewFolder);
+    void regMainFileMenuNewFile(JMenuItem mainFileMenuNewFile);
+    void regMainFileMenuPaste(JMenuItem mainFileMenuPaste);
+
+    void regSettingsButton(JButton settingsButton);
 }

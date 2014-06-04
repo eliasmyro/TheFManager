@@ -5,14 +5,13 @@ import gr.teicm.mp.thefmanager.DAO.IFileDAO;
 import gr.teicm.mp.thefmanager.controllers.IMessageBox;
 import gr.teicm.mp.thefmanager.controllers.MessageBox;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.commands.CopyCommand;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.commands.DeleteCommand;
 import gr.teicm.mp.thefmanager.controllers.fileoperations.commands.ICommand;
 import gr.teicm.mp.thefmanager.controllers.history.GlobalCommandHistory;
 import gr.teicm.mp.thefmanager.controllers.history.IHistory;
 
 import java.io.File;
 
-public class CopyController implements ICopyController {
+public class CopyController implements ICopyCutController {
     private IHistory<ICommand> globalCommandHistory;
     private IFileDAO fileDAO;
     private IMessageBox messageBox;

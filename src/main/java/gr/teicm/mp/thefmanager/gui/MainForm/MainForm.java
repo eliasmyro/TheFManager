@@ -14,11 +14,9 @@ import gr.teicm.mp.thefmanager.controllers.IUndoRedoController;
 import gr.teicm.mp.thefmanager.controllers.UndoRedoController;
 import gr.teicm.mp.thefmanager.controllers.history.PathHistory;
 import gr.teicm.mp.thefmanager.controllers.history.IHistory;
-import gr.teicm.mp.thefmanager.controllers.fileoperations.*;
 import gr.teicm.mp.thefmanager.controllers.filetable.TableFacade;
 import gr.teicm.mp.thefmanager.controllers.filetree.FileTreeCellRenderer;
 import gr.teicm.mp.thefmanager.controllers.filetree.TreeFacade;
-import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -39,17 +37,8 @@ public class MainForm extends JFrame {
     private IHistory<String> pathHistory;
     private IUndoRedoController undoRedoController;
 
-    private IOpenController openController;
-    private ICreateFileController createFileController;
-    private ICreateDirectoryController createDirectoryController;
-    private ICopyController copyController;
-    private ICutController cutController;
-    private IDeleteController deleteController;
-
     public static String currentLocationPath;
     public static String selectedTableItemName;
-
-    private String lastCopyOrCut;
 
     public MainForm() {
         IFileSystemDAO fileSystemDAO = new FileSystemDAO();
@@ -60,51 +49,61 @@ public class MainForm extends JFrame {
         pathHistory = PathHistory.getInstance();
         undoRedoController = new UndoRedoController();
 
-        openController = new OpenController();
-        createFileController = new CreateFileController();
-        createDirectoryController = new CreateDirectoryController();
-        copyController = new CopyController();
-        cutController = new CutController();
-        deleteController = new DeleteController();
-
         currentLocationPath = null;
         selectedTableItemName = null;
-
-        lastCopyOrCut = null;
 
         med = new Mediator();
 
         initComponents();
 
-
         fileTree.setCellRenderer(new FileTreeCellRenderer());
         tableFacade.updateFileTable(fileSystemDAO.getHomeDirectory(), fileTable);
         showCurrentLocationPath(fileSystemDAO.getHomeDirectory(), true);
 
-        fileTableItemPopupMenuDelete.addActionListener(med);
-        med.registerDeletePopMenu(fileTableItemPopupMenuDelete);
-        fileTableItemPopupMenuCopy.addActionListener(med);
-        med.registerCopyPopMenu(fileTableItemPopupMenuCopy);
-        fileTableItemPopupMenuCut.addActionListener(med);
-        med.registerCutPopMenu(fileTableItemPopupMenuCut);
-        fileTablePopupMenuPaste.addActionListener(med);
-        med.registerPastePopMenu(fileTablePopupMenuPaste);
-        med.registerFileTable(fileTable);
-        mainFileMenuNewFolder.addActionListener(med);
-        med.registerNewFolderMenu(mainFileMenuNewFolder);
-        mainFileMenuNewFile.addActionListener(med);
-        med.registerNewFileMenu(mainFileMenuNewFile);
-        settingsButton.addActionListener(med);
-        med.registerSettingsButton(settingsButton);
-        fileTableItemPopupMenuOpen.addActionListener(med);
-        med.registerOpenPopupMenu(fileTableItemPopupMenuOpen);
+        med.regFileTable(fileTable);
 
+        fileTableItemPopupMenuOpen.addActionListener(med);
+        med.regFileTableItemPopupMenuOpen(fileTableItemPopupMenuOpen);
+
+        fileTablePopupMenuNewFolder.addActionListener(med);
+        med.regFileTablePopupMenuNewFolder(fileTablePopupMenuNewFolder);
+
+        fileTablePopupMenuNewFile.addActionListener(med);
+        med.regFileTablePopupMenuNewFile(fileTablePopupMenuNewFile);
+
+        fileTableItemPopupMenuCopy.addActionListener(med);
+        med.regFileTableItemPopupMenuCopy(fileTableItemPopupMenuCopy);
+
+        fileTableItemPopupMenuCut.addActionListener(med);
+        med.regFileTableItemPopupMenuCut(fileTableItemPopupMenuCut);
+
+        fileTablePopupMenuPaste.addActionListener(med);
+        med.regFileTablePopupMenuPaste(fileTablePopupMenuPaste);
+
+        fileTableItemPopupMenuRename.addActionListener(med);
+        med.regFileTableItemPopupMenuRename(fileTableItemPopupMenuRename);
+
+        fileTableItemPopupMenuDelete.addActionListener(med);
+        med.regFileTableItemPopupMenuDelete(fileTableItemPopupMenuDelete);
+
+        mainFileMenuNewFolder.addActionListener(med);
+        med.regMainFileMenuNewFolder(mainFileMenuNewFolder);
+
+        mainFileMenuNewFile.addActionListener(med);
+        med.regMainFileMenuNewFile(mainFileMenuNewFile);
+
+        mainFileMenuPaste.addActionListener(med);
+        med.regMainFileMenuPaste(mainFileMenuPaste);
+
+        settingsButton.addActionListener(med);
+        med.regSettingsButton(settingsButton);
     }
 
     private void showCurrentLocationPath(String filePath, boolean addToHistory) {
         String path = StringUtils.stripEnd(FilenameUtils.normalize(filePath), File.separator);
 
         currentLocationPath = path;
+        System.out.println(currentLocationPath);
         currentLocationPathTextField.setText(currentLocationPath);
 
         if (addToHistory) {
@@ -135,30 +134,6 @@ public class MainForm extends JFrame {
         showCurrentLocationPath(path, false);
     }
 
-//    private void openMousePressed() {
-//        openController.perform(currentLocationPath, selectedTableItemName);
-//    }
-
- /*   private void cutMousePressed() {
-        cutController.setSource(currentLocationPath, selectedTableItemName);
-       lastCopyOrCut = "Cut";
-        System.out.println("error");
-    }
-
-    private void pasteMousePressed() {
-        lastCopyOrCut = med.getLastCopyOrCut();
-        if (lastCopyOrCut != null) {
-            if (lastCopyOrCut.equals("Copy")) {
-                copyController.perform(currentLocationPath);
-                System.out.println("asd lastCopyOrCut tou mediator:  "+med.getLastCopyOrCut()+ "last copy or cut tou form:"+lastCopyOrCut + "currentLocationPath :"+currentLocationPath);
-            } else if (lastCopyOrCut.equals("Cut")) {
-                cutController.perform(currentLocationPath);
-            }
-        } else System.out.println("asd lastCopyOrCut tou mediator:  "+med.getLastCopyOrCut()+ "last copy or cut tou form:"+lastCopyOrCut + "currentLocationPath :"+currentLocationPath);
-
-        tableFacade.updateFileTable(currentLocationPath, fileTable);
-    }
-*/
     private void undoMousePressed() {
         undoRedoController.undo();
         tableFacade.updateFileTable(currentLocationPath, fileTable);
@@ -201,8 +176,7 @@ public class MainForm extends JFrame {
         fileTableMouseClickedAction(e);
 
         if (e.getClickCount() == 2) {
-            //openMousePressed();
-//            fileTable.getCellEditor().stopCellEditing();
+            fileTable.getCellEditor().stopCellEditing();
         }
     }
 
@@ -218,40 +192,15 @@ public class MainForm extends JFrame {
         fileTablePopupMenu.show(e.getComponent(), e.getX(), e.getY());
     }
 
-
-
     private void fileTableKeyPressed(KeyEvent e) {
-        // TODO add your code here
-    }
-
-    private void pasteMousePressed() {
-        // TODO add your code here
-    }
-
-    /*private void copyMousePressed() {
-        // TODO add your code here
-    }*/
-
-    private void cutMousePressed() {
-        // TODO add your code here
-    }
-
-    private void copyMousePressed() {
-        // TODO add your code here
-    }
-
-   /* private void copyMousePressed() {
-        // TODO add your code here
-    }*/
-
-//    private void fileTableKeyPressed(KeyEvent e) {
-//        if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-//            undoMousePressed();
-//        } else if ((e.getKeyCode() == KeyEvent.VK_U) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-//            redoMousePressed();
-//        } else if ((e.getKeyCode() == KeyEvent.VK_C) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+        if ((e.getKeyCode() == KeyEvent.VK_Z) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+            undoMousePressed();
+        } else if ((e.getKeyCode() == KeyEvent.VK_U) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+            redoMousePressed();
+        }
+//        else if ((e.getKeyCode() == KeyEvent.VK_C) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 //            if (fileTable.getSelectedRow() != -1) {
-////                copyMousePressed();
+//                copyMousePressed();
 //            }
 //        } else if ((e.getKeyCode() == KeyEvent.VK_X) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 //            if (fileTable.getSelectedRow() != -1) {
@@ -261,10 +210,10 @@ public class MainForm extends JFrame {
 //            pasteMousePressed();
 //        } else if ((e.getKeyCode() == KeyEvent.VK_DELETE)) {
 //            if (fileTable.getSelectedRow() != -1) {
-//               // deleteMousePressed();
+//               deleteMousePressed();
 //            }
 //        }
-//    }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -272,8 +221,8 @@ public class MainForm extends JFrame {
         mainFileMenu = new JMenu();
         mainFileMenuNewFolder = new JMenuItem();
         mainFileMenuNewFile = new JMenuItem();
-        mainFileMenuNewPaste = new JMenuItem();
-        mainFileMenuNewProperties = new JMenuItem();
+        mainFileMenuPaste = new JMenuItem();
+        mainFileMenuProperties = new JMenuItem();
         mainEditMenu = new JMenu();
         mainEditMenuUndo = new JMenuItem();
         mainEditMenuRedo = new JMenuItem();
@@ -321,19 +270,13 @@ public class MainForm extends JFrame {
                 mainFileMenuNewFile.setText("New File");
                 mainFileMenu.add(mainFileMenuNewFile);
 
-                //---- mainFileMenuNewPaste ----
-                mainFileMenuNewPaste.setText("Paste");
-                mainFileMenuNewPaste.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        pasteMousePressed();
-                    }
-                });
-                mainFileMenu.add(mainFileMenuNewPaste);
+                //---- mainFileMenuPaste ----
+                mainFileMenuPaste.setText("Paste");
+                mainFileMenu.add(mainFileMenuPaste);
 
-                //---- mainFileMenuNewProperties ----
-                mainFileMenuNewProperties.setText("Properties");
-                mainFileMenu.add(mainFileMenuNewProperties);
+                //---- mainFileMenuProperties ----
+                mainFileMenuProperties.setText("Properties");
+                mainFileMenu.add(mainFileMenuProperties);
             }
             mainMenuBar.add(mainFileMenu);
 
@@ -488,33 +431,15 @@ public class MainForm extends JFrame {
 
             //---- fileTableItemPopupMenuOpen ----
             fileTableItemPopupMenuOpen.setText("Open");
-            fileTableItemPopupMenuOpen.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    //openMousePressed();
-                }
-            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuOpen);
             fileTableItemPopupMenu.addSeparator();
 
             //---- fileTableItemPopupMenuCopy ----
             fileTableItemPopupMenuCopy.setText("Copy");
-            fileTableItemPopupMenuCopy.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    copyMousePressed();
-                }
-            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCopy);
 
             //---- fileTableItemPopupMenuCut ----
             fileTableItemPopupMenuCut.setText("Cut");
-            fileTableItemPopupMenuCut.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    cutMousePressed();
-                }
-            });
             fileTableItemPopupMenu.add(fileTableItemPopupMenuCut);
             fileTableItemPopupMenu.addSeparator();
 
@@ -539,8 +464,8 @@ public class MainForm extends JFrame {
     private JMenu mainFileMenu;
     private JMenuItem mainFileMenuNewFolder;
     private JMenuItem mainFileMenuNewFile;
-    private JMenuItem mainFileMenuNewPaste;
-    private JMenuItem mainFileMenuNewProperties;
+    private JMenuItem mainFileMenuPaste;
+    private JMenuItem mainFileMenuProperties;
     private JMenu mainEditMenu;
     private JMenuItem mainEditMenuUndo;
     private JMenuItem mainEditMenuRedo;

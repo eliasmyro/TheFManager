@@ -86,12 +86,11 @@ new FormModel {
 						"text": "New File"
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mainFileMenuNewPaste"
+						name: "mainFileMenuPaste"
 						"text": "Paste"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "pasteMousePressed", false ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "mainFileMenuNewProperties"
+						name: "mainFileMenuProperties"
 						"text": "Properties"
 					} )
 				} )
@@ -147,7 +146,6 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "fileTableItemPopupMenuOpen"
 				"text": "Open"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "openMousePressed", false ) )
 			} )
 			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 				name: "fileTableItemPopupMenuSeparator1"
@@ -155,12 +153,10 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "fileTableItemPopupMenuCopy"
 				"text": "Copy"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "copyMousePressed", false ) )
 			} )
 			add( new FormComponent( "javax.swing.JMenuItem" ) {
 				name: "fileTableItemPopupMenuCut"
 				"text": "Cut"
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "cutMousePressed", false ) )
 			} )
 			add( new FormComponent( "javax.swing.JPopupMenu$Separator" ) {
 				name: "fileTableItemPopupMenuSeparator2"
