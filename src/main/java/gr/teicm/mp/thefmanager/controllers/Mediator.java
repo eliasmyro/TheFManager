@@ -7,7 +7,6 @@ import gr.teicm.mp.thefmanager.gui.PreferencesForm.PreferencesForm;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
 
 /**
  * Created by Elias Myronidis on 26/5/2014.
