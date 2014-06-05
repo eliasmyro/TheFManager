@@ -67,7 +67,7 @@ public class Mediator implements IMediator {
         } else if (e.getSource() == fileTableItemPopupMenuCut) { // Cut
             copyCutController = new CutController();
             copyCutController.setSource(MainForm.currentLocationPath, MainForm.selectedTableItemName);
-        } else if (e.getSource() == fileTablePopupMenuPaste) { // Paste
+        } else if ((e.getSource() == fileTablePopupMenuPaste) || (e.getSource() == mainFileMenuPaste)) { // Paste
             copyCutController.perform(MainForm.currentLocationPath);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
         } else if (e.getSource() == fileTableItemPopupMenuRename) { // Rename
