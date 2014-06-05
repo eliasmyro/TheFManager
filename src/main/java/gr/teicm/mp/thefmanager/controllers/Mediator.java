@@ -37,9 +37,6 @@ public class Mediator implements IMediator {
     ICopyCutController copyCutController;
     IDeleteController deleteController;
 
-    String currentLocationPath;
-    String selectedTableItemName;
-
     public Mediator() {
         tableFacade = new TableFacade();
 
@@ -56,20 +53,14 @@ public class Mediator implements IMediator {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int selectedRow = fileTable.getSelectedRow();
-
         if (e.getSource() == fileTableItemPopupMenuOpen) {
-//            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
-//            selectedTableItemName = (String) fileTable.getModel().getValueAt(selectedRow, 1);
             openController.perform(MainForm.currentLocationPath, MainForm.selectedTableItemName);
         } else if ((e.getSource() == fileTablePopupMenuNewFolder) || (e.getSource() == mainFileMenuNewFolder)) {
-//            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
             createDirectoryController.perform(MainForm.currentLocationPath);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
         } else if ((e.getSource() == fileTablePopupMenuNewFile) || (e.getSource() == mainFileMenuNewFile)) {
-//            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
-            createFileController.perform(currentLocationPath);
-            tableFacade.updateFileTable(currentLocationPath, fileTable);
+            createFileController.perform(MainForm.currentLocationPath);
+            tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
         } else if (e.getSource() == fileTableItemPopupMenuCopy) {
             copyCutController = new CopyController();
             copyCutController.setSource(MainForm.currentLocationPath, MainForm.selectedTableItemName);
@@ -82,11 +73,8 @@ public class Mediator implements IMediator {
         } else if (e.getSource() == fileTableItemPopupMenuRename) {
             fileTable.editCellAt(fileTable.getSelectedRow(), 1);
         } else if (e.getSource() == fileTableItemPopupMenuDelete) {
-            currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5);
-            selectedTableItemName = (String) fileTable.getModel().getValueAt(selectedRow, 1);
-            System.out.println(currentLocationPath + File.separator + selectedTableItemName);
-            deleteController.perform(currentLocationPath, selectedTableItemName);
-            tableFacade.updateFileTable(currentLocationPath, fileTable);
+            deleteController.perform(MainForm.currentLocationPath, MainForm.selectedTableItemName);
+            tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
         } else if (e.getSource() == settingsButton) {
             PreferencesForm preferencesForm = new PreferencesForm();
             preferencesForm.setVisible(true);

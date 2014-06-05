@@ -103,7 +103,6 @@ public class MainForm extends JFrame {
         String path = StringUtils.stripEnd(FilenameUtils.normalize(filePath), File.separator);
 
         currentLocationPath = path;
-        System.out.println(currentLocationPath);
         currentLocationPathTextField.setText(currentLocationPath);
 
         if (addToHistory) {
