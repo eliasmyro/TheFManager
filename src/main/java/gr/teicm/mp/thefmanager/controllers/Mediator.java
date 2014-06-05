@@ -53,29 +53,29 @@ public class Mediator implements IMediator {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == fileTableItemPopupMenuOpen) {
+        if (e.getSource() == fileTableItemPopupMenuOpen) { // Open
             openController.perform(MainForm.currentLocationPath, MainForm.selectedTableItemName);
-        } else if ((e.getSource() == fileTablePopupMenuNewFolder) || (e.getSource() == mainFileMenuNewFolder)) {
+        } else if ((e.getSource() == fileTablePopupMenuNewFolder) || (e.getSource() == mainFileMenuNewFolder)) { // New Folder
             createDirectoryController.perform(MainForm.currentLocationPath);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
-        } else if ((e.getSource() == fileTablePopupMenuNewFile) || (e.getSource() == mainFileMenuNewFile)) {
+        } else if ((e.getSource() == fileTablePopupMenuNewFile) || (e.getSource() == mainFileMenuNewFile)) { // New File
             createFileController.perform(MainForm.currentLocationPath);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
-        } else if (e.getSource() == fileTableItemPopupMenuCopy) {
+        } else if (e.getSource() == fileTableItemPopupMenuCopy) { // Copy
             copyCutController = new CopyController();
             copyCutController.setSource(MainForm.currentLocationPath, MainForm.selectedTableItemName);
-        } else if (e.getSource() == fileTableItemPopupMenuCut) {
+        } else if (e.getSource() == fileTableItemPopupMenuCut) { // Cut
             copyCutController = new CutController();
             copyCutController.setSource(MainForm.currentLocationPath, MainForm.selectedTableItemName);
-        } else if (e.getSource() == fileTablePopupMenuPaste) {
+        } else if (e.getSource() == fileTablePopupMenuPaste) { // Paste
             copyCutController.perform(MainForm.currentLocationPath);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
-        } else if (e.getSource() == fileTableItemPopupMenuRename) {
+        } else if (e.getSource() == fileTableItemPopupMenuRename) { // Rename
             fileTable.editCellAt(fileTable.getSelectedRow(), 1);
-        } else if (e.getSource() == fileTableItemPopupMenuDelete) {
+        } else if (e.getSource() == fileTableItemPopupMenuDelete) { // Delete
             deleteController.perform(MainForm.currentLocationPath, MainForm.selectedTableItemName);
             tableFacade.updateFileTable(MainForm.currentLocationPath, fileTable);
-        } else if (e.getSource() == settingsButton) {
+        } else if (e.getSource() == settingsButton) { // Settings Button
             PreferencesForm preferencesForm = new PreferencesForm();
             preferencesForm.setVisible(true);
         }
