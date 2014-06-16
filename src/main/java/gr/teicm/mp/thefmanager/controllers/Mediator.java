@@ -45,11 +45,6 @@ public class Mediator implements IMediator {
         deleteController = new DeleteController();
     }
 
-    /* To currentLocationPath = (String) fileTable.getModel().getValueAt(selectedRow, 5); prepi na bi mono sta ifs pou epilegeis row count, px to delete rename klp, giati alios evgaze -1 null rowcount
-       (otan epelega px sto keno na kanw paste), episis ekana ta currentLocationPath tis mainform public, kai pernw apo eki to currentLocationPath kai selectedTableItemName gia na kanw ta copy paste cut
-       Protinw tin Giota na kani to idio giati paratirisa oti kai ta dika tis den doulevoun, logo tou oti xriazete row count tou table kai diname null row count.
-     */
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == fileTableItemPopupMenuOpen) { // Open
